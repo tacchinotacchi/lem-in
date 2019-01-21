@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 11:07:00 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/21 18:57:01 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/21 21:54:41 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,10 @@ void	get_start_data(t_lemin *info, t_data *data)
 	char	*line;
 	char	**split;
 
-	while (get_next_line(0, &line) < 1)
+	while (get_next_line(0, &line) < 1 && line[0] == '#')
 	{
-		if (line[0] == '#')
-		{
-			get_comment(&(info->cmt), line);
-			free(line);
-		}
-		else
-			break ;
+		get_comment(&(info->cmt), line);
+		free(line);
 	}
 	split = ft_strsplit(line, ' ');
 	free(line);
@@ -73,15 +68,10 @@ void	get_end_data(t_lemin *info, t_data *data)
 	char	*line;
 	char	**split;
 
-	while (get_next_line(0, &line) < 1)
+	while (get_next_line(0, &line) < 1 && line[0] == '#')
 	{
-		if (line[0] == '#')
-		{
-			get_comment(&(info->cmt), line);
-			free(line);
-		}
-		else
-			break ;
+		get_comment(&(info->cmt), line);
+		free(line);
 	}
 	split = ft_strsplit(line, ' ');
 	free(line);
@@ -105,15 +95,38 @@ void    get_node_data(t_lemin *info, t_data *data, char **split, int flags)
 	add_node(&(info->graph), data); // NOT SURE!!
 }
 
+ssize_t	search_nodes(t_array *nodes, char *node)
+{
+	ssize_t	index;
+
+	index = 0;
+	while (index * nodes->elem_size <= nodes->reserved)
+	{
+		if (!ft_strcmp(((t_data*)((t_node*)nodes->ptr)[index].data)->name, node))
+			return (index);
+		index++;
+	}
+	return (-1);
+}
+
 void	get_edge_data(t_lemin *info, char **split)
 {
-	size_t	tail;
-	size_t	head;
+	ssize_t	tail;
+	ssize_t	head;
 
 	tail = 0;
 	head = 0;
+
+	if (!split[0] || !split[1] || split[2])
+	{
+		ft_splitdel(split);
+		error(info);
+	}
 	tail = search_nodes(&(info->graph.nodes), split[0]);
 	head = search_nodes(&(info->graph.nodes), split[1]);
-	//TODO have to code search_nodes()
-	add_edge(&(info->graph), tail, head);
+	ft_splitdel(split);
+	if (tail >= 0 && head >= 0)
+		add_edge(&(info->graph), tail, head);
+	else
+		error(info);
 }

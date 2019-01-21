@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:56:53 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/21 18:57:03 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/21 21:44:30 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,8 @@ void	get_ants(t_lemin *info)
 {
 	char	*line;
 
-	while (get_next_line(0, &line) < 1)
-	{
-		if (line[0] == '#')
+	while (get_next_line(0, &line) < 1 && line[0] == '#')
 			get_comment(&(info->cmt), line);
-		else
-			break ;
-	}
 	if (line == NULL)
 		error(info);
 	info->ants = ft_atoi(line);
@@ -74,6 +69,7 @@ void	parse_input(t_lemin *info)
 int		main(void)
 {
 	t_lemin	info;
+
 	parse_input(&info);
 
 	return (0);

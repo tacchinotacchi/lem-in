@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/21 18:56:32 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/21 21:25:18 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct	s_data
 	int		y;
 }				t_data;
 
-typedef struct	s_cmt
+typedef struct	s_cmt //TODO connection between comments and nodes required
 {
 	char			*cmt;
 	struct s_cmt	*next;	
@@ -50,5 +50,6 @@ void	get_end_data(t_lemin *info, t_data *data);
 void	get_node_data(t_lemin *info, t_data *data, char **split, int flags);
 void	get_edge_data(t_lemin *info, char **split);
 void	error(t_lemin *info);
-size_t	search_nodes(t_array *nodes, char *node);
+ssize_t	search_nodes(t_array *nodes, char *node);
+void	ft_splitdel(char **split);
 #endif
