@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 12:17:51 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/22 21:12:26 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct 	s_lemin
 	t_graph	graph;
 }				t_lemin;
 
-void	parse_input(t_lemin *info);
+int		parse_input(t_lemin *info);
 void	get_ants(t_lemin *info);
 void	init_nodes_and_edges(t_graph *graph);
 void	get_start_data(t_lemin *info);
