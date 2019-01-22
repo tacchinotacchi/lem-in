@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 11:07:00 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 15:21:54 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/22 18:39:18 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ ssize_t	search_nodes(t_array *nodes, char *node)
 	ssize_t	index;
 
 	index = 0;
-	while (index * nodes->elem_size <= nodes->reserved)
+	while (index < (ssize_t)nodes->length)
 	{
 		if (!ft_strcmp(((t_colony_data*)
 			((t_node*)nodes->ptr)[index].data)->name, node))
