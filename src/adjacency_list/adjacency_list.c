@@ -50,5 +50,4 @@ void	add_edge(t_graph* graph, ssize_t tail, ssize_t head)
 		list_new(&index, sizeof(ssize_t)));
 	list_add(&((t_node*)graph->nodes.ptr)[head].out_edges,
 		list_new(&index, sizeof(ssize_t)));
-
 }
