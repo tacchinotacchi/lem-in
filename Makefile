@@ -2,6 +2,8 @@ SRCS =
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h
 OBJS = $(patsubst %.c,obj/%.o,$(SRCS))
+VISUALIZER_SRCS =
+VISUALIZER_OBJS = $(patsubst %.c,obj/%.o,$(VISUALIZER_SRCS))
 
 TESTS_SRCS =
 TESTS = $(patsubst %.c,tests/%.test,$(TESTS_SRCS))
@@ -12,13 +14,14 @@ ifndef CFLAGS_WARNINGS
 export CFLAGS_WARNINGS = 1
 export CFLAGS := $(CFLAGS) -Wall -Wextra -Werror -std=c89
 endif
-INCLUDE_FOLDERS = -Iincludes/ -Ilibft/includes -Ift_printf/includes
-LIBRARY_PATHS = -L. -Llibft -Lft_printf
+INCLUDE_FOLDERS = -Iincludes/ -Ilibft/includes -Ift_printf/includes -ISDL2/Headers
+LIBRARY_PATHS = -L. -Llibft -Lft_printf -LSDL2
 NAME = lem-in
+VISUALIZER = visualizer
 
 .PHONY: clean fclean re all
 
-all: $(NAME) $(TESTS)
+all: $(NAME) $(TESTS) $(VISUALIZER)
 
 LIBFT_PREFIX = ../libft
 FTPRINTF_PREFIX = ft_printf
@@ -26,10 +29,10 @@ include ft_printf/Makefile.mk
 LIBFT_PREFIX = libft
 include libft/Makefile.mk
 
-$(GENERATOR): $(OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
-	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft
+$(VISUALIZER): $(VISUALIZER_OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
+	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(VISUALIZER_OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft -lSDL2
 
-$(CHECKER): $(OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
+$(NAME): $(OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
 	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft
 
 obj:
