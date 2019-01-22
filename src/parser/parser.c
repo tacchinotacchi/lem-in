@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:56:53 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 12:13:45 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/22 18:12:30 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	parse_input(t_lemin *info)
 	get_ants(info);
 	while (get_next_line(0, &line) > 0)
 	{
-		if (ft_strstr(line, "##start\n") && ft_strlen(line) == 8)
+		if (ft_strcmp(line, "##start") == 0)
 			get_start_data(info);
-		else if (ft_strstr(line, "##end\n") && ft_strlen(line) == 6)
+		else if (ft_strcmp(line, "##start") == 0)
 			get_end_data(info);
 		/* TODO this adds repeating ##start and ##end lines as comments */
 		else if (line[0] == '#')
@@ -73,7 +73,7 @@ int		main(void)
 {
 	t_lemin	info;
 
+	ft_bzero(&info, sizeof(t_lemin));
 	parse_input(&info);
-
 	return (0);
 }

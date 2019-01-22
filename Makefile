@@ -1,4 +1,7 @@
-SRCS =
+SRCS = parser/error.c \
+	parser/get_info.c \
+	parser/parser.c \
+	adjacency_list/adjacency_list.c
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h
 OBJS = $(patsubst %.c,obj/%.o,$(SRCS))
@@ -37,6 +40,8 @@ $(NAME): $(OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
 
 obj:
 	mkdir -p obj
+	mkdir -p obj/parser
+	mkdir -p obj/adjacency_list
 
 obj/%.o: src/%.c $(INCLUDES) | obj
 	$(CC) $(CFLAGS) $(INCLUDE_FOLDERS) -o $@ -c $<
@@ -48,6 +53,7 @@ clean:
 	rm -rf $(TESTS_DBG_FOLDERS)
 	rm -f $(TESTS)
 	rm -f $(OBJS)
+	rm -f $(VISUALIZER_OBJS)
 	rm -rf obj
 	rm -f $(LIBFT_OBJS)
 	rm -rf libft/obj
@@ -57,6 +63,7 @@ clean:
 fclean: clean
 	rm -f $(LIBFT_NAME)
 	rm -f $(FTPRINTF_NAME)
+	rm -f $(VISUALIZER)
 	rm -f $(NAME)
 
 re: fclean
