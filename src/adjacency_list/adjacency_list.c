@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 17:31:01 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/22 12:30:13 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/22 14:38:55 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	add_node(t_graph* graph, void *data, size_t data_size)
 	}
 }
 
-void	add_edge(t_graph* graph, ssize_t tail, ssize_t head)
+void	add_edge(t_graph* graph, ssize_t tail, ssize_t head, size_t data_size)
 {
 	t_edge	edge_forward;
 	t_edge	edge_backward;
@@ -34,10 +34,10 @@ void	add_edge(t_graph* graph, ssize_t tail, ssize_t head)
 
 	edge_forward.tail = tail;
 	edge_forward.head = head;
-	edge_forward.data = NULL;
+	edge_forward.data = ft_memalloc(data_size);
 	edge_backward.tail = head;
 	edge_backward.head = tail;
-	edge_forward.data = NULL;
+	edge_backward.data = ft_memalloc(data_size);
 	array_push_back(&graph->edges, &edge_forward);
 	array_push_back(&graph->edges, &edge_backward);
 	index = graph->nodes.length - 2;

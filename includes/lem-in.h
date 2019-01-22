@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 12:30:51 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/22 15:06:35 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ typedef struct	s_colony_data
 	int		y;
 	int		bfs_weight;
 }				t_colony_data;
+
+typedef struct	s_edge_data
+{
+	int		weight;
+}				t_edge_data;
 
 typedef struct 	s_lemin
 {

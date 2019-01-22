@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 12:31:12 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/22 12:47:21 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/22 14:54:13 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	explore_neighbors(t_graph *graph,
 	}
 }
 
-void	bfs_precompute(t_graph *graph, ssize_t end_node)
+void	bfs_precompute(t_graph *graph, ssize_t goal_node)
 {
 	t_list	*next_candidates;
 	t_list	*candidates;
@@ -45,7 +45,7 @@ void	bfs_precompute(t_graph *graph, ssize_t end_node)
 	int		index;
 
 	index = 0;
-	list_add(&candidates, list_new(&end_node, sizeof(ssize_t)));
+	list_add(&candidates, list_new(&goal_node, sizeof(ssize_t)));
 	while (candidates)
 	{
 		traverse = candidates;
