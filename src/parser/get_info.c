@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 11:07:00 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 12:16:41 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/22 12:31:42 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void    get_node_data(t_lemin *info, char **split, int flags)
 	data.x = ft_atoi(split[1]);
 	data.y = ft_atoi(split[2]);
 	data.flags = flags;
+	data.bfs_weight = -1;
 	ft_splitdel(split);
 	add_node(&(info->graph), &data, sizeof(data));
 }
