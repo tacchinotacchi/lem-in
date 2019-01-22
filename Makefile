@@ -1,4 +1,7 @@
-SRCS =
+SRCS = parser/error.c \
+	parser/get_info.c \
+	parser/parser.c \
+	adjacency_list/adjacency_list.c
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h
 OBJS = $(patsubst %.c,obj/%.o,$(SRCS))
