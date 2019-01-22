@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:47:08 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 17:52:01 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/22 18:32:44 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	free_stub(void *ptr, size_t content_size)
 static void	free_comments(void *ptr, size_t content_size)
 {
 	(void)content_size;
-	free((char*)ptr);
+	/* TODO initialize all variables */
+	free(ptr);
 }
 
 static void	free_nodes(void *ptr)
