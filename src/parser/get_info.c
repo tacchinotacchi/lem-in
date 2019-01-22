@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 11:07:00 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/21 21:54:41 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/21 23:00:14 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ ssize_t	search_nodes(t_array *nodes, char *node)
 	index = 0;
 	while (index * nodes->elem_size <= nodes->reserved)
 	{
-		if (!ft_strcmp(((t_data*)((t_node*)nodes->ptr)[index].data)->name, node))
+		if (!ft_strcmp(((t_data*)((t_node*)nodes->ptr)[index].data)->name,
+					node))
 			return (index);
 		index++;
 	}
