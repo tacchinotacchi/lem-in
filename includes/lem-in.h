@@ -6,17 +6,19 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 15:21:23 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/22 22:11:01 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
+# define LEM_IN_H
 # include "list.h"
 # include "adjacency_list.h"
 # include "libft.h"
+# define NODE 0
 # define START 1
 # define END 2
-# define NODE 0
+# define BUSY 0b100
 
 typedef struct	s_colony_data
 {
@@ -37,6 +39,10 @@ typedef struct 	s_lemin
 	int		ants;
 	t_list	*comments;
 	t_graph	graph;
+	int		max_x_coord;
+	int		min_x_coord;
+	int		max_y_coord;
+	int		min_y_coord;
 }				t_lemin;
 
 void	parse_input(t_lemin *info);

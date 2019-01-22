@@ -6,24 +6,23 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/22 17:43:58 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/22 22:11:04 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "adjacency_list.h"
 #include "visualizer.h"
+#include "lem-in.h"
 #include "SDL.h"
 
-int		read_input(t_graph *graph);
-
-int		enter_reading_loop(t_graph *graph)
+int		enter_reading_loop(t_lemin *input)
 {
 	SDL_Window		*window;
 	t_textures		textures;
 
 	window = SDL_CreateWindow("Lem-in visualizer", SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
+		SDL_WINDOWPOS_UNDEFINED, 600, 600, 0);
 	if (!window)
 		return (-1);
 	textures.renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -34,7 +33,7 @@ int		enter_reading_loop(t_graph *graph)
 	}
 	while (1)
 	{
-		draw_graph(graph, &textures);
+		draw_graph(input, &textures);
 		SDL_Delay(1000);
 	}
 	SDL_DestroyRenderer(textures.renderer);
@@ -44,14 +43,15 @@ int		enter_reading_loop(t_graph *graph)
 
 int		main(int argc, char **argv)
 {
-	t_graph *graph;
+	t_lemin input;
 
 	(void)argc;
 	(void)argv;
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		return (0);
-	if (read_input(graph) >= 0)
-		enter_reading_loop(graph);
+	ft_bzero(&input, sizeof(t_lemin));
+	parse_input(&input);
+	enter_reading_loop(&input);
 	SDL_Quit();
 	return (0);
 }

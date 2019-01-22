@@ -5,7 +5,9 @@ SRCS = parser/error.c \
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h
 OBJS = $(patsubst %.c,obj/%.o,$(SRCS))
-VISUALIZER_SRCS =
+VISUALIZER_SRCS = visualizer/drawing.c \
+	visualizer/init_textures.c \
+	visualizer/visualizer.c
 VISUALIZER_OBJS = $(patsubst %.c,obj/%.o,$(VISUALIZER_SRCS))
 
 TESTS_SRCS =
@@ -42,6 +44,7 @@ obj:
 	mkdir -p obj
 	mkdir -p obj/parser
 	mkdir -p obj/adjacency_list
+	mkdir -p obj/visualizer
 
 obj/%.o: src/%.c $(INCLUDES) | obj
 	$(CC) $(CFLAGS) $(INCLUDE_FOLDERS) -o $@ -c $<
