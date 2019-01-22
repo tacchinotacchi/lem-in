@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:56:53 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/21 21:44:30 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/22 12:13:45 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
 #include "lem-in.h"
 
 void	init_nodes_and_edges(t_graph *graph)
@@ -29,10 +30,12 @@ void	get_ants(t_lemin *info)
 {
 	char	*line;
 
+	/* TODO this adds repeating ##start and ##end lines as comments */
 	while (get_next_line(0, &line) < 1 && line[0] == '#')
-			get_comment(&(info->cmt), line);
+			list_add(&info->comments, list_new(line, ft_strlen(line) + 1));
 	if (line == NULL)
 		error(info);
+	/* TODO check if the line is comprised only of numbers */
 	info->ants = ft_atoi(line);
 	if (info->ants <= 0)
 		error(info);
@@ -41,20 +44,20 @@ void	get_ants(t_lemin *info)
 void	parse_input(t_lemin *info)
 {
 	char	*line;
-	t_data	*data;
 
 	init_nodes_and_edges(&(info->graph));
 	get_ants(info);
 	while (get_next_line(0, &line) > 0)
 	{
 		if (ft_strstr(line, "##start\n") && ft_strlen(line) == 8)
-			get_start_data(info, data);
+			get_start_data(info);
 		else if (ft_strstr(line, "##end\n") && ft_strlen(line) == 6)
-			get_end_data(info, data);
+			get_end_data(info);
+		/* TODO this adds repeating ##start and ##end lines as comments */
 		else if (line[0] == '#')
-			get_comment(&(info->cmt), line);
+			list_add(&info->comments, list_new(line, ft_strlen(line) + 1));
 		else if (ft_strchr(line, ' '))
-			get_node_data(info, data, ft_strsplit(line, ' '), NODE);
+			get_node_data(info, ft_strsplit(line, ' '), NODE);
 		else if (ft_strchr(line, '-'))
 			get_edge_data(info, ft_strsplit(line, '-'));
 		else
