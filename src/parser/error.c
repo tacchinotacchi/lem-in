@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:47:08 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 17:31:07 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/22 17:52:01 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	free_stub(void *ptr, size_t content_size)
 
 static void	free_comments(void *ptr, size_t content_size)
 {
+	(void)content_size;
 	free((char*)ptr);
 }
 

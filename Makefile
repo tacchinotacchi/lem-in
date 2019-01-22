@@ -5,6 +5,8 @@ SRCS = parser/error.c \
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h
 OBJS = $(patsubst %.c,obj/%.o,$(SRCS))
+VISUALIZER_SRCS =
+VISUALIZER_OBJS = $(patsubst %.c,obj/%.o,$(VISUALIZER_SRCS))
 
 TESTS_SRCS =
 TESTS = $(patsubst %.c,tests/%.test,$(TESTS_SRCS))
@@ -18,6 +20,7 @@ endif
 INCLUDE_FOLDERS = -Iincludes/ -Ilibft/includes -Ift_printf/includes
 LIBRARY_PATHS = -L. -Llibft -Lft_printf
 NAME = lem-in
+VISUALIZER = visualizer
 
 .PHONY: clean fclean re all
 
@@ -29,14 +32,16 @@ include ft_printf/Makefile.mk
 LIBFT_PREFIX = libft
 include libft/Makefile.mk
 
-$(GENERATOR): $(OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
-	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft
+$(VISUALIZER): $(VISUALIZER_OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
+	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(VISUALIZER_OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft
 
-$(CHECKER): $(OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
+$(NAME): $(OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
 	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft
 
 obj:
 	mkdir -p obj
+	mkdir -p obj/parser
+	mkdir -p obj/adjacency_list
 
 obj/%.o: src/%.c $(INCLUDES) | obj
 	$(CC) $(CFLAGS) $(INCLUDE_FOLDERS) -o $@ -c $<
@@ -48,6 +53,7 @@ clean:
 	rm -rf $(TESTS_DBG_FOLDERS)
 	rm -f $(TESTS)
 	rm -f $(OBJS)
+	rm -f $(VISUALIZER_OBJS)
 	rm -rf obj
 	rm -f $(LIBFT_OBJS)
 	rm -rf libft/obj
@@ -57,6 +63,7 @@ clean:
 fclean: clean
 	rm -f $(LIBFT_NAME)
 	rm -f $(FTPRINTF_NAME)
+	rm -f $(VISUALIZER)
 	rm -f $(NAME)
 
 re: fclean
