@@ -6,16 +6,14 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 15:06:35 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/22 15:21:23 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # include "list.h"
-# include "array.h"
 # include "adjacency_list.h"
 # include "libft.h"
-# include <fcntl.h>
 # define START 1
 # define END 2
 # define NODE 0
