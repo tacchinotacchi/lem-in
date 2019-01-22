@@ -6,19 +6,23 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 17:31:01 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/21 22:05:02 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/22 01:33:59 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "adjacency_list.h"
 
-void	add_node(t_graph* graph, void *data)
+void	add_node(t_graph* graph, void *data, size_t data_size)
 {
 	t_node new_node;
 
 	new_node.edges = 0;
-	new_node.data = data;
-	array_push_back(&graph->nodes, &new_node);
+	new_node.data = malloc(data_size);
+	if (new_node.data)
+	{
+		ft_memcpy(new_node.data, data, data_size);
+		array_push_back(&graph->nodes, &new_node);
+	}
 }
 
 void	add_edge(t_graph* graph, ssize_t tail, ssize_t head)

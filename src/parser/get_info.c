@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 11:07:00 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/21 21:54:41 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/22 01:34:19 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	get_comment(t_cmt **begin_list, char *line)
 	}
 }
 
-void	get_start_data(t_lemin *info, t_data *data)
+void	get_start_data(t_lemin *info)
 {
 	char	*line;
 	char	**split;
@@ -60,7 +60,7 @@ void	get_start_data(t_lemin *info, t_data *data)
 	}
 	split = ft_strsplit(line, ' ');
 	free(line);
-	get_node_data(info, data, split, START);
+	get_node_data(info, split, START);
 }
 
 void	get_end_data(t_lemin *info, t_data *data)
@@ -75,24 +75,25 @@ void	get_end_data(t_lemin *info, t_data *data)
 	}
 	split = ft_strsplit(line, ' ');
 	free(line);
-	get_node_data(info, data, split, END);
+	get_node_data(info, split, END);
 }
 
-void    get_node_data(t_lemin *info, t_data *data, char **split, int flags)
+void    get_node_data(t_lemin *info, char **split, int flags)
 {
+	t_data data;
+
 	if (!split[0] || !split[1] || !split[2] || split[3] || split[0][0] == 'L' ||
 			info->graph.edges.ptr || ft_strchr(split[0], '-'))
 	{
 		ft_splitdel(split);
 		error(info);
 	}
-	data = (t_data*)malloc(sizeof(t_data));
-	data->name = ft_strdup(split[0]);
-	data->x = ft_atoi(split[1]);
-	data->y = ft_atoi(split[2]);
-	data->flags = flags;
+	data.name = ft_strdup(split[0]);
+	data.x = ft_atoi(split[1]);
+	data.y = ft_atoi(split[2]);
+	data.flags = flags;
 	ft_splitdel(split);
-	add_node(&(info->graph), data); // NOT SURE!!
+	add_node(&(info->graph), &data, sizeof(data));
 }
 
 ssize_t	search_nodes(t_array *nodes, char *node)

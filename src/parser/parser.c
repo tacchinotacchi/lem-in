@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:56:53 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/21 21:44:30 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/22 01:28:58 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ void	parse_input(t_lemin *info)
 	while (get_next_line(0, &line) > 0)
 	{
 		if (ft_strstr(line, "##start\n") && ft_strlen(line) == 8)
-			get_start_data(info, data);
+			get_start_data(info);
 		else if (ft_strstr(line, "##end\n") && ft_strlen(line) == 6)
-			get_end_data(info, data);
+			get_end_data(info);
 		else if (line[0] == '#')
 			get_comment(&(info->cmt), line);
 		else if (ft_strchr(line, ' '))
-			get_node_data(info, data, ft_strsplit(line, ' '), NODE);
+			get_node_data(info, ft_strsplit(line, ' '), NODE);
 		else if (ft_strchr(line, '-'))
 			get_edge_data(info, ft_strsplit(line, '-'));
 		else
