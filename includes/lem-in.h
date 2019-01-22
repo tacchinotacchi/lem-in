@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 21:12:26 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/22 23:48:20 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_colony_data
 	int		flags;
 	int		x;
 	int		y;
+	int		bfs_weight;
 }				t_colony_data;
 
 typedef struct 	s_lemin
