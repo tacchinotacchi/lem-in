@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef PRIORITY_QUEUE_H
+# define PRIORITY_QUEUE_H
 # include <stdlib.h>
 # include "libft.h"
 
@@ -22,10 +23,10 @@ typedef struct	s_pq
 }				t_pq;
 
 t_pq			*create_pq(int size);
-int				add_pq(t_pq *pq, void *new_node);
-int				pop_pq(t_pq *pq, void *pop);
+int				add_pq(t_pq *pq, void *new_node, int(*cmp)(void*, void*));
+int				pop_pq(t_pq *pq, void **pop, int(*cmp)(void*, void*));
 int				swap_node_pq(t_pq *pq, int child, int parent);
-int				destroy_pq(t_pq *pq);
+void			destroy_pq(t_pq *pq);
 int				check_empty_pq(t_pq *pq);
 
 #endif
