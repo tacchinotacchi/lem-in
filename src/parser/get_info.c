@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 11:07:00 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 23:48:05 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/23 14:27:23 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	get_edge_data(t_lemin *info, char **split)
 	head = search_nodes(&(info->graph.nodes), split[1]);
 	ft_splitdel(split);
 	if (tail >= 0 && head >= 0)
-		add_edge(&(info->graph), tail, head);
+		add_edge(&(info->graph), tail, head, sizeof(t_edge_data));
 	else
 		error(info);
 }
