@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 16:28:10 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/23 16:51:47 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/23 18:18:09 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,35 @@
 #include "kpath.h"
 #include "lem-in.h"
 
+/* TODO clear subdecisions */
 void destroy_decision(t_decision *decision);
+
+int		path_can_solve(t_path path, t_path_graph *snapshot, t_decision *decision)
+{
+	/* TODO stub */
+	return (1);
+}
 
 void explore_decision(t_lemin *input, t_decision *decision)
 {
-	t_list	*traverse;
 	t_path	path;
+	size_t	index;
 
 	input->curr_decisions[input->decision_depth] = *decision;
-	input->decision_depth++;
-	while (decision->subdecisions)
+	while (decision->subdecisions_count > 0)
 	{
 		path = next_acceptable_path(input, decision->snapshot, decision->candidates);
-		traverse = decision->subdecisions;
-		while (traverse)
+		index = 0;
+		while (index < decision->subdecisions.length)
 		{
-			if (path_can_solve(path, decision->snapshot, traverse->content))
-				explore_decision(input, traverse->content);
-			traverse = traverse->next;
+			if (path_can_solve(path, decision->snapshot, (t_decision*)decision->subdecisions.ptr))
+			{
+				input->decision_depth++;
+				explore_decision(input, (t_decision*)decision->subdecisions.ptr);
+				input->decision_depth--;
+			}
+			index++;
 		}
 	}
-	input->decision_depth--;
 	destroy_decision(decision);
 }

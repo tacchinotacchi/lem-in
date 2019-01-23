@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 15:38:17 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/23 16:49:27 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/23 18:29:15 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct	s_path_data
 {
 	t_list	*conflicts;
 	size_t	creation_time;
-	size_t	node_on_path;
+	size_t	graph_id;
 	size_t	pseudotree_id;
 	size_t	cost;
 }				t_path_data;

@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/23 16:36:12 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/23 18:31:03 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_colony_data
 	int		x;
 	int		y;
 	int		bfs_weight;
+	int		in_use_by;
 	t_list	*shortest_path; /* TODO set in bfs */
 }				t_colony_data;
 
@@ -40,7 +41,9 @@ typedef struct	s_decision
 {
 	t_path_graph	*snapshot;
 	t_pq			*candidates;
-	t_list			*subdecisions;
+	t_array			subdecisions;
+	size_t			subdecisions_count;
+	int				obsolete;
 }				t_decision;
 
 typedef struct	s_solution
@@ -56,7 +59,7 @@ typedef struct 	s_lemin
 	t_graph		graph;
 	t_decision	*curr_decisions;
 	size_t		decision_depth;
-	t_graph		*path_graphs;
+	t_graph		*path_trees;
 	t_list		*solutions;
 }				t_lemin;
 

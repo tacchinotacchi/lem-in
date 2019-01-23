@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 15:43:01 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/23 16:50:27 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/23 18:29:15 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int		pseudotree_cmp(void *data1, void *data2);
 
-void	add_node_pseudo(t_path_graph *graph, size_t parent, size_t node_on_path)
+void	add_node_pseudo(t_path_graph *graph, size_t parent, size_t graph_id)
 {
 	ssize_t	already_there;
 
