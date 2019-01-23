@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 16:49:41 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/22 12:46:31 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/22 14:38:50 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ typedef struct	s_graph
 }				t_graph;
 
 void	add_node(t_graph* graph, void *data, size_t data_size);
-void	add_edge(t_graph* graph, ssize_t tail, ssize_t head);
+void	add_edge(t_graph* graph, ssize_t tail, ssize_t head, size_t data_size);
 
 #endif

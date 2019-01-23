@@ -6,16 +6,14 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 23:48:20 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/23 14:28:06 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # include "list.h"
-# include "array.h"
 # include "adjacency_list.h"
 # include "libft.h"
-# include <fcntl.h>
 # define START 1
 # define END 2
 # define NODE 0
@@ -28,6 +26,11 @@ typedef struct	s_colony_data
 	int		y;
 	int		bfs_weight;
 }				t_colony_data;
+
+typedef struct	s_edge_data
+{
+	int		weight;
+}				t_edge_data;
 
 typedef struct 	s_lemin
 {

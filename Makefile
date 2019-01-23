@@ -1,7 +1,7 @@
 SRCS = parser/error.c \
 	parser/get_info.c \
 	parser/parser.c \
-	adjacency_list/adjacency_list.c
+	adjacency_list/adjacency_list.c \
 	priority_queue/priority_queue.c
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h
@@ -43,6 +43,7 @@ obj:
 	mkdir -p obj
 	mkdir -p obj/parser
 	mkdir -p obj/adjacency_list
+	mkdir -p obj/priority_queue
 
 obj/%.o: src/%.c $(INCLUDES) | obj
 	$(CC) $(CFLAGS) $(INCLUDE_FOLDERS) -o $@ -c $<

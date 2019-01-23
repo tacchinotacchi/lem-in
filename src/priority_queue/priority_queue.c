@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 23:02:52 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 23:44:57 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/23 14:19:15 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		add_pq(t_pq *pq, void *new_node, int(*cmp)(void*, void*))
 			pq->used_size = 1;
 		pq->size = pq->size * 2;
 		if (!(pq->node = (void**)realloc(pq->node, sizeof(void*) * pq->size)))
-			return (0); //TODO realloc needs to be FUCKIN coded
+			return (0);
 	}
 	pq->node[child] = new_node;
 	while (child > 0 && cmp(pq->node[child], pq->node[parent]) < 0)
