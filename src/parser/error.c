@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:47:08 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 18:32:44 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/23 14:15:00 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static void	free_nodes(void *ptr)
 			free(((t_colony_data*)((t_node*)ptr)->data)->name);
 		free((t_colony_data*)((t_node*)ptr)->data);
 	}
-	list_del(&(((t_node*)ptr)->edges), free_stub);
+	list_del(&(((t_node*)ptr)->out_edges), free_stub);
+	list_del(&(((t_node*)ptr)->in_edges), free_stub);
 }
 
 static void	free_edges(void *ptr)

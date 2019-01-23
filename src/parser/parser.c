@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:56:53 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 18:12:30 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/23 14:15:59 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	get_ants(t_lemin *info)
 		error(info);
 }
 
-void	parse_input(t_lemin *info)
+int		parse_input(t_lemin *info)
 {
 	char	*line;
 
@@ -67,6 +67,7 @@ void	parse_input(t_lemin *info)
 		}
 		free(line);
 	}
+	return (1);
 }
 
 int		main(void)
