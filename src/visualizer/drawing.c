@@ -6,12 +6,13 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:45:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/22 22:10:20 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/23 03:23:09 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "adjacency_list.h"
 #include "visualizer.h"
+#include <SDL2/SDL.h>
 
 static int	transform_x(t_lemin *input, int coord)
 {
@@ -38,8 +39,8 @@ static void handle_flags(int x, int y, int flags, t_textures *textures)
 	SDL_Rect	dest;
 
 	dest.w = 30;
-	dest.h = 70;
-	dest.x = x - 20;
+	dest.h = 30;
+	dest.x = x;
 	dest.y = y;
 	if (flags & START)
 		SDL_RenderCopy(textures->renderer, textures->start, NULL, &dest);
@@ -81,8 +82,12 @@ static void draw_edges(t_lemin *input, t_textures *textures)
 			[((t_edge*)input->graph.edges.ptr)[index].head].data;
 		tail = ((t_node*)input->graph.nodes.ptr)
 			[((t_edge*)input->graph.edges.ptr)[index].tail].data;
+		SDL_SetRenderDrawColor(textures->renderer, 50, 50, 50, 255);
 		SDL_RenderDrawLine(textures->renderer,
-			head->x, head->y, tail->x, tail->y);
+			transform_x(input, head->x),
+			transform_y(input, head->y),
+			transform_x(input, tail->x),
+			transform_y(input, tail->y));
 		index++;
 	}
 }
@@ -91,7 +96,7 @@ void draw_graph(t_lemin *input, t_textures *textures)
 {
 	SDL_SetRenderDrawColor(textures->renderer, 255, 255, 255, 255);
 	SDL_RenderClear(textures->renderer);
-	draw_nodes(input, textures);
 	draw_edges(input, textures);
+	draw_nodes(input, textures);
 	SDL_RenderPresent(textures->renderer);
 }

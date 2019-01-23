@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/22 21:27:19 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/23 02:31:04 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "adjacency_list.h"
 #include "lem-in.h"
-#include "SDL.h"
+#include <SDL2/SDL.h>
 
 typedef struct	s_textures
 {

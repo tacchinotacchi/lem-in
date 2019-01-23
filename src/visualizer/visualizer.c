@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/22 22:11:04 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/23 02:35:01 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "adjacency_list.h"
 #include "visualizer.h"
 #include "lem-in.h"
-#include "SDL.h"
+#include <SDL2/SDL.h>
 
 int		enter_reading_loop(t_lemin *input)
 {

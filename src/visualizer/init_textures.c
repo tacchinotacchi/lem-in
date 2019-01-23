@@ -6,12 +6,13 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:29:16 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/22 17:44:53 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/23 02:59:07 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 #include "libft.h"
+#include <SDL2/SDL.h>
 
 int		texture_from_file(SDL_Renderer *renderer, SDL_Texture **texture,
 			const char *filename)
@@ -33,8 +34,8 @@ int		texture_from_file(SDL_Renderer *renderer, SDL_Texture **texture,
 
 int		init_textures(t_textures *textures)
 {
-	size_t	index;
-	char	*digit_name;
+	/*size_t	index;
+	char	*digit_name;*/
 
 	if (texture_from_file(textures->renderer,
 		&textures->node, "resources/node.bmp") < 0)
@@ -45,7 +46,7 @@ int		init_textures(t_textures *textures)
 	if (texture_from_file(textures->renderer,
 		&textures->end, "resources/end.bmp") < 0)
 		return (-1);
-	index = 0;
+	/*index = 0;
 	digit_name = ft_strdup("resources/0digit.bmp");
 	while (index < 10)
 	{
@@ -54,6 +55,6 @@ int		init_textures(t_textures *textures)
 			&textures->digits[index], digit_name) < 0)
 			return (-1);
 		index++;
-	}
+	}*/
 	return (0);
 }

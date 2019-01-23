@@ -7,7 +7,11 @@ INCLUDES = libft/includes/libft.h \
 OBJS = $(patsubst %.c,obj/%.o,$(SRCS))
 VISUALIZER_SRCS = visualizer/drawing.c \
 	visualizer/init_textures.c \
-	visualizer/visualizer.c
+	visualizer/visualizer.c \
+	parser/parser.c \
+	parser/get_info.c \
+	parser/error.c \
+	adjacency_list/adjacency_list.c
 VISUALIZER_OBJS = $(patsubst %.c,obj/%.o,$(VISUALIZER_SRCS))
 
 TESTS_SRCS =
@@ -19,8 +23,8 @@ ifndef CFLAGS_WARNINGS
 export CFLAGS_WARNINGS = 1
 export CFLAGS := $(CFLAGS) -Wall -Wextra -Werror -std=c89
 endif
-INCLUDE_FOLDERS = -Iincludes/ -Ilibft/includes -Ift_printf/includes -ISDL2/Headers
-LIBRARY_PATHS = -L. -Llibft -Lft_printf -LSDL2
+INCLUDE_FOLDERS = -Iincludes/ -Ilibft/includes -Ift_printf/includes
+LIBRARY_PATHS = -L. -Llibft -Lft_printf
 NAME = lem-in
 VISUALIZER = visualizer
 

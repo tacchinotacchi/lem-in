@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 11:07:00 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 21:26:31 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/23 03:14:17 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void    get_node_data(t_lemin *info, char **split, int flags)
 		info->min_x_coord = data.x;
 	if (data.y > info->max_y_coord)
 		info->max_y_coord = data.y;
-	if (data.y < info->max_y_coord)
+	if (data.y < info->min_y_coord)
 		info->min_y_coord = data.y;
 }
 

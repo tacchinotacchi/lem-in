@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:56:53 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/22 21:20:10 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/23 02:33:17 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ void	parse_input(t_lemin *info)
 {
 	char	*line;
 
+	ft_bzero(info, sizeof(t_lemin));
+	info->max_x_coord = INT_MIN;
+	info->min_x_coord = INT_MAX;
+	info->max_y_coord = INT_MIN;
+	info->min_y_coord = INT_MAX;
 	init_nodes_and_edges(&(info->graph));
 	get_ants(info);
 	while (get_next_line(0, &line) > 0)
@@ -67,17 +72,4 @@ void	parse_input(t_lemin *info)
 		}
 		free(line);
 	}
-}
-
-int		main(void)
-{
-	t_lemin	info;
-
-	ft_bzero(&info, sizeof(t_lemin));
-	info.max_x_coord = INT_MIN;
-	info.min_x_coord = INT_MAX;
-	info.max_y_coord = INT_MIN;
-	info.min_y_coord = INT_MAX;
-	parse_input(&info);
-	return (0);
 }
