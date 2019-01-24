@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 11:07:00 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/23 14:27:23 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/23 18:08:38 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void    get_node_data(t_lemin *info, char **split, int flags)
 		ft_splitdel(split);
 		error(info);
 	}
+	/*initialize colony_data
 	data.name = ft_strdup(split[0]);
 	/* TODO check the coordinates are comprised only of numbers */
 	data.x = ft_atoi(split[1]);

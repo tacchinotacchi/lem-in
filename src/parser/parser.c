@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:56:53 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/23 14:15:59 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/23 19:05:24 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		parse_input(t_lemin *info)
 	{
 		if (ft_strcmp(line, "##start") == 0)
 			get_start_data(info);
-		else if (ft_strcmp(line, "##start") == 0)
+		else if (ft_strcmp(line, "##end") == 0)
 			get_end_data(info);
 		/* TODO this adds repeating ##start and ##end lines as comments */
 		else if (line[0] == '#')
