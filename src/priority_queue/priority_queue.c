@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 23:02:52 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/24 13:20:38 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/24 17:30:59 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 void	create_pq(t_pq *begin_pq, int elem_size)
 {
-
 	begin_pq->elem_size = elem_size;
 	begin_pq->size = 0;
 	begin_pq->used_size = 0;
-	if (!(begin_pq->node = (void**)malloc(sizeof(void*) * size)))
-		return (NULL);
-	return;
+	begin_pq->node = NULL;
+	/*if (!(begin_pq->node = (void**)malloc(begin_pq->elem_size * begin_pq->size)))
+		return (0);*/
 }
 
 int		add_pq(t_pq *pq, void *new_node, int(*cmp)(void*, void*))
@@ -30,49 +29,52 @@ int		add_pq(t_pq *pq, void *new_node, int(*cmp)(void*, void*))
 
 	child = pq->used_size;
 	parent = (child - 1) / 2;
-
 	if (pq->used_size == pq->size)
 	{
-		if (pq->used_size == 0)
-			pq->used_size = 1;
-		pq->size = pq->size * 2;
+		pq->size = (pq->size + 1) * 2 - 1;
 		if (!(pq->node = (void**)realloc(pq->node, sizeof(void*) * pq->size)))
-			return (0);
+			return (-1);
 	}
-	pq->node[child] = new_node;
+	pq->node[child] = malloc(pq->elem_size);
+	ft_memcpy(&(pq->node[child]), new_node, pq->elem_size);
 	while (child > 0 && cmp(pq->node[child], pq->node[parent]) < 0)
-		swap_node_pq(pq, child, parent);
+	{
+		if (cmp(pq->node[child], pq->node[parent]) < 0)
+		{
+			swap_node_pq(pq, child, parent);
+			child = parent;
+			parent = (child - 1) / 2;
+		}
+	}
 	pq->used_size++;
-	return (1);
+	return (0);
 }
 
-int		swap_node_pq(t_pq *pq, int child, int parent)
+void	swap_node_pq(t_pq *pq, int child, int parent)
 {
-	void	**temp;
+	void	*temp;
 
-	if (!(temp = (void**)malloc(sizeof(void*))))
-		return (0);
-	ft_memcpy(temp, &(pq->node[child]), sizeof(void*));
-	ft_memcpy(&(pq->node[child]), &(pq->node[parent]), sizeof(void*));
-	ft_memcpy(&(pq->node[parent]), temp, sizeof(void*));
-	free(temp);
-	return (1);
+	temp = pq->node[child];
+	pq->node[child] = pq->node[parent];
+	pq->node[parent] = temp;
 }
 
-int		pop_pq(t_pq *pq, void **pop, int(*cmp)(void*, void*))
+void	*pop_pq(t_pq *pq, int(*cmp)(void*, void*))
 {
 	int		left_c;
 	int		right_c;
 	int		prior_c;
 	int		parent;
+	void	*pop;
 
-	ft_memcpy(pop, &(pq->node[0]), sizeof(void*));
-	ft_memset(&(pq->node[0]), 0, sizeof(void*));
+	pop = pq->node[0];
+	pq->node[0] = NULL;
 	pq->used_size--;
 	swap_node_pq(pq, 0, pq->used_size);
 	left_c = 1;
 	right_c = 2;
-	while (left_c >= pq->used_size)
+	parent = 0;
+	while (left_c > pq->used_size)
 	{
 		if (right_c >= pq->used_size)
 			prior_c = left_c;
@@ -93,20 +95,30 @@ int		pop_pq(t_pq *pq, void **pop, int(*cmp)(void*, void*))
 		left_c = (parent - 1) * 2;
 		right_c = left_c + 1;
 	}
-	/*
+	
 	if (pq->used_size < (pq->size / 2))
 	{
 		pq->size /= 2;
-		if (!(pq->node = (void**)realloc(pq->node, sizeof(void*) * pq->size)))
+		if (!(pq->node = (void**)realloc(pq->node, pq->elem_size * pq->size)))
 			return (0);
-	}*/
-	return (1);
+	}
+	return (pop);
 }
 
 void	destroy_pq(t_pq *pq)
 {
-	free(pq->node);
-	free(pq);
+	int index;
+
+	index = 0;
+	while (index < pq->used_size)
+	{
+		free(pq->node[index]);
+		index++;
+	}
+	pq->node = NULL;
+	pq->size = 0;
+	pq->elem_size = 0;
+	pq->used_size = 0;
 }
 
 int		check_empty_pq(t_pq *pq)
