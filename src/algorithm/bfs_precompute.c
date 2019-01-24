@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 12:31:12 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/22 14:54:13 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/24 18:46:27 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	bfs_precompute(t_graph *graph, ssize_t goal_node)
 		traverse = candidates;
 		while (traverse)
 		{
-			((t_colony_data*)(((t_node*)graph->nodes.ptr)
-				[*(ssize_t*)traverse->content].data))->bfs_weight = index;
+			(node_colony_data(graph,
+				*(ssize_t*)traverse->content))->bfs_weight = index;
 			explore_neighbors(graph, &next_candidates, traverse);
 			traverse = candidates->next;
 		}

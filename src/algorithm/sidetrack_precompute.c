@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 14:36:19 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/22 15:09:44 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/24 18:47:49 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,8 @@ void	sidetrack_precompute(t_graph *graph)
 	{
 		head = ((t_edge*)graph->edges.ptr)->head;
 		tail = ((t_edge*)graph->edges.ptr)->tail;
-		head_weight = ((t_colony_data*)((t_node*)graph->nodes.ptr)
-			[head].data)->bfs_weight;
-		tail_weight = ((t_colony_data*)((t_node*)graph->nodes.ptr)
-			[tail].data)->bfs_weight;
+		head_weight = (node_colony_data(graph, head))->bfs_weight;
+		tail_weight = (node_colony_data(graph, tail))->bfs_weight;
 		if (head_weight < 0	|| tail_weight < 0)
 			((t_edge_data*)((t_node*)graph->edges.ptr)
 				[index].data)->weight = -1;

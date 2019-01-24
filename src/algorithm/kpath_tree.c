@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 18:03:10 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/24 15:09:45 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/24 20:06:11 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,39 +52,37 @@ size_t	add_node_snapshot(t_path_graph *snapshot, size_t parent, size_t graph_id)
 	return (tail);
 }
 
-/* TODO report conflicts to calling function */
-void	node_reserve(t_lemin *input, t_node *path_node)
+void	node_reserve(t_lemin *input, t_path_data *path_data)
 {
 	t_node	*graph_node;
 
-	graph_node = &((t_node*)input->graph.nodes.ptr)
-		[((t_path_data*)path_node->data)->graph_id];
-	((t_colony_data*)graph_node->data)->in_use_by = input->decision_depth;
+	graph_node = &((t_node*)input->graph.nodes.ptr)[path_data->graph_id];
+	((t_colony_data*)graph_node->data)->marked_decision = input->decision_depth;
+	((t_colony_data*)graph_node->data)->marked_path_id = path_data->pseudotree_id;
 }
 
-t_list *walk_up_tree(t_lemin *input, t_path_graph *snapshot, t_path *path,
+size_t	walk_up_tree(t_lemin *input, t_path_graph *snapshot, t_path *path,
 			size_t after_dev)
 {
-	t_list	*dev_node;
 	t_node	*path_node;
 	size_t	edge_index;
 	size_t	node_index;
+	size_t	dev_node;
 	int		nodes_left;
 
-	dev_node = NULL;
 	node_index = after_dev;
 	nodes_left = 1;
 	while (nodes_left)
 	{
 		path_node = &((t_node*)snapshot->graph->nodes.ptr)[node_index];
-		node_reserve(input, path_node);
+		node_reserve(input, path_node->data);
 		list_add(&path->nodes, list_new(&node_index, sizeof(size_t)));
-		if (!dev_node && node_index != after_dev)
-			dev_node = path->nodes;
 		if (path_node->out_edges)
 		{
 			edge_index = *(size_t*)path_node->out_edges->content;
-			node_index = ((t_edge*)snapshot->graph->edges.ptr)[edge_index].head;
+			if (node_index == after_dev)
+				dev_node = edge_head(snapshot->graph, edge_index);
+			node_index = edge_head(snapshot->graph, edge_index);
 		}
 		else
 			nodes_left = 0;
@@ -101,17 +99,13 @@ void	prune_path(t_lemin *input, t_path_graph *snapshot, t_path *path,
 
 	curr_path_node = after_dev;
 	curr_graph_node = (node_path_data(snapshot->graph, after_dev))->graph_id;
+	cost = (node_path_data(snapshot->graph, after_dev))->cost;
 	/* TODO set GOAL flag */
 	while (!((node_colony_data(&input->graph, curr_graph_node))->flags & GOAL))
 	{
-		curr_path_node = add_node_snapshot(snapshot, curr_path_node, curr_graph_node);
-		(node_path_data(snapshot->graph, curr_path_node))->cost;
-		/* TODO set path's cost so far in t_path_data of last added node */
-		list_add(&path->nodes, list_new(&curr_path_node, sizeof(size_t)));
-		curr_graph_node = *(size_t*)
-			(node_out_edges(snapshot->graph, curr_graph_node))->content;
+		/* TODO prune path while adding nodes to path, increase cost, set path's cost so far in t_path_data of newly added node */
 	}
 	curr_path_node = add_node_snapshot(snapshot, curr_path_node, curr_graph_node);
-	/* TODO set path's cost so far in t_path_data of last added node */
+	/* TODO set path's cost so far in path */
 	list_add(&path->nodes, list_new(&curr_path_node, sizeof(size_t)));
 }
