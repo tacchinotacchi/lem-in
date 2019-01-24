@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 15:38:17 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/23 18:29:15 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/24 11:03:25 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_path_graph
 typedef struct	s_path
 {
 	t_list	*nodes;
+	t_graph *path_tree;
 	size_t 	dev_node;
 	ssize_t	rank;
 }				t_path;

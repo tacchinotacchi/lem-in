@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/23 18:31:03 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/24 11:39:25 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct	s_edge_data
 
 typedef struct	s_decision
 {
-	t_path_graph	*snapshot;
+	t_path_graph	snapshot;
 	t_pq			*candidates;
 	t_array			subdecisions;
 	size_t			subdecisions_count;
@@ -59,6 +59,7 @@ typedef struct 	s_lemin
 	t_graph		graph;
 	t_decision	*curr_decisions;
 	size_t		decision_depth;
+	size_t		max_decision_depth;
 	t_graph		*path_trees;
 	t_list		*solutions;
 }				t_lemin;

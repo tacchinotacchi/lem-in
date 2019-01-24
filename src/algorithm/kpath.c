@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 15:43:01 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/23 18:29:15 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/24 11:38:38 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ t_path	next_acceptable_path(t_lemin *input,
 		path_found = 1;
 		while (dev_path->next)
 		{
-			if (mark_node(input, dev_path->content)) /* report conflict inside */
+			if (mark_node(input, snapshot, *(size_t*)dev_path->content)) /* report conflict inside */
 			{
 				path_found = 0;
-				unmark(input, dev_path->content); /* unmark this and all parents */
+				unmark(input, snapshot, *(size_t*)dev_path->content); /* unmark this and all parents */
 				break ;
 			}
-			explore_sidetracks(input, snapshot, candidates, dev_path->content);
+			explore_sidetracks(input, snapshot, candidates, *(size_t*)dev_path->content);
 			dev_path = dev_path->next;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 16:28:10 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/23 18:18:09 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/24 11:39:50 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ void explore_decision(t_lemin *input, t_decision *decision)
 		index = 0;
 		while (index < decision->subdecisions.length)
 		{
-			if (path_can_solve(path, decision->snapshot, (t_decision*)decision->subdecisions.ptr))
+			if (path_can_solve(path, decision->snapshot, (t_decision*)decision->subdecisions.ptr + index))
 			{
+				/* TODO report solution at max depth */
 				input->decision_depth++;
-				explore_decision(input, (t_decision*)decision->subdecisions.ptr);
+				explore_decision(input, (t_decision*)decision->subdecisions.ptr + index);
 				input->decision_depth--;
 			}
 			index++;
