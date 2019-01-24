@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 23:02:52 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/24 17:30:59 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/24 18:41:39 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		add_pq(t_pq *pq, void *new_node, int(*cmp)(void*, void*))
 			return (-1);
 	}
 	pq->node[child] = malloc(pq->elem_size);
-	ft_memcpy(&(pq->node[child]), new_node, pq->elem_size);
+	ft_memcpy(pq->node[child], new_node, pq->elem_size);
 	while (child > 0 && cmp(pq->node[child], pq->node[parent]) < 0)
 	{
 		if (cmp(pq->node[child], pq->node[parent]) < 0)
@@ -74,7 +74,7 @@ void	*pop_pq(t_pq *pq, int(*cmp)(void*, void*))
 	left_c = 1;
 	right_c = 2;
 	parent = 0;
-	while (left_c > pq->used_size)
+	while (left_c < pq->used_size)
 	{
 		if (right_c >= pq->used_size)
 			prior_c = left_c;
@@ -92,16 +92,16 @@ void	*pop_pq(t_pq *pq, int(*cmp)(void*, void*))
 		}
 		else
 			break ;
-		left_c = (parent - 1) * 2;
+		left_c = (parent * 2) + 1;
 		right_c = left_c + 1;
 	}
-	
+/*	
 	if (pq->used_size < (pq->size / 2))
 	{
 		pq->size /= 2;
 		if (!(pq->node = (void**)realloc(pq->node, pq->elem_size * pq->size)))
 			return (0);
-	}
+	} Shrink func needs to be implemented */
 	return (pop);
 }
 
@@ -115,6 +115,7 @@ void	destroy_pq(t_pq *pq)
 		free(pq->node[index]);
 		index++;
 	}
+	free(pq->node);
 	pq->node = NULL;
 	pq->size = 0;
 	pq->elem_size = 0;
