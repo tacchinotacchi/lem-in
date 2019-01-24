@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:56:53 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/23 14:15:59 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/24 13:12:33 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		parse_input(t_lemin *info)
 		else if (line[0] == '#')
 			list_add(&info->comments, list_new(line, ft_strlen(line) + 1));
 		else if (ft_strchr(line, ' '))
-			get_node_data(info, ft_strsplit(line, ' '), NODE);
+			get_node_data(info, ft_strsplit(line, ' '), 0);
 		else if (ft_strchr(line, '-'))
 			get_edge_data(info, ft_strsplit(line, '-'));
 		else

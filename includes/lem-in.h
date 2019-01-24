@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/24 11:39:25 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/24 16:20:08 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include "libft.h"
 # include "kpath.h"
 
-# define START 1
-# define END 2
-# define NODE 0
+# define START 0b1
+# define END 0b10
+# define GOAL 0b100
 
 typedef struct	s_colony_data
 {
@@ -29,7 +29,7 @@ typedef struct	s_colony_data
 	int		y;
 	int		bfs_weight;
 	int		in_use_by;
-	t_list	*shortest_path; /* TODO set in bfs */
+	size_t	next_in_shortest; /* TODO set in bfs */
 }				t_colony_data;
 
 typedef struct	s_edge_data
@@ -75,7 +75,6 @@ void	error(t_lemin *info);
 ssize_t	search_nodes(t_array *nodes, char *node);
 /* TODO review and move to libft */
 void	ft_splitdel(char **split);
-int		node_flags(t_lemin *input, size_t index);
-int		node_weight(t_lemin *input, size_t index);
+t_colony_data	*node_colony_data(const t_graph *graph, size_t index);
 
 #endif

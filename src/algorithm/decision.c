@@ -35,11 +35,10 @@ void explore_decision(t_lemin *input, t_decision *decision)
 		index = 0;
 		while (index < decision->subdecisions.length)
 		{
-			if (path_can_solve(path, decision->snapshot, (t_decision*)decision->subdecisions.ptr + index))
+			if (path_can_solve(path, decision->snapshot, (t_decision*)decision->subdecisions.ptr))
 			{
-				/* TODO report solution at max depth */
 				input->decision_depth++;
-				explore_decision(input, (t_decision*)decision->subdecisions.ptr + index);
+				explore_decision(input, (t_decision*)decision->subdecisions.ptr);
 				input->decision_depth--;
 			}
 			index++;

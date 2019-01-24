@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 15:38:17 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/24 11:03:25 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/24 16:33:58 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ typedef struct s_lemin	t_lemin;
 typedef struct	s_path_data
 {
 	t_list	*conflicts;
+	size_t	pseudotree_id;
 	size_t	creation_time;
 	size_t	graph_id;
-	size_t	pseudotree_id;
 	size_t	cost;
 }				t_path_data;
 
@@ -43,5 +43,11 @@ typedef struct	s_path
 
 t_path	next_acceptable_path(t_lemin *input,
 			t_path_graph *snapshot, t_pq *candidates);
+void	unmark(t_lemin *input, t_path_graph *snapshot, size_t path_index);
+t_list	*walk_up_tree(t_lemin *input, t_path_graph *snapshot, t_path *path,
+			size_t after_dev);
+void	prune_path(t_lemin *input, t_path_graph *snapshot, t_path *path,
+			size_t after_dev);
+t_path_data	*node_path_data(const t_graph *graph, size_t index);
 
 #endif
