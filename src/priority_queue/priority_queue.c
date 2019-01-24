@@ -6,23 +6,21 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 23:02:52 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/23 14:19:15 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/24 13:20:38 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "priority_queue.h"
 
-t_pq	*create_pq(int size)
+void	create_pq(t_pq *begin_pq, int elem_size)
 {
-	t_pq	*begin_pq;
 
-	if (!(begin_pq = (t_pq*)malloc(sizeof(t_pq))))
-		return (NULL);
-	begin_pq->size = size;
+	begin_pq->elem_size = elem_size;
+	begin_pq->size = 0;
 	begin_pq->used_size = 0;
 	if (!(begin_pq->node = (void**)malloc(sizeof(void*) * size)))
 		return (NULL);
-	return (begin_pq);
+	return;
 }
 
 int		add_pq(t_pq *pq, void *new_node, int(*cmp)(void*, void*))
@@ -95,12 +93,13 @@ int		pop_pq(t_pq *pq, void **pop, int(*cmp)(void*, void*))
 		left_c = (parent - 1) * 2;
 		right_c = left_c + 1;
 	}
+	/*
 	if (pq->used_size < (pq->size / 2))
 	{
 		pq->size /= 2;
 		if (!(pq->node = (void**)realloc(pq->node, sizeof(void*) * pq->size)))
 			return (0);
-	}
+	}*/
 	return (1);
 }
 
