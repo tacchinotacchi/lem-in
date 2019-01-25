@@ -6,14 +6,15 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 22:38:08 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/25 23:18:24 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "get_next_line.h"
+#include "array.h"
 
-ssize_t	(*g_func_table[])(char*) = {
+size_t	(*g_func_table[])(char*) = {
 	is_nbr_ants,
 	is_start,
 	is_end,
@@ -23,15 +24,15 @@ ssize_t	(*g_func_table[])(char*) = {
 	is_edge
 };
 
-void			init_t_array(t_array *array)
+void			init_t_array(t_array *array, size_t elem_size)
 {
 	array->ptr = NULL;
-	array->elem_size = 0;
+	array->elem_size = elem_size;
 	array->length = 0;
 	array->reserved = 0;
 }
 
-static ssize_t	check_special_flags(t_lemin *info, ssize_t flags)
+ssize_t	check_special_flags(t_lemin *info, ssize_t flags)
 {
 	if (info->f_start == 0 && !(flags & L_EDGE))
 		flags |= L_START;
@@ -50,22 +51,22 @@ ssize_t			choose_flags2(t_lemin *info, ssize_t success)
 	if (success == l_command)
 	{
 		flags = L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
-		flags = check_speical_flags(info, flags);
+		flags = check_special_flags(info, flags);
 	}
 	else if (success == l_comment)
 	{
 		flags = L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
-		flags = check_speical_flags(info, flags);
+		flags = check_special_flags(info, flags);
 	}
 	else if (success == l_node)
 	{
 		flags = L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
-		flags = check_speical_flags(info, flags);
+		flags = check_special_flags(info, flags);
 	}
 	else if (success == l_edge)
 	{
 		flags = L_COMMAND | L_COMMENT | L_EDGE;
-		flags = check_speical_flags(info, flags);
+		flags = check_special_flags(info, flags);
 	}
 	return (flags);
 }
@@ -102,7 +103,6 @@ ssize_t			choose_flags(t_lemin *info, ssize_t success)
 
 ssize_t				check_input(t_lemin *info, char *line, ssize_t flags)
 {
-	ssize_t	flags;
 	ssize_t	flags_reset;
 	ssize_t	index;
 	ssize_t	ret;
@@ -130,8 +130,8 @@ ssize_t			parse_input(t_lemin *info)
 	ssize_t		ret;
 
 	ret = 0;
-	init_t_array(&(info->graph.nodes));
-	init_t_array(&(info->graph.edges));
+	init_t_array(&(info->graph.nodes), sizeof(t_node));
+	init_t_array(&(info->graph.edges), sizeof(t_edge));
 	flags = L_ANTS | L_COMMAND | L_COMMENT;
 	while (get_next_line(0, &line) > 0)
 	{
@@ -144,7 +144,7 @@ ssize_t			parse_input(t_lemin *info)
 	}
 	if (info->f_start == 0 || info->f_end == 0 || info->f_ants == 0)
 		return (0);
-	ret = is_map_valid(info);
+	//ret = is_map_valid(info);
 	return (ret);
 }
 

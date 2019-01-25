@@ -6,11 +6,12 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 22:40:53 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/25 23:18:22 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "adjacency_list.h"
 
 void		init_colony_data(t_colony_data *data)
 {

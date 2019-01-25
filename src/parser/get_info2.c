@@ -6,11 +6,12 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 22:20:45 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 22:48:12 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/25 23:15:31 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "list.h"
 
 ssize_t     store_ants(t_lemin *info, char *line, ssize_t index)
 {
