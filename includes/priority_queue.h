@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:59:27 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 01:54:09 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/25 02:23:02 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 typedef struct	s_pq
 {
 	void		**node;
-	int			size;
-	int			elem_size;
-	int			used_size;
+	int		size;
+	int		elem_size;
+	int		used_size;
 }				t_pq;
 
 void			init_pq(t_pq *begin_pq, int elem_size);

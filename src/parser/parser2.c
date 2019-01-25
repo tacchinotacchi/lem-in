@@ -3,32 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/23 19:05:22 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/25 03:21:31 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "parser.h"
 #include "get_next_line.h"
-#include <stdio.h>
-
-#define L_ANTS 0b1
-#define L_START 0b10
-#define L_END 0b100
-#define L_COMMAND 0b1000
-#define L_COMMENT 0b10000
-#define L_NODE 0b100000
-#define L_EDGE 0b1000000
-
-size_t	is_nbr_ants(char *line);
-size_t	is_start(char *line);
-size_t	is_end(char *line);
-size_t	is_command(char *line);
-size_t	is_comment(char *line);
-size_t	is_node(char *line);
-size_t	is_edge(char *line);
 
 size_t	(*g_func_table[])(char*) = {
 	is_nbr_ants,
@@ -40,31 +23,40 @@ size_t	(*g_func_table[])(char*) = {
 	is_edge
 };
 
-size_t	choose_flags(size_t line_index)
+size_t	choose_flags(size_t line_index, size_t success)
 {
-	/*TODO turn off or turn on flags regarding which line has been read or which test were failed*/
+	size_t	flags;
+
+	flags = 0;
+	if (success == l_ants)
+		flags = L_START | L_END | L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
+	if (success == l_start || success == l_end)
+	{
+		if (success == l_start)
+			flags = L_END | L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
+	}
+	else if (success == l_end)
+		flags = L_START
+	else if (success == l_command)
+	else if (success == l_comment)
+	else if (success == l_node)
+	else if (success == l_edge)
 	return (flags);
 }
 
-size_t	turn_off_flags(size_t f_index);
-{
-	return (flags);
-}
-
-int		check_input(char *line, size_t flags, size_t line_index)
+int		check_input(t_lemin *info, char *line, size_t flags, size_t line_index)
 {
 	size_t	flags;
 	size_t	index;
+	size_t	ret;
 
-	//	1		1		1		1		1		1		1
-	//	edge	node	comment	command	end		start	ants	
-	flags = L_ANTS | L_COMMANDS | L_COMMENTS;
-	while (f_index < 7)
+	ret = 0;
+	while (index < 7)
 	{
 		if (((flags = flags >> index) & 1) && g_func_table[index](line))
 		{
-			store_input();
-			return (TYPE_OF_SUCESS);
+			ret = store_input(info, index, line);
+			return (ret);
 		}
 		index++;
 	}
@@ -73,16 +65,22 @@ int		check_input(char *line, size_t flags, size_t line_index)
 
 int		parse_input(t_lemin *info)
 {
-	char	*line;
-	size_t	line_index;
-	size_t	flags;
+	char		*line;
+	size_t		line_index;
+	size_t		flags;
+	size_t		ret;
 
-	input_index = 0;
+	line_index = 0;
+	ret = 0;
+	flags = L_ANTS | L_COMMAND | L_COMMENT;
 	while (get_next_line(0, &line) > 0)
 	{
-		check_input(line, flags, line_index);
+		ret = check_input(info, line, flags, line_index);
 		free(line);
-		flags = choose_flags(line_index);
+		if (ret > -1)
+			flags = choose_flags(line_index, ret);
+		else
+			error(info);
 		line_index++;
 	}
 	return (0);
@@ -90,8 +88,7 @@ int		parse_input(t_lemin *info)
 
 int		main(void)
 {
-	t_lemin info;
-
+	t_lemin 	info;
 	ft_bzero(&info, sizeof(t_lemin));
 	parse_input(&info);
 	return (0);
