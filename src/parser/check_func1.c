@@ -6,11 +6,12 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 17:13:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 05:46:56 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/25 18:40:26 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "get_next_line.h"
 
 size_t  is_nbr_ants(char *line)
 {
@@ -29,8 +30,7 @@ size_t  is_start(char *line)
 		free(line);
 		if (get_next_line(0, &line) < 1)
 			return (0);
-		is_node(line);
-		return (1);
+		return (is_node(line));
 		
 }
 
@@ -42,12 +42,13 @@ size_t  is_end(char *line)
 		if (get_next_line(0, &line) < 1)
 			return (0);
 		is_node(line);
-		return (1);
+		return (is_node(line));
 }
 
 size_t  is_command(char *line)
 {
 	    if(line[0] == '#' && line[1] == '!')
+		/*instructions for command must be specified to add condition*/
 			return (1);
 		return (0);
 }
