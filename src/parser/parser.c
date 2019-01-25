@@ -5,75 +5,142 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/20 18:56:53 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/23 19:05:24 by jaelee           ###   ########.fr       */
+/*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
+/*   Updated: 2019/01/25 22:18:16 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser.h"
 #include "get_next_line.h"
-#include "lem-in.h"
 
-void	init_nodes_and_edges(t_graph *graph)
+ssize_t	(*g_func_table[])(char*) = {
+	is_nbr_ants,
+	is_start,
+	is_end,
+	is_command,
+	is_comment,
+	is_node,
+	is_edge
+};
+
+static ssize_t	check_special_flags(t_lemin *info, ssize_t flags)
 {
-	graph->nodes.ptr = NULL;
-	graph->nodes.elem_size = sizeof(t_node);
-	graph->nodes.length = 0;
-	graph->nodes.reserved = 0;
-
-	graph->edges.ptr = NULL;
-	graph->edges.elem_size = sizeof(t_edge);
-	graph->edges.length = 0;
-	graph->edges.reserved = 0;
+	if (info->f_start == 0 && !(flags & L_EDGE))
+		flags |= L_START;
+	if (info->f_end == 0 && !(flags & L_EDGE))
+    	flags |= L_END;
+	if (info->f_ants == 0 && (flags & L_COMMAND || flags & L_COMMENT))
+		flags |= L_ANTS;
+	return (flags);
 }
 
-void	get_ants(t_lemin *info)
+ssize_t			choose_flags2(t_lemin *info, ssize_t success)
 {
-	char	*line;
+	ssize_t flags;
 
-	/* TODO this adds repeating ##start and ##end lines as comments */
-	while (get_next_line(0, &line) < 1 && line[0] == '#')
-			list_add(&info->comments, list_new(line, ft_strlen(line) + 1));
-	if (line == NULL)
-		error(info);
-	/* TODO check if the line is comprised only of numbers */
-	info->ants = ft_atoi(line);
-	if (info->ants <= 0)
-		error(info);
+	flags = 0;
+	if (success == l_command)
+	{
+		flags = L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
+		flags = check_speical_flags(info, flags);
+	}
+	else if (success == l_comment)
+	{
+		flags = L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
+		flags = check_speical_flags(info, flags);
+	}
+	else if (success == l_node)
+	{
+		flags = L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
+		flags = check_speical_flags(info, flags);
+	}
+	else if (success == l_edge)
+	{
+		flags = L_COMMAND | L_COMMENT | L_EDGE;
+		flags = check_speical_flags(info, flags);
+	}
+	return (flags);
+}
+ssize_t			choose_flags(t_lemin *info, ssize_t success)
+{
+	ssize_t	flags;
+
+	flags = 0;
+	if (success == l_ants)
+	{
+		info->f_ants = 1;
+		flags = L_START | L_END | L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
+	}
+	else if (success == l_start && info->f_start == 0)
+	{
+		info->f_start = 1;
+		if (info->f_end == 0)
+			flags = L_END | L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
+		else 
+			flags = L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
+	}
+	else if (success == l_end && info->f_end == 0)
+	{	
+		info->f_end = 1;
+		if (info->f_start == 0)
+			flags = L_START | L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
+		else
+			flags = L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
+	}
+	else
+		flags = choose_flags2(info, success);	
+	return (flags);
 }
 
-int		parse_input(t_lemin *info)
+ssize_t				check_input(t_lemin *info, char *line, ssize_t flags)
 {
-	char	*line;
+	ssize_t	flags;
+	ssize_t	flags_reset;
+	ssize_t	index;
+	ssize_t	ret;
 
-	init_nodes_and_edges(&(info->graph));
-	get_ants(info);
+	ret = 0;
+	index = 0;
+	flags_reset = flags;
+	while (index < 7)
+	{
+		flags = flags_reset;
+		if (((flags = flags >> index & 1) && g_func_table[index](line)))
+		{
+			ret = store_input(info, index, line);
+			return (ret);
+		}
+		index++;
+	}
+	return (FAIL);
+}
+
+ssize_t			parse_input(t_lemin *info)
+{
+	char		*line;
+	ssize_t		flags;
+	ssize_t		ret;
+
+	ret = 0;
+	flags = L_ANTS | L_COMMAND | L_COMMENT;
 	while (get_next_line(0, &line) > 0)
 	{
-		if (ft_strcmp(line, "##start") == 0)
-			get_start_data(info);
-		else if (ft_strcmp(line, "##end") == 0)
-			get_end_data(info);
-		/* TODO this adds repeating ##start and ##end lines as comments */
-		else if (line[0] == '#')
-			list_add(&info->comments, list_new(line, ft_strlen(line) + 1));
-		else if (ft_strchr(line, ' '))
-			get_node_data(info, ft_strsplit(line, ' '), NODE);
-		else if (ft_strchr(line, '-'))
-			get_edge_data(info, ft_strsplit(line, '-'));
-		else
-		{
-			free(line);
-			error(info);
-		}
+		ret = check_input(info, line, flags);
 		free(line);
+		if (ret > -1)
+			flags = choose_flags(info, ret);
+		else
+			return (0);
 	}
-	return (1);
+	if (info->f_start == 0 || info->f_end == 0 || info->f_ants == 0)
+		return (0);
+	ret = is_map_valid(info);
+	return (ret);
 }
 
-int		main(void)
+int				main(void)
 {
-	t_lemin	info;
-
+	t_lemin 	info;
 	ft_bzero(&info, sizeof(t_lemin));
 	parse_input(&info);
 	return (0);

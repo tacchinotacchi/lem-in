@@ -6,13 +6,13 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 04:31:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 19:50:07 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/25 21:45:27 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-ssize_t	ft_str_is_digit(const char *str)
+size_t	ft_str_is_digit(const char *str)
 {
 	ssize_t index;
 
@@ -25,20 +25,29 @@ ssize_t	ft_str_is_digit(const char *str)
 	return (1);
 }
 
-ssize_t	is_comment(char *line)
+size_t	is_comment(char *line)
 {
 	if (line[0] == '#' && line[1] != '#') /*separation from comment*/
 		return (1);
 	return (0);
 }
 
-ssize_t	is_node(char *line)
+size_t	is_node(char *line)
 {
 	char	**split;
+	int		cnt;
 
-	split = ft_strsplit(line, ' ');
-	if (line[0] != 'L' && line[0] != '#' && split[0] && split[1] && split[2] &&
-	!split[3] && ft_str_is_digit(split[1]) && ft_str_is_digit(split[2]))
+
+	if (!(split = ft_strsplit(line, ' ')))
+	{
+		ft_splitdel(split);
+		return (0);
+	}
+	cnt = 0;
+	while (split[cnt])
+		cnt++;
+	if (line[0] != 'L' && line[0] != '#' && cnt == 3 &&
+	ft_str_is_digit(split[1]) && ft_str_is_digit(split[2]))
 	{
 		ft_splitdel(split);
 		return (1);
@@ -47,13 +56,20 @@ ssize_t	is_node(char *line)
 	return (0);
 }
 
-ssize_t	is_edge(char *line)
+size_t	is_edge(char *line)
 {
-	int		index;
+	int		cnt;
 	char	**split;
 
-	split = ft_strsplit(line, ' ');
-	if (split[0] && split[1] && !split[2] && ft_str_is_digit(split[0]) &&
+	if (!(split = ft_strsplit(line, ' ')))
+	{	
+		ft_splitdel(split);
+		return (0);
+	}
+	cnt = 0;
+	while (split[cnt])
+		cnt++;
+	if (cnt == 2 && ft_str_is_digit(split[0]) &&
 	ft_str_is_digit(split[1]) && ft_strcmp(split[0], split[1]))
 	{
 		ft_splitdel(split);

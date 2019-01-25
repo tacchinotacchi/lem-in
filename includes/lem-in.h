@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 20:15:04 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/25 22:18:12 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "adjacency_list.h"
 # include "libft.h"
 # include "kpath.h"
-# include "parser.h"
 
 # define START 1
 # define END 2
@@ -56,8 +55,9 @@ typedef struct	s_solution
 typedef struct 	s_lemin
 {
 	int			ants;
-	int			start;
-	int			end;
+	int			f_start;
+	int			f_end;
+	int			f_ants;
 	t_list		*comments;
 	t_graph		graph;
 	t_decision	*curr_decisions;
@@ -66,17 +66,6 @@ typedef struct 	s_lemin
 	t_list		*solutions;
 }				t_lemin;
 
-
-void	get_ants(t_lemin *info);
-void	init_nodes_and_edges(t_graph *graph);
-void	get_start_data(t_lemin *info);
-void	get_end_data(t_lemin *info);
-int		get_node_data(t_lemin *info, char **split, int flags);
-int		get_edge_data(t_lemin *info, char **split);
-void	error(t_lemin *info);
-int		search_nodes(t_array *nodes, char *node);
-/* TODO review and move to libft */
-void	ft_splitdel(char **split);
 int		node_flags(t_lemin *input, size_t index);
 int		node_weight(t_lemin *input, size_t index);
 
