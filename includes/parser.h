@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 22:18:10 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/25 22:40:51 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ size_t		is_edge(char *line);
 
 size_t		ft_str_is_digit(const char *str); /*TODO to libft */
 void		ft_splitdel(char **split); /*TODO to libft */
+void		init_t_array(t_array *array); /*TODO to libft */
 ssize_t		store_node_data(t_lemin *info, char *line, ssize_t index);
 ssize_t		search_nodes(t_array *nodes, char *node);
 ssize_t		store_edge_data(t_lemin *info, char *line, ssize_t index);
+
 #endif

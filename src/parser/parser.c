@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 22:18:16 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/25 22:38:08 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ ssize_t	(*g_func_table[])(char*) = {
 	is_node,
 	is_edge
 };
+
+void			init_t_array(t_array *array)
+{
+	array->ptr = NULL;
+	array->elem_size = 0;
+	array->length = 0;
+	array->reserved = 0;
+}
 
 static ssize_t	check_special_flags(t_lemin *info, ssize_t flags)
 {
@@ -122,6 +130,8 @@ ssize_t			parse_input(t_lemin *info)
 	ssize_t		ret;
 
 	ret = 0;
+	init_t_array(&(info->graph.nodes));
+	init_t_array(&(info->graph.edges));
 	flags = L_ANTS | L_COMMAND | L_COMMENT;
 	while (get_next_line(0, &line) > 0)
 	{
