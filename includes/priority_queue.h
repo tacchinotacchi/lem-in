@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   priority_queue.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:59:27 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/24 17:30:57 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/25 01:54:09 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct	s_pq
 	int			used_size;
 }				t_pq;
 
-void			create_pq(t_pq *begin_pq, int elem_size);
+void			init_pq(t_pq *begin_pq, int elem_size);
 int				add_pq(t_pq *pq, void *new_node, int(*cmp)(void*, void*));
 void			*pop_pq(t_pq *pq, int(*cmp)(void*, void*));
 void			swap_node_pq(t_pq *pq, int child, int parent);

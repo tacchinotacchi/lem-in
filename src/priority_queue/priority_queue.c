@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   priority_queue.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 23:02:52 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/24 18:41:39 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/25 02:15:28 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "priority_queue.h"
 
-void	create_pq(t_pq *begin_pq, int elem_size)
+void	init_pq(t_pq *begin_pq, int elem_size)
 {
 	begin_pq->elem_size = elem_size;
 	begin_pq->size = 0;
 	begin_pq->used_size = 0;
 	begin_pq->node = NULL;
-	/*if (!(begin_pq->node = (void**)malloc(begin_pq->elem_size * begin_pq->size)))
-		return (0);*/
 }
 
 int		add_pq(t_pq *pq, void *new_node, int(*cmp)(void*, void*))
@@ -95,13 +93,6 @@ void	*pop_pq(t_pq *pq, int(*cmp)(void*, void*))
 		left_c = (parent * 2) + 1;
 		right_c = left_c + 1;
 	}
-/*	
-	if (pq->used_size < (pq->size / 2))
-	{
-		pq->size /= 2;
-		if (!(pq->node = (void**)realloc(pq->node, pq->elem_size * pq->size)))
-			return (0);
-	} Shrink func needs to be implemented */
 	return (pop);
 }
 

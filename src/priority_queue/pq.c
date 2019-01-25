@@ -12,7 +12,7 @@ int main()
 	t_pq	pq;
 	char	**pop;
 
-	create_pq(&pq, sizeof(char*));
+	init_pq(&pq, sizeof(char*));
 	add_pq(&pq, &array[0], ft_lencmp);
 	add_pq(&pq, &array[1], ft_lencmp);
 	add_pq(&pq, &array[2], ft_lencmp);
