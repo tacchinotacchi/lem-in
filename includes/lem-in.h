@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/23 18:31:03 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/25 04:28:40 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct	s_solution
 typedef struct 	s_lemin
 {
 	int			ants;
+	int			start;
+	int			end;
 	t_list		*comments;
 	t_graph		graph;
 	t_decision	*curr_decisions;

@@ -1,48 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_func.c                                       :+:      :+:    :+:   */
+/*   check_func1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 17:13:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/23 17:24:13 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/25 05:46:56 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "parser.h"
 
 size_t  is_nbr_ants(char *line)
 {
-	    return (0);
+	int	index;
+
+	index = 0;
+	if (ft_str_is_digit(line) && ft_atoi(line) > 0)
+		return (1);
+	return (0);
 }
 
 size_t  is_start(char *line)
 {
-	    return (0);
+	    if(!ft_strcmp("##start", line))
+			return (0);
+		free(line);
+		if (get_next_line(0, &line) < 1)
+			return (0);
+		is_node(line);
+		return (1);
+		
 }
 
 size_t  is_end(char *line)
 {
-	    return (0);
+	    if(!ft_strcmp("##end", line))
+			return (0);
+		free(line);
+		if (get_next_line(0, &line) < 1)
+			return (0);
+		is_node(line);
+		return (1);
 }
 
 size_t  is_command(char *line)
 {
-	    return (0);
-}
-
-size_t  is_comment(char *line)
-{
-	    return (0);
-}
-
-size_t  is_node(char *line)
-{
-	    return (0);
-}
-
-size_t is_edge(char *line)
-{
-	    return (0);
+	    if(line[0] == '#' && line[1] == '!')
+			return (1);
+		return (0);
 }
