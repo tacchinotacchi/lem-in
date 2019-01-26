@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 19:12:46 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 19:44:34 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ typedef struct 	s_lemin
 	t_list		*comments;
 	t_graph		graph;
 	size_t		*start_nodes;
-	t_list		**curr_paths;
-	t_list		**best_solution;
+	t_path		*curr_paths;
+	t_path		*best_solution;
+	int			best_solution_instr;
 	size_t		decision_depth;
 	size_t		max_decision_depth;
 }				t_lemin;

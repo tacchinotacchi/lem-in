@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 16:28:10 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/26 19:22:37 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 20:49:37 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,39 @@ int		init_path_graph(t_lemin *input, t_path_graph *path_graph, t_pq *candidates)
 	path_data.graph_id = input->start_nodes[input->decision_depth];
 	path_data.cost = 0;
 	add_node(path_graph->graph, &path_data, sizeof(t_path_data));
+	return (0);
 }
 
+void	consider_solution(t_lemin *input)
+{
+	size_t	index;
+	int		instr;
+
+	index = 0;
+	while (index < input->max_decision_depth)
+	{
+		if (input->curr_paths[index].nodes
+			&& (input->best_solution[index].nodes
+				||input->curr_paths[index].cost < input->best_solution[index].cost))
+			break;
+		index++;
+	}
+	if (index < input->max_decision_depth)
+	{
+		instr = eval_solution(input);
+		if (instr < input->best_solution_instr)
+		{
+			instr = input->best_solution_instr;
+			copy_solution(input);
+		}
+	}
+}
 
 void	explore_decision(t_lemin *input)
 {
 	t_path_graph	path_graph;
 	t_pq			candidates;
 	t_path			path;
-	size_t			index;
 	int				null_tried;
 
 	null_tried = 0;
@@ -44,8 +68,9 @@ void	explore_decision(t_lemin *input)
 	input->decision_depth++;
 	while (!null_tried)
 	{
+		/* TODO set max path length as argument, return NULL first time a potential path exceeds it */
 		path = next_acceptable_path(input, &path_graph, &candidates);
-		if (!path)
+		if (!path.nodes)
 			null_tried = 1;
 		input->curr_paths[input->decision_depth] = path;
 		if (input->decision_depth < input->max_decision_depth - 1)

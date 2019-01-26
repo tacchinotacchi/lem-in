@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 15:38:17 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/26 18:41:36 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 20:45:28 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef struct	s_path
 	t_list	*nodes;
 	t_graph *path_tree;
 	size_t 	dev_node;
-	ssize_t	rank;
+	size_t	rank;
+	size_t	cost;
 }				t_path;
 
 size_t	add_node_pseudotree(t_path_graph *snapshot, size_t parent, size_t graph_id);

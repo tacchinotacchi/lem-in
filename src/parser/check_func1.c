@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 17:13:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 05:02:11 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 19:27:39 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 size_t  is_nbr_ants(char *line)
 {
-	int	index;
-
-	index = 0;
 	if (ft_str_is_digit(line) && ft_atoi(line) > 0)
 		return (1);
 	return (0);

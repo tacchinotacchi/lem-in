@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 15:43:01 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/26 17:51:44 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 20:48:28 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ t_path	next_acceptable_path(t_lemin *input,
 	}
 	path.rank = snapshot->time_frame;
 	path.path_tree = snapshot->graph;
-	return ((path_found) ? path : (t_path){NULL, NULL, 0, -1});
+	/* TODO set path cost */
+	return ((path_found) ? path : (t_path){NULL, NULL, 0, 0});
 }

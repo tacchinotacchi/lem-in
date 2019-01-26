@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 18:03:10 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/26 18:38:22 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 20:13:54 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ int		explore_sidetracks(t_lemin *input, t_path_graph *snapshot,
 
 	graph_id = (node_path_data(snapshot->graph, path_id))->graph_id;
 	path_traverse = node_in_edges(snapshot->graph, path_id);
-	graph_traverse = node_out_edges(&input->graph, index);
+	graph_traverse = node_out_edges(&input->graph, graph_id);
 	while (graph_traverse)
 	{
+		/*TODO if graph_traverse points to a graph node that brings us back directly to graph_id, continue; */
 		if (!path_traverse)
 			break;
 		path_traverse = path_traverse->next;
