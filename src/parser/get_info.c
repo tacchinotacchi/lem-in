@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 19:02:41 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 20:01:32 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ ssize_t		store_input(t_lemin *info, ssize_t index, char *line)
 		ret = store_ants(info, line, index);
 	else if (index == l_start || index == l_end)
 		return (index);
-	else if (index == l_node)
+	else if (index == l_node || index == l_start_node || index == l_end_node)
 		ret = store_node_data(info, line, index);
     else if (index == l_edge)
         ret = store_edge_data(info, line, index);
@@ -71,9 +71,14 @@ ssize_t 	  store_node_data(t_lemin *info, char *line, ssize_t index)
 	init_colony_data(&data);
 	if (!(data.name = ft_strdup(split[0])))
 		return (FAIL);
-	/* TODO check the coordinates are comprised only of numbers */
 	data.x = ft_atoi(split[1]);
 	data.y = ft_atoi(split[2]);
+	if (index == l_node)
+		data.flags = GOAL;
+	else if (index == l_start_node)
+		data.flags = START;
+	else if (index == l_end_node)
+		data.flags = END;
 	ft_splitdel(split);
 	add_node(&(info->graph), &data, sizeof(data));
 	return (index);

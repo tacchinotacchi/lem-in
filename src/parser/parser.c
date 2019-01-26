@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 18:40:46 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 20:09:12 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ size_t	(*g_func_table[])(char*) = {
 	is_end,
 	is_command,
 	is_comment,
+	is_start_node,
+	is_end_node,
 	is_node,
 	is_edge
 };
@@ -50,7 +52,7 @@ ssize_t			choose_flags2(t_lemin *info, ssize_t success)
 		flags = L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
 		flags = check_special_flags(info, flags, success);
 	}
-	else if (success == l_node)
+	else if (success == l_node || success == l_start_node || success == l_end_node)
 	{
 		flags = L_COMMAND | L_COMMENT | L_NODE | L_EDGE;
 		flags = check_special_flags(info, flags, success);
@@ -75,19 +77,19 @@ ssize_t			choose_flags(t_lemin *info, ssize_t success)
 	else if (success == l_start && info->f_start == 0)
 	{
 		info->f_start = 1;
-		flags = L_NODE;
+		flags = L_START_NODE;
 	}
 	else if (success == l_end && info->f_end == 0)
 	{
 		info->f_end = 1;
-		flags = L_NODE;
+		flags = L_END_NODE;
 	}
 	else
 		flags = choose_flags2(info, success);
 	return (flags);
 }
 
-ssize_t				check_input(t_lemin *info, char *line, ssize_t flags)
+ssize_t			check_input(t_lemin *info, char *line, ssize_t flags)
 {
 	ssize_t	flags_reset;
 	ssize_t	index;
@@ -130,11 +132,11 @@ ssize_t			parse_input(t_lemin *info)
 	}
 	if (info->f_start == 0 || info->f_end == 0 || info->f_ants == 0)
 		return (0);
-	/* TODO ret = is_map_valid(info); */
+	/* TODO ret = is_map_valid(info); run BFS once to see the end is inside the list*/
 	return (ret);
 }
 
-int				main(void)
+int			main(void)
 {
 	t_lemin 	info;
 	ft_bzero(&info, sizeof(t_lemin));

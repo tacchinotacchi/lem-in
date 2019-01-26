@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 18:34:14 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 20:09:14 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 # define L_END 0b100
 # define L_COMMAND 0b1000
 # define L_COMMENT 0b10000
-# define L_NODE 0b100000
-# define L_EDGE 0b1000000
+# define L_START_NODE 0b100000
+# define L_END_NODE 0b1000000
+# define L_NODE 0b10000000
+# define L_EDGE 0b100000000
 # define FAIL -1
 
 typedef enum	s_success
@@ -30,6 +32,8 @@ typedef enum	s_success
 	l_end,
 	l_command,
 	l_comment,
+	l_start_node,
+	l_end_node,
 	l_node,
 	l_edge
 }				t_success;
@@ -57,6 +61,8 @@ size_t		is_start(char *line);
 size_t		is_end(char *line);
 size_t		is_command(char *line);
 size_t		is_comment(char *line);
+size_t		is_start_node(char *line);
+size_t		is_end_node(char *line);
 size_t		is_node(char *line);
 size_t		is_edge(char *line);
 
