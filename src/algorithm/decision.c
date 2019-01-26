@@ -6,12 +6,13 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 16:28:10 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/26 18:41:07 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 19:22:37 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "array.h"
 #include "kpath.h"
+#include "priority_queue.h"
 #include "lem-in.h"
 
 int		init_path_graph(t_lemin *input, t_path_graph *path_graph, t_pq *candidates)
@@ -21,7 +22,7 @@ int		init_path_graph(t_lemin *input, t_path_graph *path_graph, t_pq *candidates)
 	path_graph->time_frame = 0;
 	array_init(&path_graph->graph->nodes, sizeof(t_node));
 	array_init(&path_graph->graph->edges, sizeof(t_edge));
-	create_pq(candidates, sizeof(t_path_data));
+	init_pq(candidates, sizeof(t_path_data));
 	path_data.pseudotree_id = 0;
 	path_data.creation_time = 0;
 	path_data.graph_id = input->start_nodes[input->decision_depth];

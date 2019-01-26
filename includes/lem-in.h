@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 16:59:49 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 19:12:46 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ typedef struct	s_edge_data
 typedef struct 	s_lemin
 {
 	int			ants;
+	int			f_start;
+	int			f_end;
+	int			f_ants;
 	t_list		*comments;
 	t_graph		graph;
 	size_t		*start_nodes;
@@ -49,7 +52,6 @@ typedef struct 	s_lemin
 	size_t		max_decision_depth;
 }				t_lemin;
 
-int		parse_input(t_lemin *info);
 void	get_ants(t_lemin *info);
 void	init_nodes_and_edges(t_graph *graph);
 void	get_start_data(t_lemin *info);

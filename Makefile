@@ -1,6 +1,16 @@
 SRCS = parser/error.c \
-	parser/get_info.c \
 	parser/parser.c \
+	parser/get_info.c \
+	parser/get_info2.c \
+	parser/check_func1.c \
+	parser/check_func2.c \
+	algorithm/bfs_precompute.c \
+	algorithm/sidetrack_precompute.c \
+	algorithm/conflict.c \
+	algorithm/decision.c \
+	algorithm/kpath_tree.c \
+	algorithm/kpath_util.c \
+	algorithm/kpath.c \
 	adjacency_list/adjacency_list.c \
 	priority_queue/priority_queue.c
 INCLUDES = libft/includes/libft.h \
@@ -44,6 +54,7 @@ obj:
 	mkdir -p obj/parser
 	mkdir -p obj/adjacency_list
 	mkdir -p obj/priority_queue
+	mkdir -p obj/algorithm
 
 obj/%.o: src/%.c $(INCLUDES) | obj
 	$(CC) $(CFLAGS) $(INCLUDE_FOLDERS) -o $@ -c $<
