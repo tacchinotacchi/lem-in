@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 03:25:36 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 03:31:14 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,17 @@ size_t	(*g_func_table[])(char*) = {
 	is_edge
 };
 
-void			init_t_array(t_array *array, size_t elem_size)
+void	init_nodes_and_edges(t_graph *graph)
 {
-	array->ptr = NULL;
-	array->elem_size = elem_size;
-	array->length = 0;
-	array->reserved = 0;
+	graph->nodes.ptr = NULL;
+	graph->nodes.elem_size = sizeof(t_node);
+	graph->nodes.length = 0;
+	graph->nodes.reserved = 0;
+
+	graph->edges.ptr = NULL;
+	graph->edges.elem_size = sizeof(t_edge);
+	graph->edges.length = 0;
+	graph->edges.reserved = 0;
 }
 
 ssize_t	check_special_flags(t_lemin *info, ssize_t flags, ssize_t success)
@@ -125,8 +130,7 @@ ssize_t			parse_input(t_lemin *info)
 	ssize_t		ret;
 
 	ret = 0;
-	init_t_array(&(info->graph.nodes), sizeof(t_node));
-	init_t_array(&(info->graph.edges), sizeof(t_edge));
+	init_nodes_and_edges(&(info->graph));
 	flags = L_ANTS | L_COMMAND | L_COMMENT;
 	while (get_next_line(0, &line) > 0)
 	{

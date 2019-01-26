@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 03:22:37 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 03:39:20 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ ssize_t	store_edge_data(t_lemin *info, char *line, ssize_t index)
 
 	tail = 0;
 	head = 0;
-	if (!(split = ft_strsplit(line, ' ')))
+	if (!(split = ft_strsplit(line, '-')))
 	{
 		ft_splitdel(split);
 		return (FAIL);
