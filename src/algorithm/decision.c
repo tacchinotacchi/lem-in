@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 16:28:10 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/24 18:54:46 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 17:00:26 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,39 @@
 #include "kpath.h"
 #include "lem-in.h"
 
-/* TODO clear subdecisions */
-void destroy_decision(t_decision *decision);
-
 int		path_can_solve(t_path path, t_path_graph *snapshot, t_decision *decision)
 {
 	/* TODO stub */
 	return (1);
 }
 
-void explore_decision(t_lemin *input, t_decision *decision)
+void explore_decision(t_lemin *input)
 {
-	t_path	path;
-	size_t	index;
+	t_path_graph	*path_graph;
+	t_pq			*candidates;
+	t_path			path;
+	size_t			index;
+	int				null_tried;
 
-	input->curr_decisions[input->decision_depth] = *decision;
-	while (decision->subdecisions_count > 0)
+	//input->curr_decisions[input->decision_depth] = *decision;
+	null_tried = 0;
+	init_path_graph(input, path_graph, candidates);
+	input->decision_depth++;
+	while (!null_tried)
 	{
-		path = next_acceptable_path(input, &decision->snapshot, decision->candidates);
-		index = 0;
-		/* TODO iterate over solutions solvable by deviation node */
-		while (index < decision->subdecisions.length)
+		path = next_acceptable_path(input, path_graph, candidates);
+		if (!path)
+			null_tried = 1;
+		input->curr_paths[input->decision_depth] = path;
+		if (input->decision_depth < input->max_decision_depth - 1)
+			explore_decision(input);
+		else
 		{
-			/*TODO mark subdecision as obsolete if it is */
-			/*TODO if subdecision has been marked obsolete, remove reference */
-			if (input->decision_depth == input->max_decision_depth)
-			{
-				input->decision_depth++;
-				/* TODO save proposed solution to this decision before reporting solution and conflicts*/
-				explore_decision(input, (t_decision*)decision->subdecisions.ptr + index);
-				input->decision_depth--;
-			}
-			else
-			{
-				/* TODO report solution if we have reached max depth */;
-			}
-			index++;
+			consider_solution(input);
+			break;
 		}
+		/* TODO destroy path */
 	}
-	destroy_decision(decision);
+	/* TODO destroy path_graph, candidates */
+	input->decision_depth--;
 }

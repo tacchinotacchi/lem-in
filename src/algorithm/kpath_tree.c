@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 18:03:10 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/24 20:06:11 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 15:59:00 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ size_t	walk_up_tree(t_lemin *input, t_path_graph *snapshot, t_path *path,
 	while (nodes_left)
 	{
 		path_node = &((t_node*)snapshot->graph->nodes.ptr)[node_index];
-		node_reserve(input, path_node->data);
 		list_add(&path->nodes, list_new(&node_index, sizeof(size_t)));
 		if (path_node->out_edges)
 		{
@@ -103,9 +102,12 @@ void	prune_path(t_lemin *input, t_path_graph *snapshot, t_path *path,
 	/* TODO set GOAL flag */
 	while (!((node_colony_data(&input->graph, curr_graph_node))->flags & GOAL))
 	{
-		/* TODO prune path while adding nodes to path, increase cost, set path's cost so far in t_path_data of newly added node */
+		curr_graph_node = *(size_t*)(node_out_edges(&input->graph, curr_graph_node))->content;
+		curr_path_node = add_node_snapshot(snapshot, curr_path_node, curr_graph_node);
+		list_append(&path->nodes, list_new(&curr_path_node, sizeof(size_t)));
+		(node_path_data(snapshot->graph, curr_path_node))->cost = ++cost;
 	}
 	curr_path_node = add_node_snapshot(snapshot, curr_path_node, curr_graph_node);
-	/* TODO set path's cost so far in path */
-	list_add(&path->nodes, list_new(&curr_path_node, sizeof(size_t)));
+	(node_path_data(snapshot->graph, curr_path_node))->cost = ++cost;
+	list_append(&path->nodes, list_new(&curr_path_node, sizeof(size_t)));
 }
