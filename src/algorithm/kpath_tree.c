@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 18:03:10 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/26 15:59:00 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 18:38:22 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ size_t	add_node_pseudotree(t_path_graph *snapshot, size_t parent, size_t graph_i
 	add_node(snapshot->graph, &new_data, sizeof(t_path_data));
 	new_index = snapshot->graph->nodes.length - 1;
 	(node_path_data(snapshot->graph, new_index))->pseudotree_id = new_index;
+	add_edge(snapshot->graph, new_index, parent, 0);
 	return (new_index);
 }
 
@@ -59,6 +60,31 @@ void	node_reserve(t_lemin *input, t_path_data *path_data)
 	graph_node = &((t_node*)input->graph.nodes.ptr)[path_data->graph_id];
 	((t_colony_data*)graph_node->data)->marked_decision = input->decision_depth;
 	((t_colony_data*)graph_node->data)->marked_path_id = path_data->pseudotree_id;
+}
+
+int		explore_sidetracks(t_lemin *input, t_path_graph *snapshot,
+			t_pq *candidates, size_t path_id)
+{
+	t_list	*graph_traverse;
+	t_list	*path_traverse;
+	size_t	cand_graph_id;
+	size_t	cand_path_id;
+	size_t	graph_id;
+
+	graph_id = (node_path_data(snapshot->graph, path_id))->graph_id;
+	path_traverse = node_in_edges(snapshot->graph, path_id);
+	graph_traverse = node_out_edges(&input->graph, index);
+	while (graph_traverse)
+	{
+		if (!path_traverse)
+			break;
+		path_traverse = path_traverse->next;
+		graph_traverse = graph_traverse->next;
+	}
+	cand_graph_id = *(size_t*)graph_traverse->content;
+	cand_path_id = add_node_pseudotree(snapshot->graph, path_id, edge_head(cand_graph_id));
+	add_pq(candidates, &node_path_data(snapshot->graph, cand_path_id), pseudotree_cmp);
+	return (0);
 }
 
 size_t	walk_up_tree(t_lemin *input, t_path_graph *snapshot, t_path *path,

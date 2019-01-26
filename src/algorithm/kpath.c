@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 15:43:01 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/26 16:18:16 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 17:51:44 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 #include "kpath.h"
 #include "lem-in.h"
 
-int		pseudotree_cmp(void *data1, void *data2);
+int		pseudotree_cmp(void *data1, void *data2)
+{
+	t_path_data	*node1;
+	t_path_data	*node2;
+
+	node1 = data1;
+	node2 = data2;
+	return (node1->cost - node2->cost);
+}
 
 void	unmark(t_lemin *input, t_path_graph *snapshot, size_t path_id)
 {
@@ -34,31 +42,34 @@ void	unmark(t_lemin *input, t_path_graph *snapshot, size_t path_id)
 t_path	next_acceptable_path(t_lemin *input,
 			t_path_graph *snapshot, t_pq *candidates)
 {
-	t_node	*best;
-	t_list	*trav_path;
-	t_path	path;
-	int		path_found;
+	t_path_data	*best;
+	t_list		*trav_path;
+	t_path		path;
+	int			path_found;
+	int			dev_node_passed;
 
 	path_found = 0;
 	best = NULL;
+	dev_node_passed = 0;
 	while (!path_found && check_empty_pq(candidates))
 	{
 		best = pop_pq(candidates, pseudotree_cmp);
-		path.dev_node = walk_up_tree(input, snapshot, &path, ((t_path_data*)best->data)->pseudotree_id);
-		prune_path(input, snapshot, &path, ((t_path_data*)best->data)->pseudotree_id);
+		path.dev_node = walk_up_tree(input, snapshot, &path, best->pseudotree_id);
+		prune_path(input, snapshot, &path, best->pseudotree_id);
 		trav_path = path.nodes;
 		path_found = 1;
 		while (trav_path->next)
 		{
-			if (mark_node(input, snapshot, *(size_t*)trav_path->content)) /* report conflict inside */
+			if (mark_node(input, snapshot, *(size_t*)trav_path->content))
 			{
 				path_found = 0;
-				unmark(input, snapshot, *(size_t*)trav_path->prev->content); /* unmark all parents, this should not have been marked by mark() */
+				unmark(input, snapshot, *(size_t*)trav_path->prev->content);
 				break ;
 			}
-			/* TODO only exlpore sidetracks after dev_node */
-			explore_sidetracks(input, snapshot, candidates, *(size_t*)trav_path->content);
-			/* nodes with same time frame should be added to queue, because to solve a conflict we retry at least the blocked pat */
+			if (path.dev_node = *(size_t*)trav_path->content)
+				dev_node_passed = 1;
+			if (dev_node_passed)
+				explore_sidetracks(input, snapshot, candidates, *(size_t*)trav_path->content);
 			trav_path = trav_path->next;
 		}
 		snapshot->time_frame++;
