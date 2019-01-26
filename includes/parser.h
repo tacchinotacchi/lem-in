@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 23:15:24 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 00:26:57 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ ssize_t		check_input(t_lemin *info, char *line, ssize_t flags);
 ssize_t		choose_flags(t_lemin *info,  ssize_t success);
 ssize_t		choose_flags2(t_lemin *info, ssize_t success);
 
-ssize_t		check_special_flags(t_lemin *info, ssize_t flags);
+ssize_t		check_special_flag(t_lemin *info, ssize_t flags, ssize_t success);
 void		init_colony_data(t_colony_data *data);
 /*return -1 for error(malloc failure) return 'index' to keep track of the type
 of input*/

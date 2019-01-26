@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 17:13:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 22:02:55 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 02:51:08 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,16 @@ size_t  is_nbr_ants(char *line)
 size_t  is_start(char *line)
 {
 	    if(!ft_strcmp("##start", line))
-			return (0);
-		free(line);
-		if (get_next_line(0, &line) < 1)
-			return (0);
-		return (is_node(line));
-		
+			return (1);
+		printf("...");
+		return (0);
 }
 
 size_t  is_end(char *line)
 {
 	    if(!ft_strcmp("##end", line))
-			return (0);
-		free(line);
-		if (get_next_line(0, &line) < 1)
-			return (0);
-		is_node(line);
-		return (is_node(line));
+			return (1);
+		return (0);
 }
 
 size_t  is_command(char *line)

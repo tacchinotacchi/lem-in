@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 23:18:22 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 03:22:37 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ ssize_t		store_input(t_lemin *info, ssize_t index, char *line)
 	ret = -1;
 	if (index == l_ants)
 		ret = store_ants(info, line, index);
-	else if (index == l_start || index == l_end || index == l_node)
+	else if (index == l_start || index == l_end)
+		return (index);
+	else if (index == l_node)
 		ret = store_node_data(info, line, index);
     else if (index == l_edge)
         ret = store_edge_data(info, line, index);
@@ -72,6 +74,7 @@ ssize_t 	  store_node_data(t_lemin *info, char *line, ssize_t index)
 	data.y = ft_atoi(split[2]);
 	ft_splitdel(split);
 	add_node(&(info->graph), &data, sizeof(data));
+	printf("...");
 	return (index);
 }
 
