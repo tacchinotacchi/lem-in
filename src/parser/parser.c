@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 03:31:14 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 04:31:18 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ ssize_t				check_input(t_lemin *info, char *line, ssize_t flags)
 		flags = flags_reset;
 		if (((flags = flags >> index & 1) && g_func_table[index](line)))
 		{
-
 			ret = store_input(info, index, line);
 			return (ret);
 		}

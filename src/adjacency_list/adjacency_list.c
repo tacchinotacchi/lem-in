@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   adjacency_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 17:31:01 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/22 14:38:55 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 04:42:16 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	add_node(t_graph* graph, void *data, size_t data_size)
 	new_node.data = malloc(data_size);
 	if (new_node.data)
 	{
-		ft_memcpy(new_node.data, data, data_size);
+		//ft_memcpy(new_node.data, data, data_size);
+		new_node.data = data;
 		array_push_back(&graph->nodes, &new_node);
 	}
 }
