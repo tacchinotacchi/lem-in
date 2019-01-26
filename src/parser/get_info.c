@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 05:02:33 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 17:31:19 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ ssize_t		store_input(t_lemin *info, ssize_t index, char *line)
 
 ssize_t 	  store_node_data(t_lemin *info, char *line, ssize_t index)
 {
-	t_colony_data	*data;
+	t_colony_data	data;
 	char			**split;
 
 	if (!(split = ft_strsplit(line, ' ')))
@@ -67,14 +67,13 @@ ssize_t 	  store_node_data(t_lemin *info, char *line, ssize_t index)
 		ft_splitdel(split);
 		return (FAIL);
 	}
-	data = (t_colony_data*)malloc(sizeof(t_colony_data));
-	init_colony_data(data);
-	if (!((*data).name = ft_strdup(split[0])))
+	init_colony_data(&data);
+	if (!(data.name = ft_strdup(split[0])))
 		return (FAIL);
-	(*data).x = ft_atoi(split[1]);
-	(*data).y = ft_atoi(split[2]);
+	data.x = ft_atoi(split[1]);
+	data.y = ft_atoi(split[2]);
 	ft_splitdel(split);
-	add_node(&(info->graph), data, sizeof(data));
+	add_node(&(info->graph), &data, sizeof(data));
 	return (index);
 }
 
