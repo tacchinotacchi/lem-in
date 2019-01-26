@@ -6,13 +6,12 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 03:30:41 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 18:34:14 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-# include <stdio.h>
 # include "lem-in.h"
 # include "array.h"
 # define L_ANTS 0b1
@@ -70,6 +69,7 @@ ssize_t		store_comments(t_lemin *info, char *line, ssize_t index);
 ssize_t		store_node_data(t_lemin *info, char *line, ssize_t index);
 ssize_t		search_nodes(t_array *nodes, char *node);
 ssize_t		store_edge_data(t_lemin *info, char *line, ssize_t index);
+void		error(t_lemin *info);
 
 
 #endif

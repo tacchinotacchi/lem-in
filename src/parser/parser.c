@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 19:13:48 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 18:40:46 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,6 @@ size_t	(*g_func_table[])(char*) = {
 	is_node,
 	is_edge
 };
-
-void	init_nodes_and_edges(t_graph *graph)
-{
-	graph->nodes.ptr = NULL;
-	graph->nodes.elem_size = sizeof(t_node);
-	graph->nodes.length = 0;
-	graph->nodes.reserved = 0;
-
-	graph->edges.ptr = NULL;
-	graph->edges.elem_size = sizeof(t_edge);
-	graph->edges.length = 0;
-	graph->edges.reserved = 0;
-}
 
 ssize_t	check_special_flags(t_lemin *info, ssize_t flags, ssize_t success)
 {
@@ -129,7 +116,8 @@ ssize_t			parse_input(t_lemin *info)
 	ssize_t		ret;
 
 	ret = 0;
-	init_nodes_and_edges(&(info->graph));
+	array_init(&(info->graph.nodes), sizeof(t_node));
+	array_init(&(info->graph.edges), sizeof(t_edge));
 	flags = L_ANTS | L_COMMAND | L_COMMENT;
 	while (get_next_line(0, &line) > 0)
 	{
@@ -151,5 +139,6 @@ int				main(void)
 	t_lemin 	info;
 	ft_bzero(&info, sizeof(t_lemin));
 	parse_input(&info);
+	error(&info);
 	return (0);
 }
