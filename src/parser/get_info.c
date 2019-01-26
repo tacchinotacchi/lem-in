@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 04:42:01 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 05:02:33 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ ssize_t 	  store_node_data(t_lemin *info, char *line, ssize_t index)
 	(*data).y = ft_atoi(split[2]);
 	ft_splitdel(split);
 	add_node(&(info->graph), data, sizeof(data));
-	printf("...");
 	return (index);
 }
 
@@ -89,7 +88,6 @@ ssize_t	search_nodes(t_array *nodes, char *node)
 		if (!ft_strcmp(((t_colony_data*)
 			((t_node*)nodes->ptr)[index].data)->name, node))
 			return (index);
-		printf("...");
 		index++;
 	}
 	return (-1);

@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 04:31:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 03:19:58 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 05:02:17 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ size_t	ft_str_is_digit(const char *str)
 
 size_t	is_comment(char *line)
 {
-	printf("...");
 	if (line[0] == '#' && line[1] != '#') /*separation from comment*/
 		return (1);
 	return (0);
