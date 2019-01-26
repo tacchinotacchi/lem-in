@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 20:09:14 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 22:42:19 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,16 @@ ssize_t		is_map_valid(t_lemin *info); /*TODO map validity check*/
 
 
 /* return 1 for right_input return 0 for wrong input*/
-size_t		is_nbr_ants(char *line);
-size_t		is_start(char *line);
-size_t		is_end(char *line);
-size_t		is_command(char *line);
-size_t		is_comment(char *line);
-size_t		is_start_node(char *line);
-size_t		is_end_node(char *line);
-size_t		is_node(char *line);
-size_t		is_edge(char *line);
+size_t		is_nbr_ants(char *line, t_lemin *info);
+size_t		is_start(char *line, t_lemin *info);
+size_t		is_end(char *line, t_lemin *info);
+size_t		is_command(char *line, t_lemin *info);
+size_t		is_comment(char *line, t_lemin *info);
+size_t		is_start_node(char *line, t_lemin *info);
+size_t		is_end_node(char *line, t_lemin *info);
+size_t		is_node(char *line, t_lemin *info);
+size_t		is_edge(char *line, t_lemin *info);
+size_t		content_cmp(t_array *nodes, char **split);
 
 size_t		ft_str_is_digit(const char *str); /*TODO to libft */
 void		ft_splitdel(char **split); /*TODO to libft */

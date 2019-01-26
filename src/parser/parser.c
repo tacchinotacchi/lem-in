@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 20:09:12 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/26 23:21:53 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "get_next_line.h"
 #include "array.h"
 
-size_t	(*g_func_table[])(char*) = {
+size_t	(*g_func_table[])(char*, t_lemin*) = {
 	is_nbr_ants,
 	is_start,
 	is_end,
@@ -98,10 +98,10 @@ ssize_t			check_input(t_lemin *info, char *line, ssize_t flags)
 	ret = 0;
 	index = 0;
 	flags_reset = flags;
-	while (index < 7)
+	while (index < 9)
 	{
 		flags = flags_reset;
-		if (((flags = flags >> index & 1) && g_func_table[index](line)))
+		if (((flags = flags >> index & 1) && g_func_table[index](line, info)))
 		{
 			ret = store_input(info, index, line);
 			return (ret);

@@ -4,6 +4,7 @@ SRCS = parser/error.c \
 	parser/get_info2.c \
 	parser/check_func1.c \
 	parser/check_func2.c \
+	parser/check_util.c \
 	adjacency_list/adjacency_list.c \
 	priority_queue/priority_queue.c
 INCLUDES = libft/includes/libft.h \
