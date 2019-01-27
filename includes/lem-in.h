@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/27 22:31:14 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/27 22:57:16 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include "list.h"
 # include "adjacency_list.h"
 # include "libft.h"
-# include "kpath.h"
 
 # define START 0b1
 # define END 0b10
@@ -25,14 +24,11 @@ typedef struct	s_colony_data
 {
 	char	*name;
 	int		flags;
+	size_t	flow_in_id;
+	size_t	flow_out_id;
 	int		x;
 	int		y;
 }				t_colony_data;
-
-typedef struct	s_edge_data
-{
-	int		weight;
-}				t_edge_data;
 
 typedef struct 	s_lemin
 {

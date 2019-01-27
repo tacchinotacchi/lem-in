@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   visualizer.h                                       :+:      :+:    :+:   */
+/*   algorithm.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/27 23:37:22 by aamadori         ###   ########.fr       */
+/*   Created: 2019/01/27 22:47:24 by aamadori          #+#    #+#             */
+/*   Updated: 2019/01/27 23:46:01 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _VISUALIZER_H
-# define _VISUALIZER_H
+#ifndef _ALGORITHM_H
+# define _ALGORITHM_H
 
 #include "adjacency_list.h"
-#include "lem-in.h"
-#include <SDL.h>
 
-typedef struct	s_textures
+typedef struct	s_flow_node_data
 {
-	SDL_Renderer *renderer;
-	SDL_Texture	*node;
-	SDL_Texture *start;
-	SDL_Texture *end;
-	SDL_Texture	*digits[10];
-}				t_textures;
+	size_t	colony_id;
+}				t_flow_node_data;
 
-int		init_textures(t_textures *textures);
-void 	draw_graph(t_lemin *input, t_textures *textures);
+typedef struct	s_flow_edge_data
+{
+	int		capacity;
+	int		flow;
+	int		weight;
+	/* TODO weight implicit or explicit? */
+}				t_flow_edge_data;
+
+t_flow_node_data	*node_flow_data(const t_graph *graph, size_t id);
+t_flow_edge_data	*edge_flow_data(const t_graph *graph, size_t id);
 
 #endif

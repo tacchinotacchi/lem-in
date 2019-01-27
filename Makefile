@@ -7,6 +7,8 @@ SRCS = parser/error.c \
 	parser/check_util.c \
 	adjacency_list/adjacency_list.c \
 	priority_queue/priority_queue.c \
+	algorithm/algorithm_util.c \
+	algorithm/transform_graph.c \
 	lem-in.c
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h
