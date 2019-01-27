@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/27 21:53:16 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/27 22:28:28 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@
 
 void		init_colony_data(t_colony_data *data)
 {
-	data->bfs_weight = -1;
-	/* TODO data flags initialized to -1? */
-	data->flags = -1;
-	data->marked_decision = -1;
-	data->marked_path_id = -1;
+	data->flags = 0;
 	data->name = NULL;
 	data->x = 0;
 	data->y = 0;

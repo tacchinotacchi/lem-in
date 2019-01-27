@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/27 21:58:23 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/27 22:32:06 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # define L_END_NODE 0b1000000
 # define L_NODE 0b10000000
 # define L_EDGE 0b100000000
+# define STATE_START 0b1
+# define STATE_END 0b10
+# define STATE_ANTS 0b100
 # define FAIL -1
 
 typedef enum	s_success
@@ -38,13 +41,13 @@ typedef enum	s_success
 	l_edge
 }				t_success;
 
-ssize_t		parse_input(t_lemin *info);
+ssize_t		parse_input(t_lemin *info, ssize_t initial_flags);
 
 /*return -1 for wrong inputs and return 'index' keep track of the type of input*/
 ssize_t		check_input(t_lemin *info, char *line, ssize_t flags);
 
-ssize_t		choose_flags(t_lemin *info,  ssize_t success);
-ssize_t		choose_flags2(t_lemin *info, ssize_t success);
+ssize_t		choose_flags(ssize_t *parser_state,  ssize_t success);
+ssize_t		choose_flags2(ssize_t *parser_state, ssize_t success);
 
 ssize_t		check_special_flag(t_lemin *info, ssize_t flags, ssize_t success);
 void		init_colony_data(t_colony_data *data);

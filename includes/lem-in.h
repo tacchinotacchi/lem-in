@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/27 21:53:13 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/27 22:31:14 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ typedef struct	s_colony_data
 	int		flags;
 	int		x;
 	int		y;
-	int		bfs_weight;
-	int		marked_decision;
-	int		marked_path_id;
 }				t_colony_data;
 
 typedef struct	s_edge_data
@@ -40,17 +37,9 @@ typedef struct	s_edge_data
 typedef struct 	s_lemin
 {
 	int			ants;
-	int			f_start;
-	int			f_end;
-	int			f_ants;
-	t_list		*comments;
 	t_graph		graph;
-	size_t		*start_nodes;
-	t_path		*curr_paths;
-	t_path		*best_solution;
-	int			best_solution_instr;
-	size_t		decision_depth;
-	size_t		max_decision_depth;
+	t_list		*comments;
+	t_list		*commands;
 	int			max_x_coord;
 	int			min_x_coord;
 	int			max_y_coord;

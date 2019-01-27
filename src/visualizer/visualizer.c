@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/27 16:27:07 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/27 22:32:11 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		main(int argc, char **argv)
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		return (0);
 	ft_bzero(&input, sizeof(t_lemin));
-	parse_input(&input);
+	parse_input(&input, L_ANTS | L_COMMENT);
 	enter_reading_loop(&input);
 	SDL_Quit();
 	return (0);
