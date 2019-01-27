@@ -5,7 +5,8 @@ SRCS = parser/error.c \
 	parser/check_func1.c \
 	parser/check_func2.c \
 	adjacency_list/adjacency_list.c \
-	priority_queue/priority_queue.c
+	priority_queue/priority_queue.c \
+	lem-in.c
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h
 OBJS = $(patsubst %.c,obj/%.o,$(SRCS))
