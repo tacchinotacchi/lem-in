@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 22:42:19 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/27 21:58:23 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ size_t		is_start_node(char *line, t_lemin *info);
 size_t		is_end_node(char *line, t_lemin *info);
 size_t		is_node(char *line, t_lemin *info);
 size_t		is_edge(char *line, t_lemin *info);
-size_t		content_cmp(t_array *nodes, char **split);
 
+size_t		content_cmp(t_array *nodes, char **split);
 size_t		ft_str_is_digit(const char *str); /*TODO to libft */
+
 void		ft_splitdel(char **split); /*TODO to libft */
-void		init_nodes_and_edges(t_graph *graph); /*TODO to libft */
 ssize_t		store_ants(t_lemin *info, char *line, ssize_t index);
 ssize_t		store_commands(t_lemin *info, char *line, ssize_t index);
 ssize_t		store_comments(t_lemin *info, char *line, ssize_t index);

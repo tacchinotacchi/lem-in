@@ -19,6 +19,7 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	parser/get_info2.c \
 	parser/check_func1.c \
 	parser/check_func2.c \
+	parser/check_util.c \
 	adjacency_list/adjacency_list.c
 VISUALIZER_OBJS = $(patsubst %.c,obj/%.o,$(VISUALIZER_SRCS))
 

@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/27 16:26:48 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/27 21:53:13 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ typedef struct 	s_lemin
 	int			best_solution_instr;
 	size_t		decision_depth;
 	size_t		max_decision_depth;
-	int		max_x_coord;
-	int		min_x_coord;
-	int		max_y_coord;
-	int		min_y_coord;
+	int			max_x_coord;
+	int			min_x_coord;
+	int			max_y_coord;
+	int			min_y_coord;
 }				t_lemin;
 
 void	get_ants(t_lemin *info);

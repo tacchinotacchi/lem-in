@@ -6,25 +6,11 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 04:31:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 22:42:48 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/27 21:52:11 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-size_t	ft_str_is_digit(const char *str)
-{
-	ssize_t index;
-
-	index = 0;
-	while (str[index] != '\0')
-	{
-		if (ft_isdigit(str[index] == 0))
-			return (0);
-		index++;
-	}
-	return (1);
-}
 
 size_t	is_comment(char *line, t_lemin *info)
 {
