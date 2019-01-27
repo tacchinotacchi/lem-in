@@ -1,7 +1,11 @@
 SRCS = parser/error.c \
-	parser/get_info.c \
 	parser/parser.c \
-	adjacency_list/adjacency_list.c
+	parser/get_info.c \
+	parser/get_info2.c \
+	parser/check_func1.c \
+	parser/check_func2.c \
+	adjacency_list/adjacency_list.c \
+	priority_queue/priority_queue.c
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h
 OBJS = $(patsubst %.c,obj/%.o,$(SRCS))
@@ -10,7 +14,9 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	visualizer/visualizer.c \
 	parser/parser.c \
 	parser/get_info.c \
-	parser/error.c \
+	parser/get_info2.c \
+	parser/check_func1.c \
+	parser/check_func2.c \
 	adjacency_list/adjacency_list.c
 VISUALIZER_OBJS = $(patsubst %.c,obj/%.o,$(VISUALIZER_SRCS))
 
@@ -39,7 +45,7 @@ LIBFT_PREFIX = libft
 include libft/Makefile.mk
 
 $(VISUALIZER): $(VISUALIZER_OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
-	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(VISUALIZER_OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft -lSDL2
+	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(VISUALIZER_OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft `sdl2-config --libs`
 
 $(NAME): $(OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
 	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft
@@ -49,6 +55,11 @@ obj:
 	mkdir -p obj/parser
 	mkdir -p obj/adjacency_list
 	mkdir -p obj/visualizer
+	mkdir -p obj/priority_queue
+	mkdir -p obj/algorithm
+
+obj/visualizer/%.o: src/visualizer/%.c $(INCLUDES) | obj
+	$(CC) $(CFLAGS) `sdl2-config --cflags` $(INCLUDE_FOLDERS) -o $@ -c $<
 
 obj/%.o: src/%.c $(INCLUDES) | obj
 	$(CC) $(CFLAGS) $(INCLUDE_FOLDERS) -o $@ -c $<

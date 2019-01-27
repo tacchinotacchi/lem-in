@@ -6,13 +6,13 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:45:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/23 03:23:09 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/27 16:26:03 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "adjacency_list.h"
 #include "visualizer.h"
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 static int	transform_x(t_lemin *input, int coord)
 {

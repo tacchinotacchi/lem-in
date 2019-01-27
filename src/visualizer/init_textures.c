@@ -6,13 +6,13 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:29:16 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/23 02:59:07 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/27 16:26:13 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 #include "libft.h"
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 int		texture_from_file(SDL_Renderer *renderer, SDL_Texture **texture,
 			const char *filename)

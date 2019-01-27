@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   adjacency_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 17:31:01 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/22 14:38:55 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/26 17:31:18 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,4 @@ void	add_edge(t_graph* graph, ssize_t tail, ssize_t head, size_t data_size)
 		list_new(&index, sizeof(ssize_t)));
 	list_add(&((t_node*)graph->nodes.ptr)[head].out_edges,
 		list_new(&index, sizeof(ssize_t)));
-
 }

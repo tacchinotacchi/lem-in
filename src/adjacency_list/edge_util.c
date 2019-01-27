@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   visualizer.h                                       :+:      :+:    :+:   */
+/*   edge_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/27 16:25:28 by aamadori         ###   ########.fr       */
+/*   Created: 2019/01/24 14:47:34 by aamadori          #+#    #+#             */
+/*   Updated: 2019/01/24 14:50:22 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _VISUALIZER_H
-# define _VISUALIZER_H
-
 #include "adjacency_list.h"
-#include "lem-in.h"
-#include <SDL.h>
 
-typedef struct	s_textures
+/* TODO find another way to propagate error, turn to size_t */
+ssize_t	edge_head(const t_graph *graph, size_t index)
 {
-	SDL_Renderer *renderer;
-	SDL_Texture	*node;
-	SDL_Texture *start;
-	SDL_Texture *end;
-	SDL_Texture	*digits[10];
-}				t_textures;
+	return (((t_edge*)graph->edges.ptr)[index].head);
+}
 
-int		init_textures(t_textures *textures);
-void 	draw_graph(t_lemin *input, t_textures *textures);
-
-#endif
+ssize_t edge_tail(const t_graph *graph, size_t index)
+{
+	return (((t_edge*)graph->edges.ptr)[index].tail);
+}
