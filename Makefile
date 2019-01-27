@@ -4,13 +4,6 @@ SRCS = parser/error.c \
 	parser/get_info2.c \
 	parser/check_func1.c \
 	parser/check_func2.c \
-	algorithm/bfs_precompute.c \
-	algorithm/sidetrack_precompute.c \
-	algorithm/conflict.c \
-	algorithm/decision.c \
-	algorithm/kpath_tree.c \
-	algorithm/kpath_util.c \
-	algorithm/kpath.c \
 	adjacency_list/adjacency_list.c \
 	priority_queue/priority_queue.c
 INCLUDES = libft/includes/libft.h \
