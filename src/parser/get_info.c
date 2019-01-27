@@ -6,10 +6,11 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 20:01:32 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/27 21:46:53 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lem-in.h"
 #include "parser.h"
 #include "adjacency_list.h"
 
@@ -81,6 +82,14 @@ ssize_t 	  store_node_data(t_lemin *info, char *line, ssize_t index)
 		data.flags = END;
 	ft_splitdel(split);
 	add_node(&(info->graph), &data, sizeof(data));
+	if (data.x > info->max_x_coord)
+		info->max_x_coord = data.x;
+	if (data.x < info->min_x_coord)
+		info->min_x_coord = data.x;
+	if (data.y > info->max_y_coord)
+		info->max_y_coord = data.y;
+	if (data.y < info->min_y_coord)
+		info->min_y_coord = data.y;
 	return (index);
 }
 

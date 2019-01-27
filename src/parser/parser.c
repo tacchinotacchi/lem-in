@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/26 23:21:53 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/27 21:44:51 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,12 @@ ssize_t			parse_input(t_lemin *info)
 	ssize_t		flags;
 	ssize_t		ret;
 
+
+	ft_bzero(info, sizeof(t_lemin));
+	info->max_x_coord = INT_MIN;
+	info->min_x_coord = INT_MAX;
+	info->max_y_coord = INT_MIN;
+	info->min_y_coord = INT_MAX;
 	ret = 0;
 	array_init(&(info->graph.nodes), sizeof(t_node));
 	array_init(&(info->graph.edges), sizeof(t_edge));
@@ -134,13 +140,4 @@ ssize_t			parse_input(t_lemin *info)
 		return (0);
 	/* TODO ret = is_map_valid(info); run BFS once to see the end is inside the list*/
 	return (ret);
-}
-
-int			main(void)
-{
-	t_lemin 	info;
-	ft_bzero(&info, sizeof(t_lemin));
-	parse_input(&info);
-	error(&info);
-	return (0);
 }
