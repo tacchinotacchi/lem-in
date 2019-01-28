@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:47:24 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/28 19:34:57 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/28 21:29:34 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ typedef struct	s_flow_edge_data
 	enum e_edge_type	type;
 	/* TODO weight implicit or explicit? */
 }				t_flow_edge_data;
+
+typedef struct	s_aug_path
+{
+	t_list	*path;
+	size_t	max_flow;
+}				t_aug_path;
 
 t_flow_node_data	*node_flow_data(const t_graph *graph, size_t id);
 t_flow_edge_data	*edge_flow_data(const t_graph *graph, size_t id);

@@ -6,14 +6,15 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/28 20:55:26 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/28 21:34:08 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "adjacency_list.h"
 #include "algorithm.h"
+#include "lem-in.h"
 
-static void	free_stub(void *ptr, size_t stub)
+void	free_stub(void *ptr, size_t stub)
 {
 	(void)stub;
 	free(ptr);
@@ -34,7 +35,7 @@ static int	try_relaxation(t_graph *flow_graph, t_list *curr, t_list *edge)
 	if (curr_data->path_cost + edge_data->weight < next_data->path_cost)
 	{
 		next_data->path_cost = curr_data->path_cost + edge_data->weight;
-		next_data->ancestor = LST_CONT(curr, size_t);
+		next_data->ancestor = LST_CONT(edge, size_t);
 		next_data->path_length = curr_data->path_length + 1;
 		return (1);
 	}

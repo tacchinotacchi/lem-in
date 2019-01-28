@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/28 15:41:44 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/28 21:26:47 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ ssize_t	search_nodes(t_array *nodes, char *node);
 /* TODO review and move to libft */
 void	ft_splitdel(char **split);
 t_colony_data	*node_colony_data(const t_graph *graph, size_t index);
+void	free_stub(void *ptr, size_t stub);
 
 #endif
