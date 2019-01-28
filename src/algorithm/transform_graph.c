@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:04:29 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/27 23:34:50 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/28 12:28:19 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static int	create_flow_pair(t_graph *input,
 
 	node_data.colony_id = input_id;
 	add_node(flow_graph, &node_data, sizeof(t_flow_node_data));
-	head = flow_graph->nodes.length - 1;
-	add_node(flow_graph, &node_data, sizeof(t_flow_node_data));
 	tail = flow_graph->nodes.length - 1;
+	add_node(flow_graph, &node_data, sizeof(t_flow_node_data));
+	head = flow_graph->nodes.length - 1;
 	add_edge(flow_graph, tail, head, sizeof(edge_data));
 	edge_data.capacity = 1;
 	edge_data.flow = 0;
@@ -64,6 +64,6 @@ int		transform_graph(t_graph *input, t_graph *flow_graph)
 		create_flow_pair(input, flow_graph, input_id++);
 	input_id = 0;
 	while (input_id < input->edges.length)
-		set_edges(input, flow_graph, input_id);
+		set_edges(input, flow_graph, input_id++);
 	return (0);
 }

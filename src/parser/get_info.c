@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/27 23:34:22 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/28 14:30:36 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,10 @@ ssize_t 	  store_node_data(t_lemin *info, char *line, ssize_t index)
 		return (FAIL);
 	data.x = ft_atoi(split[1]);
 	data.y = ft_atoi(split[2]);
-	if (index == l_node)
-		data.flags = GOAL;
-	else if (index == l_start_node)
-		data.flags = START;
+	if (index == l_start_node)
+		data.flags |= START;
 	else if (index == l_end_node)
-		data.flags = END;
+		data.flags |= END;
 	ft_splitdel(split);
 	add_node(&(info->graph), &data, sizeof(data));
 	if (data.x > info->max_x_coord)
@@ -125,6 +123,7 @@ ssize_t	store_edge_data(t_lemin *info, char *line, ssize_t index)
 	if (tail > -1 && head > -1)
 	{
 		add_edge(&(info->graph), tail, head, sizeof(void));
+		add_edge(&(info->graph), head, tail, sizeof(void));
 		return (index);
 	}
 	return (FAIL);

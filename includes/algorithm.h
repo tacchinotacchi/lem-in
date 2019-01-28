@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:47:24 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/27 23:46:01 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/28 12:02:45 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ typedef struct	s_flow_edge_data
 
 t_flow_node_data	*node_flow_data(const t_graph *graph, size_t id);
 t_flow_edge_data	*edge_flow_data(const t_graph *graph, size_t id);
+int					transform_graph(t_graph *input, t_graph *flow_graph);
 
 #endif
