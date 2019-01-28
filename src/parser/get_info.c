@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/27 22:28:28 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/27 23:34:22 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void		init_colony_data(t_colony_data *data)
 {
 	data->flags = 0;
 	data->name = NULL;
+	data->flow_in_id = 0;
+	data->flow_out_id = 0;
 	data->x = 0;
 	data->y = 0;
 }
@@ -122,7 +124,7 @@ ssize_t	store_edge_data(t_lemin *info, char *line, ssize_t index)
 	ft_splitdel(split);
 	if (tail > -1 && head > -1)
 	{
-		add_edge(&(info->graph), tail, head, sizeof(t_edge_data));
+		add_edge(&(info->graph), tail, head, sizeof(void));
 		return (index);
 	}
 	return (FAIL);

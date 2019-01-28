@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   adjacency_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 17:31:01 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/26 17:31:18 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/27 23:48:23 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "adjacency_list.h"
+
+ssize_t	edge_head(const t_graph* graph, size_t index)
+{
+	return (((t_edge*)graph->edges.ptr)[index].head);
+}
+
+ssize_t	edge_tail(const t_graph* graph, size_t index)
+{
+	return (((t_edge*)graph->edges.ptr)[index].tail);
+}
 
 void	add_node(t_graph* graph, void *data, size_t data_size)
 {
