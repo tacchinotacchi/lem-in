@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/28 12:04:29 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:40:35 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int	main(void)
 	array_init(&flow_graph.nodes, sizeof(t_node));
 	array_init(&flow_graph.edges, sizeof(t_edge));
 	transform_graph(&info.graph, &flow_graph);
+	min_path(&flow_graph, node_colony_data(&info.graph, info.start)->flow_out_id);
 	return (0);
 }

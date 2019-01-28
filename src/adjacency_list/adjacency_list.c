@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 17:31:01 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/28 14:35:59 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:53:54 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	add_edge(t_graph* graph, ssize_t tail, ssize_t head, size_t data_size)
 	edge.head = head;
 	edge.data = ft_memalloc(data_size);
 	array_push_back(&graph->edges, &edge);
-	index = graph->nodes.length - 1;
+	index = graph->edges.length - 1;
 	list_add(node_out_edges(graph, tail), list_new(&index, sizeof(ssize_t)));
 	list_add(node_in_edges(graph, head), list_new(&index, sizeof(ssize_t)));
 }

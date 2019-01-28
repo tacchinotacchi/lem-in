@@ -11,6 +11,8 @@ SRCS = parser/error.c \
 	priority_queue/priority_queue.c \
 	algorithm/algorithm_util.c \
 	algorithm/transform_graph.c \
+	algorithm/path.c \
+	algorithm/max_flow.c \
 	lem-in.c
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h
