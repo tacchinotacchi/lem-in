@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/28 14:30:36 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/28 15:44:10 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,15 @@ ssize_t 	  store_node_data(t_lemin *info, char *line, ssize_t index)
 	data.x = ft_atoi(split[1]);
 	data.y = ft_atoi(split[2]);
 	if (index == l_start_node)
+	{
+		info->start = info->graph.nodes.length;
 		data.flags |= START;
+	}
 	else if (index == l_end_node)
+	{
+		info->end = info->graph.nodes.length;
 		data.flags |= END;
+	}
 	ft_splitdel(split);
 	add_node(&(info->graph), &data, sizeof(data));
 	if (data.x > info->max_x_coord)
