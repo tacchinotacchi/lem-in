@@ -13,6 +13,7 @@ SRCS = parser/error.c \
 	algorithm/transform_graph.c \
 	algorithm/path.c \
 	algorithm/max_flow.c \
+	algorithm/program.c \
 	lem-in.c
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h \

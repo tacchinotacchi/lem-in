@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:47:24 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/29 14:22:13 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/29 16:24:16 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ int					transform_graph(t_graph *input, t_graph *flow_graph);
 int					interpret_flow(t_graph *input, t_graph *flow_graph);
 int					min_path(t_graph *flow_graph, size_t source);
 int					min_cost_flow(t_graph *flow_graph, size_t source,
-						size_t sink, int flow);
+						size_t sink, int flow);	
 
 #endif
