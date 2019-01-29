@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:06:06 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/28 21:48:45 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/29 13:43:47 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,33 @@ t_aug_path	walk_back_path(t_graph *flow_graph, size_t sink)
 	augmenting.path = NULL;
 	node_id = sink;
 	augmenting.max_flow = INT_MAX;
-	list_add(&augmenting.path, list_new(&node_id, sizeof(size_t)));
-	while (node_flow_data(flow_graph, node_id)->flags & START)
+	while (!(node_flow_data(flow_graph, node_id)->flags & START))
 	{
 
 		edge_id = node_flow_data(flow_graph, node_id)->ancestor;
+		list_add(&augmenting.path, list_new(&edge_id, sizeof(size_t)));
 		edge_data = edge_flow_data(flow_graph, edge_id);
 		augmenting.max_flow = ft_min(augmenting.max_flow,
 			edge_data->capacity - edge_data->flow);
-		node_id = edge_head(flow_graph, edge_id);
-		list_add(&augmenting.path, list_new(&node_id, sizeof(size_t)));
+		node_id = edge_tail(flow_graph, edge_id);
 	}
 	return (augmenting);
 }
 
-void	use_augmenting(t_graph *flow_graph, t_aug_path augmenting);
+void	use_augmenting(t_graph *flow_graph, t_aug_path augmenting)
+{
+	t_list	*traverse;
+	size_t	inverse;
+
+	traverse = augmenting.path;
+	while (traverse)
+	{
+		edge_flow_data(flow_graph, LST_CONT(traverse, size_t))->flow += augmenting.max_flow;
+		inverse = edge_flow_data(flow_graph, LST_CONT(traverse, size_t))->inverse;
+		edge_flow_data(flow_graph, inverse)->flow -= augmenting.max_flow;
+		traverse = traverse->next;
+	}
+}
 
 int		min_cost_flow(t_graph *flow_graph, size_t source, size_t sink, int flow)
 {
@@ -74,8 +86,13 @@ int		min_cost_flow(t_graph *flow_graph, size_t source, size_t sink, int flow)
 		list_del(&augmenting.path, free_stub);
 		reset_node_data(flow_graph);
 		min_path(flow_graph, source);
-		augmenting = walk_back_path(flow_graph, sink);
-		use_augmenting(flow_graph, augmenting);
+		if (node_flow_data(flow_graph, sink)->path_cost == INT_MAX)
+			found = 0;
+		else
+		{
+			augmenting = walk_back_path(flow_graph, sink);
+			use_augmenting(flow_graph, augmenting);
+		}
 	}
 	list_del(&augmenting.path, free_stub);
 	return (0);

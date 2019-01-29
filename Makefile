@@ -15,7 +15,13 @@ SRCS = parser/error.c \
 	algorithm/max_flow.c \
 	lem-in.c
 INCLUDES = libft/includes/libft.h \
-		ft_printf/includes/ft_printf.h
+		ft_printf/includes/ft_printf.h \
+		includes/adjacency_list.h \
+		includes/algorithm.h \
+		includes/lem-in.h \
+		includes/parser.h \
+		includes/priority_queue.h \
+		includes/visualizer.h
 OBJS = $(patsubst %.c,obj/%.o,$(SRCS))
 VISUALIZER_SRCS = visualizer/drawing.c \
 	visualizer/init_textures.c \

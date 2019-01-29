@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/28 21:26:47 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/29 14:18:56 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define END 0b10
 # define GOAL 0b100
 
-typedef struct	s_colony_data
+typedef struct	s_colony_node_data
 {
 	char	*name;
 	int		flags;
@@ -28,7 +28,13 @@ typedef struct	s_colony_data
 	size_t	flow_out_id;
 	int		x;
 	int		y;
-}				t_colony_data;
+}				t_colony_node_data;
+
+typedef struct	s_colony_edge_data
+{
+	size_t	flow_id;
+	int		in_use;
+}				t_colony_edge_data;
 
 typedef struct 	s_lemin
 {
@@ -54,7 +60,8 @@ void	error(t_lemin *info);
 ssize_t	search_nodes(t_array *nodes, char *node);
 /* TODO review and move to libft */
 void	ft_splitdel(char **split);
-t_colony_data	*node_colony_data(const t_graph *graph, size_t index);
+t_colony_node_data	*node_colony_data(const t_graph *graph, size_t id);
+t_colony_edge_data	*edge_colony_data(const t_graph *graph, size_t id);
 void	free_stub(void *ptr, size_t stub);
 
 #endif

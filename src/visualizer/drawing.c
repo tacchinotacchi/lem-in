@@ -58,11 +58,11 @@ static void draw_nodes(t_lemin *input, t_textures *textures)
 	dest.h = 30;
 	while (index < input->graph.nodes.length)
 	{
-		dest.x = transform_x(input, ((t_colony_data*)
+		dest.x = transform_x(input, ((t_colony_node_data*)
 			((t_node*)input->graph.nodes.ptr)[index].data)->x) - 15;
-		dest.y = transform_y(input, ((t_colony_data*)
+		dest.y = transform_y(input, ((t_colony_node_data*)
 			((t_node*)input->graph.nodes.ptr)[index].data)->y) - 15;
-		handle_flags(dest.x, dest.y, ((t_colony_data*)
+		handle_flags(dest.x, dest.y, ((t_colony_node_data*)
 			((t_node*)input->graph.nodes.ptr)[index].data)->flags, textures);
 		SDL_RenderCopy(textures->renderer, textures->node, NULL, &dest);
 		index++;
@@ -72,8 +72,8 @@ static void draw_nodes(t_lemin *input, t_textures *textures)
 static void draw_edges(t_lemin *input, t_textures *textures)
 {
 	size_t	index;
-	t_colony_data	*head;
-	t_colony_data	*tail;
+	t_colony_node_data	*head;
+	t_colony_node_data	*tail;
 
 	index = 0;
 	while (index < input->graph.edges.length)

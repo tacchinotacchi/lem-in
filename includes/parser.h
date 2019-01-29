@@ -50,7 +50,7 @@ ssize_t		choose_flags(ssize_t *parser_state,  ssize_t success);
 ssize_t		choose_flags2(ssize_t *parser_state, ssize_t success);
 
 ssize_t		check_special_flag(t_lemin *info, ssize_t flags, ssize_t success);
-void		init_colony_data(t_colony_data *data);
+void		init_colony_data(t_colony_node_data *data);
 /*return -1 for error(malloc failure) return 'index' to keep track of the type
 of input*/
 ssize_t		store_input(t_lemin *info, ssize_t index, char *line);

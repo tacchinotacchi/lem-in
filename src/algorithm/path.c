@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/28 21:34:08 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/29 14:36:48 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	detect_cycle(t_graph *flow_graph, size_t id)
 	/* TODO is it length or length - 1 */
 	size_t	max_length;
 
-	max_length = flow_graph->nodes.length - 1;
+	max_length = flow_graph->nodes.length;
 	if (node_flow_data(flow_graph, id)->path_length > max_length)
 		return (1);
 	return (0);
