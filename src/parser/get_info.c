@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/29 22:02:19 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/30 14:15:21 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		init_colony_data(t_colony_node_data *data)
 	data->flow_out_id = 0;
 	data->x = 0;
 	data->y = 0;
-	data->ants = NULL;
+	data->ant = 0;
 }
 
 void	ft_splitdel(char **split)
