@@ -6,12 +6,13 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/30 10:58:09 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/30 19:10:02 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "adjacency_list.h"
 #include "algorithm.h"
+#include "queue.h"
 #include "lem-in.h"
 
 void	free_stub(void *ptr, size_t stub)
@@ -44,16 +45,15 @@ static int	try_relaxation(t_graph *flow_graph, t_list *curr, t_list *edge)
 
 static int	detect_cycle(t_graph *flow_graph, size_t id)
 {
-	/* TODO is it length or length - 1 */
 	size_t	max_length;
 
-	max_length = flow_graph->nodes.length;
+	max_length = flow_graph->nodes.length - 1;
 	if (node_flow_data(flow_graph, id)->path_length > max_length)
 		return (1);
 	return (0);
 }
 
-static int	put_in_queue(t_graph *flow_graph, t_list **queue,
+static int	put_in_queue(t_graph *flow_graph, t_queue *queue,
 				char *in_queue, t_list *edge)
 {
 	size_t	head;
@@ -62,28 +62,28 @@ static int	put_in_queue(t_graph *flow_graph, t_list **queue,
 	if (!in_queue[head])
 	{
 		in_queue[head] = 1;
-		list_append(queue, list_new(&head, sizeof(size_t)));
+		queue_push(queue, list_new(&head, sizeof(size_t)));
 	}
 	return (0);
 }
 
 int		min_path(t_graph *flow_graph, size_t source)
 {
-	t_list	*queue;
+	t_queue	queue;
 	t_list	*curr_id;
 	t_list	*edge_traverse;
 	char	*in_queue;
 	size_t	steps;
 
 	steps = 0;
-	queue = NULL;
+	queue_init(&queue);
 	node_flow_data(flow_graph, source)->path_cost = 0;
-	list_append(&queue, list_new(&source, sizeof(size_t)));
+	queue_push(&queue, list_new(&source, sizeof(size_t)));
 	in_queue = ft_memalloc(flow_graph->nodes.length * sizeof(char));
 	in_queue[source] = 1;
-	while (queue)
+	while (queue.size != 0)
 	{
-		curr_id = list_pop(&queue);
+		curr_id = queue_pop(&queue);
 		if (detect_cycle(flow_graph, LST_CONT(curr_id, size_t)))
 			break ;
 		in_queue[LST_CONT(curr_id, size_t)] = 0;
@@ -98,6 +98,6 @@ int		min_path(t_graph *flow_graph, size_t source)
 		list_del(&curr_id, free_stub);
 	}
 	free(in_queue);
-	list_del(&queue, free_stub);
+	queue_destroy(&queue, free_stub);
 	return (0);
 }

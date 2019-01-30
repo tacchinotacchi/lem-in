@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:04:29 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/29 15:02:52 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/30 19:35:36 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	create_edges(t_graph *input, t_graph *flow_graph, size_t input_id)
 		node_colony_data(input, colony_tail_id)->flow_out_id,
 		sizeof(t_flow_edge_data));
 	edge_colony_data(input, input_id)->flow_id = flow_graph->edges.length - 2;
-	edge_data.capacity = 1;
+	edge_data.capacity = INT_MAX;
 	edge_data.flow = 0;
 	edge_data.weight = 1;
 	edge_data.type = e_normal;

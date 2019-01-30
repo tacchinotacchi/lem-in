@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/29 16:35:49 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/30 15:43:04 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ int	main(void)
 	interpret_flow(&info.graph, &flow_graph);
 	array_init(&program, sizeof(t_instruction));
 	init_ants(&info);
-	while (list_length(node_colony_data(&info.graph, info.end)->ants) < info.ants)
-		generate_line(&info, &program);
-	print_program(&info, &program);
+	while (generate_line(&info, &program))
+	{
+		print_program(&info, &program);
+		array_clear(&program, NULL);
+	}
 	return (0);
 }

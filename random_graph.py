@@ -1,20 +1,40 @@
 import random
+import sys
 
-print(100)
+if len(sys.argv) < 4:
+    print("Usage: random_graph.py ants nodes average_rank")
+    sys.exit(0)
+
+print(sys.argv[1])
 
 edges = []
-nodes = 3500
+nodes = int(sys.argv[2])
 random.seed()
-for i in range(0, 5 * nodes):
+for i in range(0, int(sys.argv[3]) * nodes // 2):
     edges.append(random.sample(range(0, nodes), 2));
 
 endpoints = random.sample(range(0, nodes), 2);
 for i in range(0, nodes):
     if i == endpoints[0]:
         print("##start")
+        print("start", i, i)
     elif i == endpoints[1]:
         print("##end")
-    print(i, i, i, sep=" ")
+        print("end", i, i)
+    else:
+        print(i, i, i, sep=" ")
 
 for edge in edges:
-    print(edge[0], edge[1], sep="-");
+    if edge[0] == endpoints[0]:
+        first_name = "start"
+    elif edge[0] == endpoints[1]:
+        first_name = "end"
+    else:
+        first_name = edge[0]
+    if edge[1] == endpoints[0]:
+        second_name = "start"
+    elif edge[1] == endpoints[1]:
+        second_name = "end"
+    else:
+        second_name = edge[1]
+    print(first_name, second_name, sep="-");
