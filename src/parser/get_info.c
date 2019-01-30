@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/27 23:34:22 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/29 22:02:19 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parser.h"
 #include "adjacency_list.h"
 
-void		init_colony_data(t_colony_data *data)
+void		init_colony_data(t_colony_node_data *data)
 {
 	data->flags = 0;
 	data->name = NULL;
@@ -22,6 +22,7 @@ void		init_colony_data(t_colony_data *data)
 	data->flow_out_id = 0;
 	data->x = 0;
 	data->y = 0;
+	data->ants = NULL;
 }
 
 void	ft_splitdel(char **split)
@@ -59,7 +60,7 @@ ssize_t		store_input(t_lemin *info, ssize_t index, char *line)
 
 ssize_t 	  store_node_data(t_lemin *info, char *line, ssize_t index)
 {
-	t_colony_data	data;
+	t_colony_node_data	data;
 	char			**split;
 
 	if (!(split = ft_strsplit(line, ' ')))
@@ -72,12 +73,16 @@ ssize_t 	  store_node_data(t_lemin *info, char *line, ssize_t index)
 		return (FAIL);
 	data.x = ft_atoi(split[1]);
 	data.y = ft_atoi(split[2]);
-	if (index == l_node)
-		data.flags = GOAL;
-	else if (index == l_start_node)
-		data.flags = START;
+	if (index == l_start_node)
+	{
+		info->start = info->graph.nodes.length;
+		data.flags |= START;
+	}
 	else if (index == l_end_node)
-		data.flags = END;
+	{
+		info->end = info->graph.nodes.length;
+		data.flags |= END;
+	}
 	ft_splitdel(split);
 	add_node(&(info->graph), &data, sizeof(data));
 	if (data.x > info->max_x_coord)
@@ -98,7 +103,7 @@ ssize_t	search_nodes(t_array *nodes, char *node)
 	index = 0;
 	while (index < (ssize_t)nodes->length)
 	{
-		if (!ft_strcmp(((t_colony_data*)
+		if (!ft_strcmp(((t_colony_node_data*)
 			((t_node*)nodes->ptr)[index].data)->name, node))
 			return (index);
 		index++;
@@ -124,7 +129,8 @@ ssize_t	store_edge_data(t_lemin *info, char *line, ssize_t index)
 	ft_splitdel(split);
 	if (tail > -1 && head > -1)
 	{
-		add_edge(&(info->graph), tail, head, sizeof(void));
+		add_edge(&(info->graph), tail, head, sizeof(t_colony_edge_data));
+		add_edge(&(info->graph), head, tail, sizeof(t_colony_edge_data));
 		return (index);
 	}
 	return (FAIL);
