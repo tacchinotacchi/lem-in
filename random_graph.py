@@ -1,11 +1,16 @@
 import random
+import sys
 
-print(100000)
+if len(sys.argv) < 4:
+    print("Usage: random_graph.py ants nodes average_rank")
+    sys.exit(0)
+
+print(sys.argv[1])
 
 edges = []
-nodes = 10000
+nodes = int(sys.argv[2])
 random.seed()
-for i in range(0, 7 * nodes // 2):
+for i in range(0, int(sys.argv[3]) * nodes // 2):
     edges.append(random.sample(range(0, nodes), 2));
 
 endpoints = random.sample(range(0, nodes), 2);
