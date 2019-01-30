@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/29 14:36:48 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/30 10:58:09 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,11 @@ static int	put_in_queue(t_graph *flow_graph, t_list **queue,
 	size_t	head;
 
 	head = edge_head(flow_graph, LST_CONT(edge, size_t));
-	in_queue[head] = 1;
-	list_add(queue, list_new(&head, sizeof(size_t)));
+	if (!in_queue[head])
+	{
+		in_queue[head] = 1;
+		list_append(queue, list_new(&head, sizeof(size_t)));
+	}
 	return (0);
 }
 
@@ -70,10 +73,12 @@ int		min_path(t_graph *flow_graph, size_t source)
 	t_list	*curr_id;
 	t_list	*edge_traverse;
 	char	*in_queue;
+	size_t	steps;
 
+	steps = 0;
 	queue = NULL;
 	node_flow_data(flow_graph, source)->path_cost = 0;
-	list_add(&queue, list_new(&source, sizeof(size_t)));
+	list_append(&queue, list_new(&source, sizeof(size_t)));
 	in_queue = ft_memalloc(flow_graph->nodes.length * sizeof(char));
 	in_queue[source] = 1;
 	while (queue)
@@ -83,6 +88,7 @@ int		min_path(t_graph *flow_graph, size_t source)
 			break ;
 		in_queue[LST_CONT(curr_id, size_t)] = 0;
 		edge_traverse = *node_out_edges(flow_graph, LST_CONT(curr_id, size_t));
+		steps++;
 		while (edge_traverse)
 		{
 			if (try_relaxation(flow_graph, curr_id, edge_traverse))
