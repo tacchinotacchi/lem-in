@@ -6,12 +6,23 @@ SRCS = parser/error.c \
 	parser/check_func2.c \
 	parser/check_util.c \
 	adjacency_list/adjacency_list.c \
+	adjacency_list/node_util.c \
+	adjacency_list/edge_util.c \
 	priority_queue/priority_queue.c \
 	algorithm/algorithm_util.c \
 	algorithm/transform_graph.c \
+	algorithm/path.c \
+	algorithm/max_flow.c \
+	algorithm/program.c \
 	lem-in.c
 INCLUDES = libft/includes/libft.h \
-		ft_printf/includes/ft_printf.h
+		ft_printf/includes/ft_printf.h \
+		includes/adjacency_list.h \
+		includes/algorithm.h \
+		includes/lem-in.h \
+		includes/parser.h \
+		includes/priority_queue.h \
+		includes/visualizer.h
 OBJS = $(patsubst %.c,obj/%.o,$(SRCS))
 VISUALIZER_SRCS = visualizer/drawing.c \
 	visualizer/init_textures.c \
@@ -22,7 +33,9 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	parser/check_func1.c \
 	parser/check_func2.c \
 	parser/check_util.c \
-	adjacency_list/adjacency_list.c
+	adjacency_list/adjacency_list.c \
+	adjacency_list/node_util.c \
+	adjacency_list/edge_util.c
 VISUALIZER_OBJS = $(patsubst %.c,obj/%.o,$(VISUALIZER_SRCS))
 
 TESTS_SRCS =

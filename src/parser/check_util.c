@@ -19,9 +19,9 @@ size_t	content_cmp(t_array *nodes, char **split)
 	index = 0;
 	while (index < nodes->length)
 	{
-		if ( !ft_strcmp(((t_colony_data*)((t_node*)nodes->ptr)[index].data)->name, split[0]) ||
-		(((t_colony_data*)((t_node*)nodes->ptr)[index].data)->x == ft_atoi(split[1]) &&
-		((t_colony_data*)((t_node*)nodes->ptr)[index].data)->y == ft_atoi(split[2])) )
+		if ( !ft_strcmp(((t_colony_node_data*)((t_node*)nodes->ptr)[index].data)->name, split[0]) ||
+		(((t_colony_node_data*)((t_node*)nodes->ptr)[index].data)->x == ft_atoi(split[1]) &&
+		((t_colony_node_data*)((t_node*)nodes->ptr)[index].data)->y == ft_atoi(split[2])) )
 			return (0);
 		index++;
 	}
