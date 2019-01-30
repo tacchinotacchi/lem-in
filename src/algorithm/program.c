@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:41:40 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/30 18:33:25 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/30 20:00:44 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		absorb_ants(t_lemin *info, t_array *line, t_list **new_queue, size_t node_i
 			next_id = edge_tail(&info->graph, LST_CONT(edge_traverse, size_t));
 			next_data = node_colony_data(&info->graph, next_id);
 			list_add(new_queue, list_new(&next_id, sizeof(size_t)));
-			if (next_data->ant > 0)
+			while (next_data->ant > 0)
 			{
 				incomplete = 1;
 				node_data->ant = next_data->ant;
@@ -58,6 +58,8 @@ int		absorb_ants(t_lemin *info, t_array *line, t_list **new_queue, size_t node_i
 					.node_id = node_id,
 					.flusher = 0
 				}});
+				if (!(node_data->flags & END))
+					break ;
 			}
 		}
 		edge_traverse = edge_traverse->next;
