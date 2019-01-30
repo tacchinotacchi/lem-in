@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:41:40 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/30 15:42:34 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/30 18:33:25 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,26 +91,69 @@ int		generate_line(t_lemin *info, t_array *program)
 	return (incomplete);
 }
 
+void	flush_buffer(int fd, t_buffer *buffer)
+{
+	write(fd, buffer->buffer, buffer->index);
+	buffer->index = 0;
+}
+
+size_t	count_digits(size_t num)
+{
+	size_t	digits;
+
+	digits = 0;
+	while (num)
+	{
+		num /= 10;
+		digits++;
+	}
+	return (digits);
+}
+
+void	print_instruction(t_lemin *info, t_array *program,
+			t_buffer *buffer, size_t index)
+{
+	t_instruction	*instr;
+	size_t			to_print;
+	char			*format_string;
+	char			*space;
+	char			*name;
+
+	instr = ((t_instruction*)program->ptr);
+	if (instr[index].flusher)
+		to_print = 1;
+	else
+	{
+		format_string = "L%zu-%s%s";
+		space = (index + 1 < program->length
+			&& !instr[index + 1].flusher) ? " " : "";
+		name = node_colony_data(&info->graph, instr[index].node_id)->name;
+		to_print = 2 + ft_strlen(name) + ft_strlen(space)
+			+ count_digits(instr[index].ant_id);
+	}
+	if (buffer->index + to_print > buffer->size)
+		flush_buffer(1, buffer);
+	if (instr[index].flusher)
+		buffer->buffer[buffer->index++] = '\n';
+	else
+		buffer->index += ft_snprintf(buffer->buffer + buffer->index,
+			buffer->size - buffer->index, format_string,
+			instr[index].ant_id, name, space);
+	index++;
+}
+
 void	print_program(t_lemin *info, t_array *program)
 {
-	t_instruction	instr;
-	size_t			index;
+	t_buffer	buffer;
+	size_t		index;
+	size_t		buff_index;
 
 	index = 0;
+	buff_index = 0;
+	buffer.buffer = malloc(4096);
+	buffer.index = 0;
+	buffer.size = 4096;
 	while (index < program->length)
-	{
-		instr = ((t_instruction*)program->ptr)[index];
-		/*TODO fflush*/
-		if (instr.flusher)
-			ft_printf("\n");
-		else
-		{
-			ft_printf("L%zu-%s", instr.ant_id,
-				node_colony_data(&info->graph, instr.node_id)->name);
-			if (index + 1 < program->length
-				&& !((t_instruction*)program->ptr)[index + 1].flusher)
-				ft_printf(" ");
-		}
-		index++;
-	}
+		print_instruction(info, program, &buffer, index++);
+	flush_buffer(1, &buffer);
 }
