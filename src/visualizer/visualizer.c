@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/31 18:14:58 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/31 21:47:31 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	free_resources(t_visualizer *v, t_renderer *renderer)
 	SDL_Quit();
 }
 
-int		enter_reading_loop(t_lemin *input, t_visualizer *v,
+int		enter_reading_loop(t_lemin *input, t_visualizer *vis,
 			t_renderer *renderer)
 {
 	int				quit;
@@ -51,13 +51,15 @@ int		enter_reading_loop(t_lemin *input, t_visualizer *v,
 	quit = 0;
 	while (!quit)
 	{
-		while(SDL_PollEvent(&v->event) != 0)
+		while(SDL_PollEvent(&vis->event) != 0)
 		{
-			if (v->event.type == SDL_QUIT)
+			if (vis->event.type == SDL_QUIT)
 				quit = 1;
+			/* TODO handle events */
 		}
-		draw_graph(input, renderer);
-		SDL_Delay(1000);
+		/*draw_graph(input, renderer);*/
+		/* TODO decent fps limiter */
+		SDL_Delay(6);
 	}
 	return (0);
 }
@@ -72,6 +74,7 @@ int		main(int argc, char **argv)
 	(void)argv;
 	ft_bzero(&input, sizeof(t_lemin));
 	parse_input(&input, L_ANTS | L_COMMENT);
+	convert_input(&input, &renderer);
 	if (init_sdl(&vis, &renderer) < 0)
 	{
 		ft_printf("Failed to acquire context: %s\n", SDL_GetError());

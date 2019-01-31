@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/31 20:04:33 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/31 21:48:15 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ typedef struct	s_renderer
 	GLuint			start_texture;
 	GLuint			end_texture;
 	GLuint			edge_texture;
+	GLuint			node_buffer;
+	GLuint			edge_buffer;
+	t_array			node_info;
+	t_array			edge_info;
 }				t_renderer;
 
 typedef struct	s_visualizer
@@ -44,5 +48,7 @@ int		init_shaders(t_renderer *renderer);
 void	matrix_add(float *dst, float *a, float *b);
 void	matrix_sub(float *dst, float *a, float *b);
 void	matrix_mul(float *dst, float *a, float *b);
+void	convert_input(t_lemin *info, t_renderer *renderer);
+
 
 #endif

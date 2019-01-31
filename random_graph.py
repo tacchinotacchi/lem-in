@@ -17,12 +17,12 @@ endpoints = random.sample(range(0, nodes), 2);
 for i in range(0, nodes):
     if i == endpoints[0]:
         print("##start")
-        print("start", random.randint(0, 1000), random.randint(0, 1000))
+        print("start", random.randint(0, 100000), random.randint(0, 100000))
     elif i == endpoints[1]:
         print("##end")
-        print("end", random.randint(0, 1000), random.randint(0, 1000))
+        print("end", random.randint(0, 100000), random.randint(0, 100000))
     else:
-        print(i, random.randint(0, 1000), random.randint(0, 1000), sep=" ")
+        print(i, random.randint(0, 100000), random.randint(0, 100000), sep=" ")
 
 for edge in edges:
     if edge[0] == endpoints[0]:

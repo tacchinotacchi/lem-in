@@ -6,12 +6,13 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:29:16 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/31 18:49:49 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/31 21:45:11 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 #include "libft.h"
+#include "OpenGL/gl.h"
 
 int		sdl_set_attr()
 {
@@ -31,11 +32,27 @@ int		acquire_context(t_visualizer *vis, t_renderer *renderer)
 	return (0);
 }
 
+int		init_main_buffers(t_renderer *renderer)
+{
+	glGenBuffers(1, &renderer->node_buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, renderer->node_buffer);
+	glBufferData(GL_ARRAY_BUFFER, renderer->node_info.length * sizeof(float),
+		renderer->node_info.ptr, GL_DYNAMIC_DRAW);
+	glGenBuffers(1, &renderer->edge_buffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer->edge_buffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+		renderer->edge_info.length * sizeof(int),
+		renderer->edge_info.ptr, GL_DYNAMIC_DRAW);
+	return (0);
+}
+
 int		setup_gl(t_renderer *renderer)
 {
 	if (init_textures(renderer) < 0)
 		return (-1);
 	if (init_shaders(renderer) < 0)
+		return (-1);
+	if (init_main_buffers(renderer) < 0)
 		return (-1);
 	return (0);
 }

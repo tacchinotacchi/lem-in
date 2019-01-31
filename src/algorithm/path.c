@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/30 19:10:02 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/31 21:30:02 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 #include "algorithm.h"
 #include "queue.h"
 #include "lem-in.h"
-
-void	free_stub(void *ptr, size_t stub)
-{
-	(void)stub;
-	free(ptr);
-}
 
 static int	try_relaxation(t_graph *flow_graph, t_list *curr, t_list *edge)
 {

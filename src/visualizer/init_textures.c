@@ -6,13 +6,13 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:49:18 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/31 18:49:23 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/31 21:22:38 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 
-int		texture_from_file(t_renderer *renderer, GLuint *id, const char *filename)
+int		texture_from_file(GLuint *id, const char *filename)
 {
 	SDL_Surface	*surface;
 
@@ -34,13 +34,13 @@ int		texture_from_file(t_renderer *renderer, GLuint *id, const char *filename)
 
 int		init_textures(t_renderer *renderer)
 {
-	if (texture_from_file(renderer, &renderer->node_texture,
+	if (texture_from_file(&renderer->node_texture,
 		"resources/node.bmp") < 0)
 		return (-1);
-	if (texture_from_file(renderer, &renderer->node_texture,
+	if (texture_from_file(&renderer->node_texture,
 		"resources/start.bmp") < 0)
 		return (-1);
-	if (texture_from_file(renderer, &renderer->node_texture,
+	if (texture_from_file(&renderer->node_texture,
 		"resources/end.bmp") < 0)
 		return (-1);
 	return (0);
