@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/30 14:41:11 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/31 17:29:33 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 # define START 0b1
 # define END 0b10
 # define GOAL 0b100
+
+/* TODO move to libft? */
+# define ASSERT(cond, message) ft_assert(cond, message, __FILE__, __LINE__);
+# if _DEBUG
+#  define D_ASSERT(cond, message) ASSERT(cond, message)
+# else
+#  define D_ASSERT(cond, message)
+# endif
 
 typedef struct	s_colony_node_data
 {
