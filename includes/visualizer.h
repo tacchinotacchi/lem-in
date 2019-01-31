@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visualizer.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/27 23:37:22 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/28 00:00:17 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,17 @@ typedef struct	s_textures
 	SDL_Texture	*digits[10];
 }				t_textures;
 
+typedef struct	s_visualizer
+{
+	SDL_Window	*window;
+	SDL_Surface	*surf;
+	SDL_Event	event;
+	int			loop;
+}				t_visualizer;
+
 int		init_textures(t_textures *textures);
+int		init_sdl(t_visualizer *v, t_textures *textures);
+void	ft_close(t_visualizer *v, t_textures *textures);
 void 	draw_graph(t_lemin *input, t_textures *textures);
 
 #endif
