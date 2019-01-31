@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:49:59 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/31 20:49:17 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/31 22:50:58 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,7 @@
 
 static void	free_line(void *data)
 {
-	char	**ptr;
-
-	ptr = data;
-	free(*ptr);
-	free(ptr);
+	free(*(char**)data);
 }
 
 t_array		load_file(const char *filename)
@@ -37,7 +33,10 @@ t_array		load_file(const char *filename)
 	if (fd < 0)
 		return (array);
 	while ((err = get_next_line(fd, &line) > 0))
-		array_push_back(&array, line);
+	{
+		if (line)
+			array_push_back(&array, &line);
+	}
 	close(fd);
 	return (array);
 }
@@ -52,6 +51,7 @@ int		check_compile_error(GLuint *id, GLenum compilation_stage)
 	{
 		glGetShaderiv(*id, GL_INFO_LOG_LENGTH, &info);
 		error = malloc(info);
+		glGetShaderInfoLog(*id, info, NULL, error);
 		ft_printf("Shader compilation error: %s\n", error);
 		free(error);
 		return (-1);

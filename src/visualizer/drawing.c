@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:45:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/31 21:50:33 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/31 22:36:14 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	convert_input(t_lemin *info, t_renderer *renderer)
 	size_t	id;
 
 	id = 0;
-	array_init(&renderer->node_info, sizeof(float[3]));
+	array_init(&renderer->node_coords, sizeof(float[3]));
 	while (id < info->graph.nodes.length)
 	{
-		array_push_back(&renderer->node_info, (float[3]){
+		array_push_back(&renderer->node_coords, (float[3]){
 			transform_x(info, node_colony_data(&info->graph, id)->x),
 			transform_y(info, node_colony_data(&info->graph, id)->y),
 			0.0f
@@ -48,10 +48,10 @@ void	convert_input(t_lemin *info, t_renderer *renderer)
 		id++;
 	}
 	id = 0;
-	array_init(&renderer->edge_info, sizeof(int[2]));
+	array_init(&renderer->edge_vao, sizeof(int[2]));
 	while (id < info->graph.edges.length)
 	{
-		array_push_back(&renderer->edge_info, (int[2]){
+		array_push_back(&renderer->edge_vao, (int[2]){
 			edge_tail(&info->graph, id),
 			edge_head(&info->graph, id)
 		});
@@ -59,7 +59,14 @@ void	convert_input(t_lemin *info, t_renderer *renderer)
 	}
 }
 
-int		draw_graph()
+void	draw_graph(t_renderer *renderer)
 {
-	return (0);
+	glUseProgram(renderer->node_program);
+	glBindBuffer(GL_ARRAY_BUFFER, renderer->node_buffer);
+	glBufferSubData(GL_ARRAY_BUFFER, 0,
+		renderer->node_coords.length * sizeof(float[3]),
+		renderer->node_coords.ptr);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
+	glDrawArrays(GL_POINTS, 0, renderer->node_coords.length);
 }

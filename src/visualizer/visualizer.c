@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/31 21:47:31 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/31 22:37:14 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ int		init_sdl(t_visualizer *vis, t_renderer *renderer)
 
 void	free_resources(t_visualizer *v, t_renderer *renderer)
 {
+	(void)renderer;
+	/*TODO*/
 	SDL_DestroyWindow(v->window);
 	v->window = NULL;
 	SDL_Quit();
 }
 
-int		enter_reading_loop(t_lemin *input, t_visualizer *vis,
-			t_renderer *renderer)
+int		enter_reading_loop(t_visualizer *vis, t_renderer *renderer)
 {
 	int				quit;
 
@@ -57,7 +58,7 @@ int		enter_reading_loop(t_lemin *input, t_visualizer *vis,
 				quit = 1;
 			/* TODO handle events */
 		}
-		/*draw_graph(input, renderer);*/
+		draw_graph(renderer);
 		/* TODO decent fps limiter */
 		SDL_Delay(6);
 	}
@@ -83,7 +84,7 @@ int		main(int argc, char **argv)
 	else if (setup_gl(&renderer))
 		return (0);
 	else
-		enter_reading_loop(&input, &vis, &renderer);
+		enter_reading_loop(&vis, &renderer);
 	free_resources(&vis, &renderer);
 	/*free_all(input); free_all lem-in inputs*/
 	return (0);
