@@ -6,11 +6,22 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:47:08 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/29 13:18:46 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/01/31 17:25:06 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "lem-in.h"
+
+void		ft_assert(int cond, const char *message,
+				const char *file, const char *line)
+{
+	if (!cond)
+	{
+		ft_printf("%s at %s:%s");
+		exit(0);
+	}
+}
 
 static void	free_comments(void *ptr, size_t content_size)
 {

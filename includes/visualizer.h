@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visualizer.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/28 00:00:17 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/31 20:04:33 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,19 @@
 
 #include "adjacency_list.h"
 #include "lem-in.h"
+#include <OpenGL/gl.h>
 #include <SDL.h>
 
-typedef struct	s_textures
+typedef struct	s_renderer
 {
-	SDL_Renderer *renderer;
-	SDL_Texture	*node;
-	SDL_Texture *start;
-	SDL_Texture *end;
-	SDL_Texture	*digits[10];
-}				t_textures;
+	SDL_GLContext	*ctx;
+	GLuint			node_program;
+	GLuint			edge_program;
+	GLuint			node_texture;
+	GLuint			start_texture;
+	GLuint			end_texture;
+	GLuint			edge_texture;
+}				t_renderer;
 
 typedef struct	s_visualizer
 {
@@ -34,9 +37,12 @@ typedef struct	s_visualizer
 	int			loop;
 }				t_visualizer;
 
-int		init_textures(t_textures *textures);
-int		init_sdl(t_visualizer *v, t_textures *textures);
-void	ft_close(t_visualizer *v, t_textures *textures);
-void 	draw_graph(t_lemin *input, t_textures *textures);
+int		acquire_context(t_visualizer *vis, t_renderer *renderer);
+int		setup_gl(t_renderer *renderer);
+int		init_textures(t_renderer *renderer);
+int		init_shaders(t_renderer *renderer);
+void	matrix_add(float *dst, float *a, float *b);
+void	matrix_sub(float *dst, float *a, float *b);
+void	matrix_mul(float *dst, float *a, float *b);
 
 #endif

@@ -25,7 +25,7 @@ INCLUDES = libft/includes/libft.h \
 		includes/visualizer.h
 OBJS = $(patsubst %.c,obj/%.o,$(SRCS))
 VISUALIZER_SRCS = visualizer/drawing.c \
-	visualizer/init_textures.c \
+	visualizer/init_renderer.c \
 	visualizer/visualizer.c \
 	parser/parser.c \
 	parser/get_info.c \

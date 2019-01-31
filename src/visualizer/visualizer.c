@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visualizer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/27 23:45:53 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/01/31 18:14:58 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,36 @@
 #include "visualizer.h"
 #include "parser.h"
 #include "lem-in.h"
+#include "ft_printf.h"
 #include <SDL.h>
 
-int		init_sdl(t_visualizer *v, t_textures *textures)
+int		init_sdl(t_visualizer *vis, t_renderer *renderer)
 {
-	int	success;
-
-	success = 1;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		printf("SDL could not initialize %s\n", SDL_GetError());
-		success = 0;
-	}
+		return (-1);
 	else
 	{
-		v->window = SDL_CreateWindow("Lem-in visualizer", SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED, 600, 600, SDL_WINDOW_SHOWN);
-		if (v->window == NULL)
-		{
-			printf("window could not be created %s\n", SDL_GetError());
-			success = 0;
-		}
-		else
-			textures->renderer = SDL_CreateRenderer(v->window, -1, SDL_RENDERER_ACCELERATED);
-		if (!textures->renderer || init_textures(textures) < 0)
-			success = 0;
+		vis->window = SDL_CreateWindow("Lem-in visualizer",
+			SDL_WINDOWPOS_CENTERED,
+			SDL_WINDOWPOS_CENTERED, 800, 800,
+			SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+		if (vis->window == NULL)
+			return (-1);
+		else if (acquire_context(vis, renderer) < 0)
+			return (-1);
 	}
-	return (success);
+	return (0);
 }
 
-void	ft_close(t_visualizer *v, t_textures *textures)
+void	free_resources(t_visualizer *v, t_renderer *renderer)
 {
-	SDL_DestroyRenderer(textures->renderer);
 	SDL_DestroyWindow(v->window);
 	v->window = NULL;
 	SDL_Quit();
 }
 
-int		enter_reading_loop(t_lemin *input, t_visualizer *v, t_textures *textures)
+int		enter_reading_loop(t_lemin *input, t_visualizer *v,
+			t_renderer *renderer)
 {
 	int				quit;
 
@@ -64,7 +56,7 @@ int		enter_reading_loop(t_lemin *input, t_visualizer *v, t_textures *textures)
 			if (v->event.type == SDL_QUIT)
 				quit = 1;
 		}
-		draw_graph(input, textures);
+		draw_graph(input, renderer);
 		SDL_Delay(1000);
 	}
 	return (0);
@@ -73,21 +65,23 @@ int		enter_reading_loop(t_lemin *input, t_visualizer *v, t_textures *textures)
 int		main(int argc, char **argv)
 {
 	t_lemin 		input;
-	t_visualizer	v;
-	t_textures		textures;
+	t_visualizer	vis;
+	t_renderer		renderer;
 
 	(void)argc;
 	(void)argv;
 	ft_bzero(&input, sizeof(t_lemin));
 	parse_input(&input, L_ANTS | L_COMMENT);
-	if (!init_sdl(&v, &textures))
+	if (init_sdl(&vis, &renderer) < 0)
 	{
-		printf("failed to initialize!\n");
+		ft_printf("Failed to acquire context: %s\n", SDL_GetError());
 		return (0);
 	}
+	else if (setup_gl(&renderer))
+		return (0);
 	else
-		enter_reading_loop(&input, &v, &textures);
-	ft_close(&v, &textures);
+		enter_reading_loop(&input, &vis, &renderer);
+	free_resources(&vis, &renderer);
 	/*free_all(input); free_all lem-in inputs*/
 	return (0);
 }
