@@ -148,10 +148,8 @@ void	print_program(t_lemin *info, t_array *program)
 {
 	t_buffer	buffer;
 	size_t		index;
-	size_t		buff_index;
 
 	index = 0;
-	buff_index = 0;
 	buffer.buffer = malloc(4096);
 	buffer.index = 0;
 	buffer.size = 4096;
