@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:49:18 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/01 14:08:20 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:20:16 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int		texture_from_file(GLuint *id, const char *filename)
 {
 	SDL_Surface	*surface;
 
-	glGenTextures(1, id);
-	glBindTexture(GL_TEXTURE_2D, *id);
 	surface = SDL_LoadBMP(filename);
 	if (!surface)
 		return (-1);
+	glGenTextures(1, id);
+	glBindTexture(GL_TEXTURE_2D, *id);
 	glTexImage2D(GL_TEXTURE_2D, 0,
 		(surface->format->BitsPerPixel == 32) ? GL_RGBA : GL_RGB,
 		surface->w, surface->h,
