@@ -6,13 +6,13 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:29:16 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/31 22:23:16 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/01 11:43:47 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 #include "libft.h"
-#include "OpenGL/gl.h"
+#include "ft_printf.h"
 
 int		sdl_set_attr()
 {
@@ -48,6 +48,11 @@ int		init_main_buffers(t_renderer *renderer)
 
 int		setup_gl(t_renderer *renderer)
 {
+	GLenum	err;
+
+	err = glewInit();
+	if (err != GLEW_OK)
+		ft_dprintf(2, "Glew failed: %s\n", glewGetErrorString(err));
 	if (init_textures(renderer) < 0)
 		return (-1);
 	if (init_shaders(renderer) < 0)

@@ -68,7 +68,7 @@ LIBFT_PREFIX = libft
 include libft/Makefile.mk
 
 $(VISUALIZER): $(VISUALIZER_OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
-	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(VISUALIZER_OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft -framework OpenGL `sdl2-config --libs`
+	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(VISUALIZER_OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft `pkg-config --libs glew sdl2`
 
 $(NAME): $(OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
 	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft
@@ -82,7 +82,7 @@ obj:
 	mkdir -p obj/algorithm
 
 obj/visualizer/%.o: src/visualizer/%.c $(INCLUDES) | obj
-	$(CC) $(CFLAGS) `sdl2-config --cflags` $(INCLUDE_FOLDERS) -o $@ -c $<
+	$(CC) $(CFLAGS) `pkg-config --cflags glew sdl2` $(INCLUDE_FOLDERS) -o $@ -c $<
 
 obj/%.o: src/%.c $(INCLUDES) | obj
 	$(CC) $(CFLAGS) $(INCLUDE_FOLDERS) -o $@ -c $<

@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/31 22:37:14 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/01 11:42:51 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		main(int argc, char **argv)
 	convert_input(&input, &renderer);
 	if (init_sdl(&vis, &renderer) < 0)
 	{
-		ft_printf("Failed to acquire context: %s\n", SDL_GetError());
+		ft_dprintf(2, "Failed to acquire context: %s\n", SDL_GetError());
 		return (0);
 	}
 	else if (setup_gl(&renderer))

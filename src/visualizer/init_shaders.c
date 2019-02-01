@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:49:59 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/31 22:50:58 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/01 11:46:39 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ t_array		load_file(const char *filename)
 	return (array);
 }
 
-int		check_compile_error(GLuint *id, GLenum compilation_stage)
+int		check_compile_error(GLuint *id, GLenum compilation_stage,
+			const char *message)
 {
 	GLint	info;
 	char	*error;
@@ -52,7 +53,7 @@ int		check_compile_error(GLuint *id, GLenum compilation_stage)
 		glGetShaderiv(*id, GL_INFO_LOG_LENGTH, &info);
 		error = malloc(info);
 		glGetShaderInfoLog(*id, info, NULL, error);
-		ft_printf("Shader compilation error: %s\n", error);
+		ft_printf("%s: %s\n", message, error);
 		free(error);
 		return (-1);
 	}
@@ -70,7 +71,7 @@ int		init_any_shader(GLuint *id, GLenum shader_type, const char *filename)
 	glShaderSource(*id,	source.length, (const char**)source.ptr, NULL);
 	array_clear(&source, free_line);
 	glCompileShader(*id);
-	if (check_compile_error(id, GL_COMPILE_STATUS) < 0)
+	if (check_compile_error(id, GL_COMPILE_STATUS, filename) < 0)
 		return (-1);
 	return (0);
 }
@@ -94,7 +95,8 @@ int		init_node_shader(t_renderer *renderer)
 	glAttachShader(renderer->node_program, geometry_shader);
 	glAttachShader(renderer->node_program, frag_shader);
 	glLinkProgram(renderer->node_program);
-	if (check_compile_error(&renderer->node_program, GL_LINK_STATUS) < 0)
+	if (check_compile_error(&renderer->node_program, GL_LINK_STATUS,
+		"Shader linking:") < 0)
 		return (-1);
 	glDetachShader(renderer->node_program, vertex_shader);
 	glDetachShader(renderer->node_program, geometry_shader);
@@ -124,7 +126,8 @@ int		init_edge_shader(t_renderer *renderer)
 	glAttachShader(renderer->node_program, geometry_shader);
 	glAttachShader(renderer->node_program, frag_shader);
 	glLinkProgram(renderer->node_program);
-	if (check_compile_error(&renderer->node_program, GL_LINK_STATUS) < 0)
+	if (check_compile_error(&renderer->node_program, GL_LINK_STATUS,
+		"Shader linking:") < 0)
 		return (-1);
 	glDetachShader(renderer->node_program, vertex_shader);
 	glDetachShader(renderer->node_program, geometry_shader);

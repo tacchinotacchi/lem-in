@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/31 22:23:14 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/01 11:38:39 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "adjacency_list.h"
 #include "lem-in.h"
-#include <OpenGL/gl.h>
+#include <GL/glew.h>
 #include <SDL.h>
 
 typedef struct	s_renderer
