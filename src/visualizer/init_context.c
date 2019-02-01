@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:29:16 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/01 12:08:35 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/01 13:18:27 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,8 @@ int		acquire_context(t_visualizer *vis, t_renderer *renderer)
 int		init_main_buffers(t_renderer *renderer)
 {
 	glGenBuffers(1, &renderer->node_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, renderer->node_buffer);
-	glBufferData(GL_ARRAY_BUFFER, renderer->node_coords.length * sizeof(float),
-		renderer->node_coords.ptr, GL_DYNAMIC_DRAW);
 	glGenBuffers(1, &renderer->edge_buffer);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer->edge_buffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-		renderer->edge_vao.length * sizeof(int),
-		renderer->edge_vao.ptr, GL_DYNAMIC_DRAW);
+	glGenVertexArrays(1, &renderer->node_vao);
 	return (0);
 }
 

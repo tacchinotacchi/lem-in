@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/01 11:42:51 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/01 12:32:19 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int		enter_reading_loop(t_visualizer *vis, t_renderer *renderer)
 			/* TODO handle events */
 		}
 		draw_graph(renderer);
+		SDL_GL_SwapWindow(vis->window);
 		/* TODO decent fps limiter */
 		SDL_Delay(6);
 	}

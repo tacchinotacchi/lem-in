@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:49:59 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/01 12:07:57 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/01 13:29:10 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,17 +118,17 @@ int		init_edge_shader(t_renderer *renderer)
 		|| (init_any_shader(&frag_shader, GL_FRAGMENT_SHADER,
 			"shaders/edge_fragment.glsl") < 0))
 		return (-1);
-	renderer->node_program = glCreateProgram();
-	glAttachShader(renderer->node_program, vertex_shader);
-	glAttachShader(renderer->node_program, geometry_shader);
-	glAttachShader(renderer->node_program, frag_shader);
-	glLinkProgram(renderer->node_program);
-	if (check_compile_error(&renderer->node_program, GL_LINK_STATUS,
+	renderer->edge_program = glCreateProgram();
+	glAttachShader(renderer->edge_program, vertex_shader);
+	glAttachShader(renderer->edge_program, geometry_shader);
+	glAttachShader(renderer->edge_program, frag_shader);
+	glLinkProgram(renderer->edge_program);
+	if (check_compile_error(&renderer->edge_program, GL_LINK_STATUS,
 		"Shader linking:") < 0)
 		return (-1);
-	glDetachShader(renderer->node_program, vertex_shader);
-	glDetachShader(renderer->node_program, geometry_shader);
-	glDetachShader(renderer->node_program, frag_shader);
+	glDetachShader(renderer->edge_program, vertex_shader);
+	glDetachShader(renderer->edge_program, geometry_shader);
+	glDetachShader(renderer->edge_program, frag_shader);
 	glDeleteShader(vertex_shader);
 	glDeleteShader(geometry_shader);
 	glDeleteShader(frag_shader);

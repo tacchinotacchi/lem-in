@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/01 11:38:39 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/01 13:17:33 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ typedef struct	s_renderer
 	GLuint			end_texture;
 	GLuint			edge_texture;
 	GLuint			node_buffer;
+	GLuint			node_vao;
 	GLuint			edge_buffer;
 	t_array			node_coords;
-	t_array			edge_vao;
+	t_array			edge_indices;
 }				t_renderer;
 
 typedef struct	s_visualizer
