@@ -24,6 +24,8 @@ int		init_sdl(t_visualizer *vis, t_renderer *renderer)
 		return (-1);
 	else
 	{
+		if (sdl_set_attr() < 0)
+			return (-1);
 		vis->window = SDL_CreateWindow("Lem-in visualizer",
 			SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED, 800, 800,
@@ -50,6 +52,8 @@ int		enter_reading_loop(t_visualizer *vis, t_renderer *renderer)
 	int				quit;
 
 	quit = 0;
+	renderer->view.v_rotation = 0.f;
+	matrix_identity(renderer->view.transform_mat);
 	while (!quit)
 	{
 		while(SDL_PollEvent(&vis->event) != 0)
@@ -58,6 +62,12 @@ int		enter_reading_loop(t_visualizer *vis, t_renderer *renderer)
 				quit = 1;
 			/* TODO handle events */
 		}
+		renderer->view.v_rotation += 0.01f;
+		matrix_identity(renderer->view.rotation_mat);
+		matrix_add_rotation(renderer->view.rotation_mat,
+			renderer->view.v_rotation, 0.0f);
+		matrix_identity(renderer->view.transform_mat);
+		matrix_add_movement(renderer->view.transform_mat, renderer->view.position);
 		draw_graph(renderer);
 		SDL_GL_SwapWindow(vis->window);
 		/* TODO decent fps limiter */
