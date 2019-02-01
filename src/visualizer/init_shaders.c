@@ -6,37 +6,34 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:49:59 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/01 11:46:39 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/01 12:07:57 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
-#include "get_next_line.h"
 #include "visualizer.h"
 #include "ft_printf.h"
-
-static void	free_line(void *data)
-{
-	free(*(char**)data);
-}
 
 t_array		load_file(const char *filename)
 {
 	t_array	array;
-	char	*line;
+	char	buffer[4096];
 	int		err;
 	int		fd;
 
-	array_init(&array, sizeof(char*));
+	array_init(&array, sizeof(char[4096]));
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (array);
-	while ((err = get_next_line(fd, &line) > 0))
+	ft_bzero(buffer, 4096);
+	while ((err = read(fd, buffer, 4096)) > 0)
 	{
-		if (line)
-			array_push_back(&array, &line);
+		array_push_back(&array, buffer);
+		ft_bzero(buffer, 4096);
 	}
+	if (err < 0)
+		array_clear(&array, NULL);
 	close(fd);
 	return (array);
 }
@@ -68,8 +65,8 @@ int		init_any_shader(GLuint *id, GLenum shader_type, const char *filename)
 	if (source.length == 0)
 		return (-1);
 	*id = glCreateShader(shader_type);
-	glShaderSource(*id,	source.length, (const char**)source.ptr, NULL);
-	array_clear(&source, free_line);
+	glShaderSource(*id,	1, (const char**)&source.ptr, NULL);
+	array_clear(&source, NULL);
 	glCompileShader(*id);
 	if (check_compile_error(id, GL_COMPILE_STATUS, filename) < 0)
 		return (-1);
