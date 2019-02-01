@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/30 14:41:11 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/01 01:14:25 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_colony_node_data
 	size_t	flow_out_id;
 	int		x;
 	int		y;
+	uint64_t coord;
 	size_t	ant;
 }				t_colony_node_data;
 

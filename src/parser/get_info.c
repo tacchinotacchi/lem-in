@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/30 14:15:21 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/01 01:22:19 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void		init_colony_data(t_colony_node_data *data)
 	data->flow_out_id = 0;
 	data->x = 0;
 	data->y = 0;
+	data->coord = 0;
 	data->ant = 0;
 }
 
@@ -73,6 +74,9 @@ ssize_t 	  store_node_data(t_lemin *info, char *line, ssize_t index)
 		return (FAIL);
 	data.x = ft_atoi(split[1]);
 	data.y = ft_atoi(split[2]);
+	data.coord |= (uint64_t)data.x;
+	data.coord = data.coord << 32;
+	data.coord |= (uint64_t)data.y;
 	if (index == l_start_node)
 	{
 		info->start = info->graph.nodes.length;
