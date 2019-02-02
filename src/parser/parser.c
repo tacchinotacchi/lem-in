@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/27 22:41:18 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/01 15:41:58 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,5 @@ ssize_t			parse_input(t_lemin *info, ssize_t initial_flags)
 	}
 	if (parser_state != (STATE_ANTS | STATE_START | STATE_END))
 		return (0);
-	/* TODO ret = is_map_valid(info); run BFS once to see the end is inside the list*/
 	return (ret);
 }
