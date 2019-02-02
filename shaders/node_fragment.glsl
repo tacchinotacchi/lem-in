@@ -11,4 +11,6 @@ uniform sampler2D node_tex;
 void	main()
 {
 	color = texture(node_tex, texture_coords);
+	if (color.a < 0.9)
+		discard;
 }

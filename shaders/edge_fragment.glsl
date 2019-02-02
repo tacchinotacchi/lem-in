@@ -10,5 +10,7 @@ uniform sampler2D edge_tex;
 
 void	main()
 {
-	color = vec4(1.0, 0.0, 0.0, 1.0);
+	color = texture(edge_tex, texture_coords);
+	if (color.a < 0.9)
+		discard;
 }

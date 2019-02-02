@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:45:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/01 22:15:28 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/02 18:28:21 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	draw_edges(t_renderer *renderer)
 {
 	glUseProgram(renderer->edge_program);
 	glUniform1f(
-		glGetUniformLocation(renderer->edge_program, "edge_scale"), 0.06f);
+		glGetUniformLocation(renderer->edge_program, "edge_scale"), 0.02f);
 	glUniform1i(glGetUniformLocation(renderer->edge_texture, "edge_tex"), 0);
 	glUniformMatrix4fv(glGetUniformLocation(renderer->edge_program, "transform"),
 		1, GL_FALSE, renderer->view.transform_mat);
@@ -99,9 +99,10 @@ void	draw_edges(t_renderer *renderer)
 
 void	draw_graph(t_renderer *renderer)
 {
-	glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
 	glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBindVertexArray(renderer->node_vao);
 	glBindBuffer(GL_ARRAY_BUFFER, renderer->node_buffer);
