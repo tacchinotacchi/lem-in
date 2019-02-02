@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:45:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/02 18:28:21 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/02 22:58:48 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	convert_input(t_lemin *info, t_renderer *renderer)
 		array_push_back(&renderer->node_coords, (float[1]){
 			transform_y(info, node_colony_data(&info->graph, id)->y)
 		});
-		array_push_back(&renderer->node_coords, (float[1]){0.0f});
+		array_push_back(&renderer->node_coords, (float[1]){-2.f});
 		id++;
 	}
 	id = 0;
@@ -69,11 +69,11 @@ void	draw_nodes(t_renderer *renderer)
 		glGetUniformLocation(renderer->node_program, "node_scale"), 0.06f);
 	glUniform1i(glGetUniformLocation(renderer->node_program, "note_tex"), 0);
 	glUniformMatrix4fv(glGetUniformLocation(renderer->node_program, "transform"),
-		1, GL_FALSE, renderer->view.transform_mat);
+		1, GL_TRUE, renderer->view.transform_mat);
 	glUniformMatrix4fv(glGetUniformLocation(renderer->node_program, "rotation"),
-		1, GL_FALSE, renderer->view.rotation_mat);
-	/*glUniformMatrix4fv(glGetUniformLocation(renderer->node_program, "perspective"),
-		1, GL_FALSE, renderer->perspective_mat);*/
+		1, GL_TRUE, renderer->view.rotation_mat);
+	glUniformMatrix4fv(glGetUniformLocation(renderer->node_program, "perspective"),
+		1, GL_TRUE, renderer->view.perspective_mat);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, renderer->node_texture);
 	glDrawArrays(GL_POINTS, 0, renderer->node_coords.length / 3);
@@ -86,11 +86,11 @@ void	draw_edges(t_renderer *renderer)
 		glGetUniformLocation(renderer->edge_program, "edge_scale"), 0.02f);
 	glUniform1i(glGetUniformLocation(renderer->edge_texture, "edge_tex"), 0);
 	glUniformMatrix4fv(glGetUniformLocation(renderer->edge_program, "transform"),
-		1, GL_FALSE, renderer->view.transform_mat);
+		1, GL_TRUE, renderer->view.transform_mat);
 	glUniformMatrix4fv(glGetUniformLocation(renderer->edge_program, "rotation"),
-		1, GL_FALSE, renderer->view.rotation_mat);
-	/*glUniformMatrix4fv(glGetUniformLocation(renderer->node_program, "perspective"),
-		1, GL_FALSE, renderer->perspective_mat);*/
+		1, GL_TRUE, renderer->view.rotation_mat);
+	glUniformMatrix4fv(glGetUniformLocation(renderer->edge_program, "perspective"),
+		1, GL_TRUE, renderer->view.perspective_mat);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, renderer->edge_texture);
 	glDrawElements(GL_LINES, renderer->edge_indices.length * 2,

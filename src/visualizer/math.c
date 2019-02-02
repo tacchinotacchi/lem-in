@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 18:11:11 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/01 20:16:19 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 00:05:30 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 float	ft_fmod(float x, float mod)
 {
-	uint64_t	times;
+	int64_t	times;
 
 	times = x / mod;
 	return (x - mod * times);
@@ -27,7 +27,7 @@ float	ft_cos(float x)
 	float term_squared;
 	float result;
 
-	term = ft_fmod(x + PI, PI * 2) - PI;
+	term = ft_fmod(x + PI, PI * 2.f) - PI;
 	term_squared = term * term;
 	term = term_squared;
 	result = 1.f;
@@ -53,7 +53,7 @@ float	ft_sin(float x)
 	float term_squared;
 	float result;
 
-	term = ft_fmod(x + PI, PI * 2) - PI;
+	term = ft_fmod(x + PI, PI * 2.f) - PI;
 	term_squared = term * term;
 	result = 0.f;
 	result += term;
@@ -72,4 +72,9 @@ float	ft_sin(float x)
 	term *= term_squared;
 	result += -term/1307674368000.f;
 	return (result);
+}
+
+float	ft_tan(float x)
+{
+	return (ft_sin(x) / ft_cos(x));
 }

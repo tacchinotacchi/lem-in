@@ -6,11 +6,23 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:42:42 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/01 21:16:53 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 00:06:36 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
+
+void	rotate_vector(float *v, float v_rotation, float r_rotation)
+{
+	float	temp[3];
+
+	ft_memcpy(temp, v, sizeof(float) * 3);
+	v[0] = temp[0] * ft_cos(v_rotation) - temp[2] * ft_sin(v_rotation);
+	v[2] = temp[0] * ft_sin(v_rotation) + temp[2] * ft_cos(v_rotation);
+	ft_memcpy(temp, v, sizeof(float) * 3);
+	v[1] = temp[1] * ft_cos(r_rotation) - temp[2] * ft_sin(r_rotation);
+	v[2] = temp[1] * ft_sin(r_rotation) + temp[2] * ft_cos(r_rotation);
+}
 
 void	matrix_identity(float *mat)
 {
@@ -28,6 +40,21 @@ void	matrix_identity(float *mat)
 		}
 		i++;
 	}
+}
+
+void	matrix_perspective(float *mat, float near_clip, float far_clip, float fov)
+{
+	float	near_width;
+	float	far_width;
+
+	near_width = near_clip * ft_tan(fov / 2.f);
+	far_width = far_clip * ft_tan(fov / 2.f);
+	ft_bzero(mat, sizeof(float) * 16);
+	mat[0 * 4 + 0] = near_clip / near_width;
+	mat[1 * 4 + 1] = near_clip / near_width;
+	mat[2 * 4 + 2] = -(far_clip + near_clip) / (far_clip - near_clip);
+	mat[2 * 4 + 3] = -2.f * (far_clip * near_clip) / (far_clip - near_clip);
+	mat[3 * 4 + 2] = -1.f;
 }
 
 void	matrix_add_movement(float *mat, float *direction)
@@ -48,13 +75,13 @@ void	matrix_add_rotation(float *mat, float y_axis, float x_axis)
 	rotation[0 * 4 + 2] = -ft_sin(y_axis);
 	rotation[2 * 4 + 0] = ft_sin(y_axis);
 	rotation[2 * 4 + 2] = ft_cos(y_axis);
-	matrix_mul(inter, mat, rotation);
+	matrix_mul(inter, rotation, mat);
 	matrix_identity(rotation);
 	rotation[1 * 4 + 1] = ft_cos(x_axis);
 	rotation[1 * 4 + 2] = -ft_sin(x_axis);
 	rotation[2 * 4 + 1] = ft_sin(x_axis);
 	rotation[2 * 4 + 2] = ft_cos(x_axis);
-	matrix_mul(mat, inter, rotation);
+	matrix_mul(mat, rotation, inter);
 }
 
 void	matrix_add(float *dst, float *a, float *b)
