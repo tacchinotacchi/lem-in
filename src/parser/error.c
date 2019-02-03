@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:47:08 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/29 13:18:46 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 19:51:41 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,13 @@ static void	free_nodes(void *ptr)
 
 static void	free_edges(void *ptr)
 {
-	(void)ptr;
+	free(ptr);
+}
+
+static void	free_trees(void *ptr, size_t size)
+{
+	(void)size;
+	free(ptr);
 }
 
 void		error(t_lemin *info)
@@ -41,4 +47,5 @@ void		error(t_lemin *info)
 	array_clear(&(info->graph.nodes), free_nodes);
 	array_clear(&(info->graph.edges), free_edges);
 	list_del(&(info->comments), free_comments);
+	tree_clear(&(info->coord_tree), free_trees);
 }

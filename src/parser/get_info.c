@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 22:57:35 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 23:22:24 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ int		store_input(t_lemin *info, int index, char *line)
 	return (ret);
 }
 
-static uint64_t cmp_coord(const void *data1, const void *data2)
-{
-	return (*(uint64_t*)data1 - *(uint64_t*)data2);
-}
-
 int 	  store_node_data(t_lemin *info, char *line, int index)
 {
 	t_colony_node_data	data;
@@ -79,9 +74,15 @@ int 	  store_node_data(t_lemin *info, char *line, int index)
 		info->end = info->graph.nodes.length;
 		data.flags |= END;
 	}
+	(t_name_node[]){{split[0], 0}}, compare_names);
 	ft_splitdel(split);
 	add_node(&(info->graph), &data, sizeof(data));
-	tree_insert(&(info->coord_tree), node_create(&data.coord, sizeof(uint64_t)), cmp_coord);
+	if (tree_insert(&(info->coord_tree),
+	node_create(&data.coord, sizeof(uint64_t)), compare_coords) == 0)
+		return (FAIL);
+	if (tree_insert(&(info->name_tree), node_create(&(t_name_node[]){{split[0],
+	info->graph.nodes.length}}, sizeof(t_name_node)), compare_names) == 0)
+		return (FAIL);
 	if (data.x > info->max_x_coord)
 		info->max_x_coord = data.x;
 	if (data.x < info->min_x_coord)

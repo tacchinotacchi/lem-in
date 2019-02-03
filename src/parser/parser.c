@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 22:27:22 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 23:01:07 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,15 @@ int			parse_input(t_lemin *info, int initial_flags)
 		if (ret > -1)
 			flags = choose_flags(&parser_state, ret);
 		else
+		{
+			error(info);
 			return (0);
+		}
 	}
 	if (parser_state != (STATE_ANTS | STATE_START | STATE_END))
+	{
+		error(info);
 		return (0);
+	}
 	return (ret);
 }

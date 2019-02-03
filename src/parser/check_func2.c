@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 04:31:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 22:25:57 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 23:02:15 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ int	is_node(char *line, t_lemin *info)
 	cnt = 0;
 	while (split[cnt])
 		cnt++;
-	if (line[0] != 'L' && line[0] != '#' && cnt == 3 &&
-	ft_str_is_digit(split[1]) && ft_str_is_digit(split[2])
-	&& content_cmp(&(info->graph.nodes), split))
+	if (line[0] != 'L' && line[0] != '#' && cnt == 3 && !ft_strchr(line, '-') &&
+	ft_str_is_digit(split[1]) && ft_str_is_digit(split[2]))
 	{
 		ft_splitdel(split);
 		return (1);
@@ -59,9 +58,8 @@ int	is_start_node(char *line, t_lemin *info)
 	cnt = 0;
 	while (split[cnt])
 		cnt++;
-	if (line[0] != 'L' && line[0] != '#' && cnt == 3 &&
-	ft_str_is_digit(split[1]) && ft_str_is_digit(split[2])
-	&& content_cmp(&(info->graph.nodes), split))
+	if (line[0] != 'L' && line[0] != '#' && cnt == 3 && !ft_strchr(line, '-') &&
+	ft_str_is_digit(split[1]) && ft_str_is_digit(split[2]))
 	{
 		ft_splitdel(split);
 		return (1);
@@ -83,9 +81,8 @@ int	is_end_node(char *line, t_lemin *info)
 	cnt = 0;
 	while (split[cnt])
 		cnt++;
-	if (line[0] != 'L' && line[0] != '#' && cnt == 3 &&
-	ft_str_is_digit(split[1]) && ft_str_is_digit(split[2])
-	&& content_cmp(&(info->graph.nodes), split))
+	if (line[0] != 'L' && line[0] != '#' && cnt == 3 && !ft_strchr(line, '-') &&
+	ft_str_is_digit(split[1]) && ft_str_is_digit(split[2]))
 	{
 		ft_splitdel(split);
 		return (1);
