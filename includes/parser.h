@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 22:25:39 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 22:56:00 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,18 @@ typedef enum	s_success
 	l_edge
 }				t_success;
 
+typedef struct	s_edge_pair
+{
+	size_t	minor;
+	size_t	major;
+}				t_edge_pair;
+
+typedef struct	s_name_node
+{
+	char	*name;
+	size_t	index;
+}				t_name_node;
+
 int		parse_input(t_lemin *info, int initial_flags);
 
 /*return -1 for wrong inputs and return 'index' keep track of the type of input*/
@@ -69,13 +81,14 @@ int		is_end_node(char *line, t_lemin *info);
 int		is_node(char *line, t_lemin *info);
 int		is_edge(char *line, t_lemin *info);
 int		ft_str_is_digit(const char *str); /*TODO to libft */
-
 int		store_ants(t_lemin *info, char *line, int index);
 int		store_commands(t_lemin *info, char *line, int index);
 int		store_comments(t_lemin *info, char *line, int index);
 int		store_node_data(t_lemin *info, char *line, int index);
 int		search_nodes(t_array *nodes, char *node);
 int		store_edge_data(t_lemin *info, char *line, int index);
+int		compare_names(const void *ptr1, const void *ptr2);
+int		compare_edge(const void *ptr1, const void *ptr2);
 void	error(t_lemin *info);
 
 

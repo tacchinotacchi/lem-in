@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 22:24:45 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 22:57:35 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,42 +93,55 @@ int 	  store_node_data(t_lemin *info, char *line, int index)
 	return (index);
 }
 
-int	search_nodes(t_array *nodes, char *node)
-{
-	int	index;
 
-	index = 0;
-	while (index < (ssize_t)nodes->length)
-	{
-		if (!ft_strcmp(((t_colony_node_data*)
-			((t_node*)nodes->ptr)[index].data)->name, node))
-			return (index);
-		index++;
-	}
-	return (-1);
+static t_edge_pair	get_edge_pair(t_lemin *info, char **split)
+{
+	t_tree		*node;
+	size_t		first;
+	size_t		second;
+
+	node = tree_search(info->edge_tree,
+		(t_name_node[]){{split[0], 0}}, compare_names);
+	first = node ? ((t_name_node*)node->content)->index : 0;
+	node = tree_search(info->edge_tree,
+		(t_name_node[]){{split[1], 0}}, compare_names);
+	second = node ? ((t_name_node*)node->content)->index : 0;
+	if (first >= second)
+		return ((t_edge_pair){first, second});
+	return ((t_edge_pair){second, first});
+}
+
+int			compare_edge(const void *ptr1, const void *ptr2)
+{
+	const t_edge_pair	*pair1;
+	const t_edge_pair	*pair2;
+
+	pair1 = ptr1;
+	pair2 = ptr2;
+	if (pair1->major != pair2->major)
+		return (pair1->major - pair2->major);
+	return (pair1->minor - pair2->minor);
 }
 
 int	store_edge_data(t_lemin *info, char *line, int index)
 {
-	int		tail;
-	int		head;
-	char	**split;
+	t_edge_pair	pair;
+	char		**split;
 
-	tail = 0;
-	head = 0;
 	if (!(split = ft_strsplit(line, '-')))
 	{
 		ft_splitdel(split);
 		return (FAIL);
 	}
-	tail = search_nodes(&(info->graph.nodes), split[0]);
-	head = search_nodes(&(info->graph.nodes), split[1]);
-	ft_splitdel(split);
-	if (tail > -1 && head > -1)
+	pair = get_edge_pair(info, split);
+	if (pair.minor == pair.major
+		|| !tree_insert(&info->edge_tree,
+			node_create(&pair, sizeof(pair)), compare_edge))
 	{
-		add_edge(&(info->graph), tail, head, sizeof(t_colony_edge_data));
-		add_edge(&(info->graph), head, tail, sizeof(t_colony_edge_data));
-		return (index);
+		ft_splitdel(split);
+		return (FAIL);
 	}
-	return (FAIL);
+	add_edge(&(info->graph), pair.minor, pair.major, sizeof(t_colony_edge_data));
+	add_edge(&(info->graph), pair.major, pair.minor, sizeof(t_colony_edge_data));
+	return (index);
 }

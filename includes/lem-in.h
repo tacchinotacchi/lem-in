@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 22:22:05 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 22:36:48 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct 	s_lemin
 	int			max_y_coord;
 	int			min_y_coord;
 	t_tree		*coord_tree;
+	t_tree		*name_tree;
+	t_tree		*edge_tree;
 }				t_lemin;
 
 void	get_ants(t_lemin *info);
