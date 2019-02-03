@@ -6,21 +6,22 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 03:49:23 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/03 11:53:43 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 16:46:03 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 #include <math.h>
 
-void	node_attract(t_graph *graph, size_t tail, size_t head,
+static void	node_attract(t_graph *graph, size_t tail, size_t head,
 			t_visualizer *vis)
 {
 	float	distance;
 	float	diff[3];
 	float	desired;
 
-	desired = vis->adj_matrix[tail * vis->width + head] ? 0.01f : 10.f;
+	desired = vis->adj_matrix[tail * vis->width + head] ? 0.01f
+		: 0.5f * pow(graph->nodes.length, 0.333333);
 	diff[0] = node_colony_data(graph, head)->coords[0]
 		- node_colony_data(graph, tail)->coords[0];
 	diff[1] = node_colony_data(graph, head)->coords[1]
@@ -29,11 +30,11 @@ void	node_attract(t_graph *graph, size_t tail, size_t head,
 		- node_colony_data(graph, tail)->coords[2];
 	distance = sqrt(diff[0] * diff[0] + diff[1] * diff[1] + diff[2] * diff[2]);
 	node_colony_data(graph, tail)->accel[0]
-		+= 0.001 * 2.f * diff[0] * (distance - desired) / distance;
+		+= 0.5f * 2.f * diff[0] * (distance - desired) / distance;
 	node_colony_data(graph, tail)->accel[1]
-		+= 0.001 * 2.f * diff[1] * (distance - desired) / distance;
+		+= 0.5f * 2.f * diff[1] * (distance - desired) / distance;
 	node_colony_data(graph, tail)->accel[2]
-		+= 0.001 * 2.f * diff[2] * (distance - desired) / distance;
+		+= 0.5f * 2.f * diff[2] * (distance - desired) / distance;
 }
 
 void update_equilibrium(t_graph *graph, t_visualizer *vis)
@@ -62,9 +63,12 @@ void update_equilibrium(t_graph *graph, t_visualizer *vis)
 	id = 0;
 	while (id < graph->nodes.length)
 	{
-		node_colony_data(graph, id)->coords[0] += node_colony_data(graph, id)->accel[0];
-		node_colony_data(graph, id)->coords[1] += node_colony_data(graph, id)->accel[1];
-		node_colony_data(graph, id)->coords[2] += node_colony_data(graph, id)->accel[2];
+		node_colony_data(graph, id)->coords[0]
+			+= node_colony_data(graph, id)->accel[0] / graph->nodes.length;
+		node_colony_data(graph, id)->coords[1]
+			+= node_colony_data(graph, id)->accel[1] / graph->nodes.length;
+		node_colony_data(graph, id)->coords[2]
+			+= node_colony_data(graph, id)->accel[2] / graph->nodes.length;
 		id++;
 	}
 }

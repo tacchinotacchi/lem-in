@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:45:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/03 12:43:53 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 16:05:25 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	convert_input(t_lemin *info, t_renderer *renderer)
 	}
 }
 
-void	draw_nodes(t_renderer *renderer)
+static void	draw_nodes(t_renderer *renderer)
 {
 	glUseProgram(renderer->node_program);
 	glUniform1f(
@@ -100,7 +100,7 @@ void	draw_nodes(t_renderer *renderer)
 	glDrawArrays(GL_POINTS, 0, renderer->node_coords.length);
 }
 
-void	draw_edges(t_renderer *renderer)
+static void	draw_edges(t_renderer *renderer)
 {
 	glUseProgram(renderer->edge_program);
 	glUniform1f(

@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/03 11:17:54 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 16:27:36 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		init_sdl(t_visualizer *vis, t_renderer *renderer)
 			return (-1);
 		vis->window = SDL_CreateWindow("Lem-in visualizer",
 			SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED, 800, 800,
+			SDL_WINDOWPOS_CENTERED, 1000, 1000,
 			SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 		if (vis->window == NULL)
 			return (-1);
@@ -100,7 +100,7 @@ int		enter_reading_loop(t_lemin *info, t_visualizer *vis, t_renderer *renderer)
 	ft_bzero(&renderer->view, sizeof(t_view));
 	array_init(&renderer->node_coords, sizeof(float[3]));
 	array_init(&renderer->edge_indices, sizeof(GLuint[2]));
-	matrix_perspective(renderer->view.perspective_mat, 0.3f, 500.f, 0.9f);
+	matrix_perspective(renderer->view.perspective_mat, 0.1f, 200.f, 0.9f);
 	while (!quit)
 	{
 		while(SDL_PollEvent(&vis->event) != 0)
@@ -120,7 +120,6 @@ int		enter_reading_loop(t_lemin *info, t_visualizer *vis, t_renderer *renderer)
 		draw_graph(renderer);
 		SDL_GL_SwapWindow(vis->window);
 		/* TODO decent fps limiter */
-		SDL_Delay(6);
 	}
 	return (0);
 }

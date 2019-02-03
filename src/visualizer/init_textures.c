@@ -6,13 +6,13 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:49:18 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/02 18:21:00 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 16:06:13 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 
-int		texture_from_file(GLuint *id, const char *filename)
+static int		texture_from_file(GLuint *id, const char *filename)
 {
 	SDL_Surface	*surface;
 

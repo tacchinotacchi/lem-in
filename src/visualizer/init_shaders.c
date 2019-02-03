@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:49:59 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/02 18:14:17 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 16:05:54 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "visualizer.h"
 #include "ft_printf.h"
 
-t_array		load_file(const char *filename)
+static t_array	load_file(const char *filename)
 {
 	t_array	array;
 	char	buffer[4096];
@@ -38,7 +38,7 @@ t_array		load_file(const char *filename)
 	return (array);
 }
 
-int		check_compile_error(GLuint *id, const char *message)
+static int	check_compile_error(GLuint *id, const char *message)
 {
 	GLint	info;
 	char	*error;
@@ -56,7 +56,7 @@ int		check_compile_error(GLuint *id, const char *message)
 	return (0);
 }
 
-int		check_link_error(GLuint *id, const char *message)
+static int	check_link_error(GLuint *id, const char *message)
 {
 	GLint	info;
 	char	*error;
@@ -74,7 +74,7 @@ int		check_link_error(GLuint *id, const char *message)
 	return (0);
 }
 
-int		init_any_shader(GLuint *id, GLenum shader_type, const char *filename)
+static int		init_any_shader(GLuint *id, GLenum shader_type, const char *filename)
 {
 	t_array	source;
 
@@ -90,7 +90,7 @@ int		init_any_shader(GLuint *id, GLenum shader_type, const char *filename)
 	return (0);
 }
 
-int		init_node_shader(t_renderer *renderer)
+static int		init_node_shader(t_renderer *renderer)
 {
 	GLuint	vertex_shader;
 	GLuint	geometry_shader;
@@ -120,7 +120,7 @@ int		init_node_shader(t_renderer *renderer)
 	return (0);
 }
 
-int		init_edge_shader(t_renderer *renderer)
+static int		init_edge_shader(t_renderer *renderer)
 {
 	GLuint	vertex_shader;
 	GLuint	geometry_shader;

@@ -12,8 +12,8 @@ void	main()
 {
 	vec4 temp_color;
 
-	color = texture(edge_tex, texture_coords);
-	//color = vec4(temp_color.r, temp_color.r, temp_color.r, temp_color.a);
+	temp_color = texture(edge_tex, texture_coords);
+	color = vec4(temp_color.g, temp_color.b, temp_color.r, temp_color.a);
 	if (color.a < 0.9)
 		discard;
 }
