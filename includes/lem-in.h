@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/02 03:17:02 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/03 21:54:50 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void	get_node_data(t_lemin *info, char **split, int flags);
 void	get_edge_data(t_lemin *info, char **split);
 void	error(t_lemin *info);
 ssize_t	search_nodes(t_array *nodes, char *node);
-/* TODO review and move to libft */
-void	ft_splitdel(char **split);
 t_colony_node_data	*node_colony_data(const t_graph *graph, size_t id);
 t_colony_edge_data	*edge_colony_data(const t_graph *graph, size_t id);
 void	free_stub(void *ptr, size_t stub);

@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/27 22:32:06 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 21:55:17 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ size_t		is_edge(char *line, t_lemin *info);
 size_t		content_cmp(t_array *nodes, char **split);
 size_t		ft_str_is_digit(const char *str); /*TODO to libft */
 
-void		ft_splitdel(char **split); /*TODO to libft */
 ssize_t		store_ants(t_lemin *info, char *line, ssize_t index);
 ssize_t		store_commands(t_lemin *info, char *line, ssize_t index);
 ssize_t		store_comments(t_lemin *info, char *line, ssize_t index);

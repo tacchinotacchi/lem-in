@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/02 03:25:37 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/03 21:57:16 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,6 @@ void		init_colony_data(t_colony_node_data *data)
 	data->y = 0;
 	data->coord = 0;
 	data->ant = 0;
-}
-
-void	ft_splitdel(char **split)
-{
-	int index;
-
-	index = 0;
-	while (split[index])
-	{
-		free(split[index]);
-		index++;
-	}
-	free(split);
 }
 
 ssize_t		store_input(t_lemin *info, ssize_t index, char *line)
