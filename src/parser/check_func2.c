@@ -6,13 +6,13 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 04:31:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/27 21:52:11 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/03 22:25:57 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-size_t	is_comment(char *line, t_lemin *info)
+int	is_comment(char *line, t_lemin *info)
 {
 	(void)info;
 	if (line[0] == '#' && line[1] != '#') /*separation from comment*/
@@ -20,7 +20,7 @@ size_t	is_comment(char *line, t_lemin *info)
 	return (0);
 }
 
-size_t	is_node(char *line, t_lemin *info)
+int	is_node(char *line, t_lemin *info)
 {
 	char	**split;
 	int		cnt;
@@ -45,7 +45,7 @@ size_t	is_node(char *line, t_lemin *info)
 	return (0);
 }
 
-size_t	is_start_node(char *line, t_lemin *info)
+int	is_start_node(char *line, t_lemin *info)
 {
 	char	**split;
 	int		cnt;
@@ -70,7 +70,7 @@ size_t	is_start_node(char *line, t_lemin *info)
 	return (0);
 }
 
-size_t	is_end_node(char *line, t_lemin *info)
+int	is_end_node(char *line, t_lemin *info)
 {
 	char	**split;
 	int		cnt;
@@ -94,14 +94,14 @@ size_t	is_end_node(char *line, t_lemin *info)
 	return (0);
 }
 
-size_t	is_edge(char *line, t_lemin *info)
+int	is_edge(char *line, t_lemin *info)
 {
 	int		cnt;
 	char	**split;
 
 	(void)info;
 	if (!(split = ft_strsplit(line, '-')))
-	{	
+	{
 		ft_splitdel(split);
 		return (0);
 	}

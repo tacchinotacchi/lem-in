@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/01 15:41:58 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/03 22:27:22 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "get_next_line.h"
 #include "array.h"
 
-size_t	(*g_func_table[])(char*, t_lemin*) = {
+int		(*g_func_table[])(char*, t_lemin*) = {
 	is_nbr_ants,
 	is_start,
 	is_end,
@@ -26,8 +26,8 @@ size_t	(*g_func_table[])(char*, t_lemin*) = {
 	is_edge
 };
 
-ssize_t	check_special_flags(ssize_t *parser_state, ssize_t flags,
-			ssize_t success)
+int	check_special_flags(int *parser_state, int flags,
+			int success)
 {
 	if ((*parser_state & STATE_START) == 0 && success != l_edge)
 		flags |= L_START;
@@ -39,9 +39,9 @@ ssize_t	check_special_flags(ssize_t *parser_state, ssize_t flags,
 	return (flags);
 }
 
-ssize_t			choose_flags2(ssize_t *parser_state, ssize_t success)
+int			choose_flags2(int *parser_state, int success)
 {
-	ssize_t flags;
+	int flags;
 
 	flags = 0;
 	if (success == l_command)
@@ -66,9 +66,9 @@ ssize_t			choose_flags2(ssize_t *parser_state, ssize_t success)
 	}
 	return (flags);
 }
-ssize_t			choose_flags(ssize_t *parser_state, ssize_t success)
+int			choose_flags(int *parser_state, int success)
 {
-	ssize_t	flags;
+	int	flags;
 
 	flags = 0;
 	if (success == l_ants && (*parser_state & STATE_ANTS) == 0)
@@ -91,11 +91,11 @@ ssize_t			choose_flags(ssize_t *parser_state, ssize_t success)
 	return (flags);
 }
 
-ssize_t			check_input(t_lemin *info, char *line, ssize_t flags)
+int			check_input(t_lemin *info, char *line, int flags)
 {
-	ssize_t	flags_reset;
-	ssize_t	index;
-	ssize_t	ret;
+	int	flags_reset;
+	int	index;
+	int	ret;
 
 	ret = 0;
 	index = 0;
@@ -113,12 +113,12 @@ ssize_t			check_input(t_lemin *info, char *line, ssize_t flags)
 	return (FAIL);
 }
 
-ssize_t			parse_input(t_lemin *info, ssize_t initial_flags)
+int			parse_input(t_lemin *info, int initial_flags)
 {
 	char		*line;
-	ssize_t		flags;
-	ssize_t		parser_state;
-	ssize_t		ret;
+	int		flags;
+	int		parser_state;
+	int		ret;
 
 
 	ft_bzero(info, sizeof(t_lemin));

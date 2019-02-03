@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 21:55:17 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 22:25:39 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,44 +41,42 @@ typedef enum	s_success
 	l_edge
 }				t_success;
 
-ssize_t		parse_input(t_lemin *info, ssize_t initial_flags);
+int		parse_input(t_lemin *info, int initial_flags);
 
 /*return -1 for wrong inputs and return 'index' keep track of the type of input*/
-ssize_t		check_input(t_lemin *info, char *line, ssize_t flags);
+int		check_input(t_lemin *info, char *line, int flags);
 
-ssize_t		choose_flags(ssize_t *parser_state,  ssize_t success);
-ssize_t		choose_flags2(ssize_t *parser_state, ssize_t success);
+int		choose_flags(int *parser_state,  int success);
+int		choose_flags2(int *parser_state, int success);
 
-ssize_t		check_special_flag(t_lemin *info, ssize_t flags, ssize_t success);
-void		init_colony_data(t_colony_node_data *data);
+int		check_special_flag(t_lemin *info, int flags, int success);
+void	init_colony_data(t_colony_node_data *data);
 /*return -1 for error(malloc failure) return 'index' to keep track of the type
 of input*/
-ssize_t		store_input(t_lemin *info, ssize_t index, char *line);
+int		store_input(t_lemin *info, int index, char *line);
 
-ssize_t		is_map_valid(t_lemin *info); /*TODO map validity check*/
+int		is_map_valid(t_lemin *info); /*TODO map validity check*/
 
 
 /* return 1 for right_input return 0 for wrong input*/
-size_t		is_nbr_ants(char *line, t_lemin *info);
-size_t		is_start(char *line, t_lemin *info);
-size_t		is_end(char *line, t_lemin *info);
-size_t		is_command(char *line, t_lemin *info);
-size_t		is_comment(char *line, t_lemin *info);
-size_t		is_start_node(char *line, t_lemin *info);
-size_t		is_end_node(char *line, t_lemin *info);
-size_t		is_node(char *line, t_lemin *info);
-size_t		is_edge(char *line, t_lemin *info);
+int		is_nbr_ants(char *line, t_lemin *info);
+int		is_start(char *line, t_lemin *info);
+int		is_end(char *line, t_lemin *info);
+int		is_command(char *line, t_lemin *info);
+int		is_comment(char *line, t_lemin *info);
+int		is_start_node(char *line, t_lemin *info);
+int		is_end_node(char *line, t_lemin *info);
+int		is_node(char *line, t_lemin *info);
+int		is_edge(char *line, t_lemin *info);
+int		ft_str_is_digit(const char *str); /*TODO to libft */
 
-size_t		content_cmp(t_array *nodes, char **split);
-size_t		ft_str_is_digit(const char *str); /*TODO to libft */
-
-ssize_t		store_ants(t_lemin *info, char *line, ssize_t index);
-ssize_t		store_commands(t_lemin *info, char *line, ssize_t index);
-ssize_t		store_comments(t_lemin *info, char *line, ssize_t index);
-ssize_t		store_node_data(t_lemin *info, char *line, ssize_t index);
-ssize_t		search_nodes(t_array *nodes, char *node);
-ssize_t		store_edge_data(t_lemin *info, char *line, ssize_t index);
-void		error(t_lemin *info);
+int		store_ants(t_lemin *info, char *line, int index);
+int		store_commands(t_lemin *info, char *line, int index);
+int		store_comments(t_lemin *info, char *line, int index);
+int		store_node_data(t_lemin *info, char *line, int index);
+int		search_nodes(t_array *nodes, char *node);
+int		store_edge_data(t_lemin *info, char *line, int index);
+void	error(t_lemin *info);
 
 
 #endif

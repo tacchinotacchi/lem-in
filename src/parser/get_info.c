@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 21:57:16 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 22:24:45 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void		init_colony_data(t_colony_node_data *data)
 	data->ant = 0;
 }
 
-ssize_t		store_input(t_lemin *info, ssize_t index, char *line)
+int		store_input(t_lemin *info, int index, char *line)
 {
-	ssize_t ret;
+	int ret;
 
 	ret = -1;
 	if (index == l_ants)
@@ -51,7 +51,7 @@ static uint64_t cmp_coord(const void *data1, const void *data2)
 	return (*(uint64_t*)data1 - *(uint64_t*)data2);
 }
 
-ssize_t 	  store_node_data(t_lemin *info, char *line, ssize_t index)
+int 	  store_node_data(t_lemin *info, char *line, int index)
 {
 	t_colony_node_data	data;
 	char			**split;
@@ -93,9 +93,9 @@ ssize_t 	  store_node_data(t_lemin *info, char *line, ssize_t index)
 	return (index);
 }
 
-ssize_t	search_nodes(t_array *nodes, char *node)
+int	search_nodes(t_array *nodes, char *node)
 {
-	ssize_t	index;
+	int	index;
 
 	index = 0;
 	while (index < (ssize_t)nodes->length)
@@ -108,10 +108,10 @@ ssize_t	search_nodes(t_array *nodes, char *node)
 	return (-1);
 }
 
-ssize_t	store_edge_data(t_lemin *info, char *line, ssize_t index)
+int	store_edge_data(t_lemin *info, char *line, int index)
 {
-	ssize_t	tail;
-	ssize_t	head;
+	int		tail;
+	int		head;
 	char	**split;
 
 	tail = 0;
