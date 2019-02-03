@@ -8,4 +8,5 @@ uniform mat4 perspective;
 void	main()
 {
 	gl_Position = perspective * rotation * transform * vec4(world_coord, 1.0);
+	gl_Position.z -= 0.1;
 }

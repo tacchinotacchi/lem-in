@@ -10,7 +10,10 @@ uniform sampler2D edge_tex;
 
 void	main()
 {
+	vec4 temp_color;
+
 	color = texture(edge_tex, texture_coords);
+	//color = vec4(temp_color.r, temp_color.r, temp_color.r, temp_color.a);
 	if (color.a < 0.9)
 		discard;
 }
