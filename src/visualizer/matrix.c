@@ -6,22 +6,23 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:42:42 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/03 00:06:36 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 03:47:21 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
+#include <math.h>
 
 void	rotate_vector(float *v, float v_rotation, float r_rotation)
 {
 	float	temp[3];
 
 	ft_memcpy(temp, v, sizeof(float) * 3);
-	v[0] = temp[0] * ft_cos(v_rotation) - temp[2] * ft_sin(v_rotation);
-	v[2] = temp[0] * ft_sin(v_rotation) + temp[2] * ft_cos(v_rotation);
+	v[1] = temp[1] * cos(r_rotation) - temp[2] * sin(r_rotation);
+	v[2] = temp[1] * sin(r_rotation) + temp[2] * cos(r_rotation);
 	ft_memcpy(temp, v, sizeof(float) * 3);
-	v[1] = temp[1] * ft_cos(r_rotation) - temp[2] * ft_sin(r_rotation);
-	v[2] = temp[1] * ft_sin(r_rotation) + temp[2] * ft_cos(r_rotation);
+	v[0] = temp[0] * cos(v_rotation) - temp[2] * sin(v_rotation);
+	v[2] = temp[0] * sin(v_rotation) + temp[2] * cos(v_rotation);
 }
 
 void	matrix_identity(float *mat)
@@ -45,10 +46,8 @@ void	matrix_identity(float *mat)
 void	matrix_perspective(float *mat, float near_clip, float far_clip, float fov)
 {
 	float	near_width;
-	float	far_width;
 
-	near_width = near_clip * ft_tan(fov / 2.f);
-	far_width = far_clip * ft_tan(fov / 2.f);
+	near_width = near_clip * tan(fov / 2.f);
 	ft_bzero(mat, sizeof(float) * 16);
 	mat[0 * 4 + 0] = near_clip / near_width;
 	mat[1 * 4 + 1] = near_clip / near_width;
@@ -71,16 +70,16 @@ void	matrix_add_rotation(float *mat, float y_axis, float x_axis)
 
 	matrix_identity(inter);
 	matrix_identity(rotation);
-	rotation[0 * 4 + 0] = ft_cos(y_axis);
-	rotation[0 * 4 + 2] = -ft_sin(y_axis);
-	rotation[2 * 4 + 0] = ft_sin(y_axis);
-	rotation[2 * 4 + 2] = ft_cos(y_axis);
+	rotation[0 * 4 + 0] = cos(y_axis);
+	rotation[0 * 4 + 2] = -sin(y_axis);
+	rotation[2 * 4 + 0] = sin(y_axis);
+	rotation[2 * 4 + 2] = cos(y_axis);
 	matrix_mul(inter, rotation, mat);
 	matrix_identity(rotation);
-	rotation[1 * 4 + 1] = ft_cos(x_axis);
-	rotation[1 * 4 + 2] = -ft_sin(x_axis);
-	rotation[2 * 4 + 1] = ft_sin(x_axis);
-	rotation[2 * 4 + 2] = ft_cos(x_axis);
+	rotation[1 * 4 + 1] = cos(x_axis);
+	rotation[1 * 4 + 2] = -sin(x_axis);
+	rotation[2 * 4 + 1] = sin(x_axis);
+	rotation[2 * 4 + 2] = cos(x_axis);
 	matrix_mul(mat, rotation, inter);
 }
 

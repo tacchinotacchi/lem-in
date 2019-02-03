@@ -30,7 +30,6 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	visualizer/init_textures.c \
 	visualizer/matrix.c \
 	visualizer/visualizer.c \
-	visualizer/math.c \
 	algorithm/algorithm_util.c \
 	parser/parser.c \
 	parser/get_info.c \
@@ -69,7 +68,7 @@ LIBFT_PREFIX = libft
 include libft/Makefile.mk
 
 $(VISUALIZER): $(VISUALIZER_OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
-	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(VISUALIZER_OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft `pkg-config --libs glew sdl2` -framework OpenGL
+	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(VISUALIZER_OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft -lm `pkg-config --libs glew sdl2`
 
 $(NAME): $(OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
 	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft

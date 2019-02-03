@@ -65,7 +65,7 @@ void	handle_event(const SDL_Event *event, t_view *view)
 	if (event->type == SDL_MOUSEMOTION)
 	{
 		view->v_rotation -= 0.001f * event->motion.xrel;
-		view->v_rotation = ft_fmod(view->v_rotation, PI * 2.f);
+		view->v_rotation = fmod(view->v_rotation, PI * 2.f);
 		view->r_rotation += 0.001f * event->motion.yrel;
 		if (view->r_rotation > PI / 2.f)
 			view->r_rotation = PI / 2.f;

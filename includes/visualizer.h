@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/02 23:44:04 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 03:24:20 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,5 @@ void	matrix_perspective(float *mat, float near_clip, float far_clip,
 void	rotate_vector(float *v, float v_rotation, float r_rotation);
 void	convert_input(t_lemin *info, t_renderer *renderer);
 void	draw_graph(t_renderer *renderer);
-float	ft_sin(float x);
-float	ft_cos(float x);
-float	ft_tan(float x);
-float	ft_fmod(float x, float mod);
 
 #endif
