@@ -30,6 +30,7 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	visualizer/init_textures.c \
 	visualizer/matrix.c \
 	visualizer/visualizer.c \
+	visualizer/equilibrium.c \
 	algorithm/algorithm_util.c \
 	parser/parser.c \
 	parser/get_info.c \

@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:45:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/02 22:58:48 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 11:28:41 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,46 @@ static float	transform_y(t_lemin *info, int coord)
 	return (result);
 }
 
+void	generate_coords(t_lemin *info, t_visualizer *vis)
+{
+	size_t	id;
+
+	vis->width = info->graph.nodes.length;
+	vis->adj_matrix = ft_memalloc(vis->width * vis->width);
+	id = 0;
+	while (id < info->graph.nodes.length)
+	{
+		node_colony_data(&info->graph, id)->coords[0] = transform_x(info,
+			node_colony_data(&info->graph, id)->x);
+		node_colony_data(&info->graph, id)->coords[1] = transform_y(info,
+			node_colony_data(&info->graph, id)->y);
+		node_colony_data(&info->graph, id)->coords[2] = 1.f * sin(
+			node_colony_data(&info->graph, id)->x);
+		id++;
+	}
+	id = 0;
+	while (id < info->graph.edges.length)
+	{
+		vis->adj_matrix[vis->width * edge_tail(&info->graph, id)
+			+ edge_head(&info->graph, id)] = 1;
+		id++;
+	}
+}
+
 void	convert_input(t_lemin *info, t_renderer *renderer)
 {
 	size_t	id;
 
 	id = 0;
-	array_init(&renderer->node_coords, sizeof(float));
+	array_clear(&renderer->node_coords, NULL);
 	while (id < info->graph.nodes.length)
 	{
-		array_push_back(&renderer->node_coords, (float[1]){
-			transform_x(info, node_colony_data(&info->graph, id)->x)
-		});
-		array_push_back(&renderer->node_coords, (float[1]){
-			transform_y(info, node_colony_data(&info->graph, id)->y)
-		});
-		array_push_back(&renderer->node_coords, (float[1]){-2.f});
+		array_push_back(&renderer->node_coords,
+			node_colony_data(&info->graph, id)->coords);
 		id++;
 	}
 	id = 0;
-	array_init(&renderer->edge_indices, sizeof(GLuint[2]));
+	array_clear(&renderer->edge_indices, NULL);
 	while (id < info->graph.edges.length)
 	{
 		array_push_back(&renderer->edge_indices, (GLuint[2]){
@@ -76,7 +97,7 @@ void	draw_nodes(t_renderer *renderer)
 		1, GL_TRUE, renderer->view.perspective_mat);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, renderer->node_texture);
-	glDrawArrays(GL_POINTS, 0, renderer->node_coords.length / 3);
+	glDrawArrays(GL_POINTS, 0, renderer->node_coords.length);
 }
 
 void	draw_edges(t_renderer *renderer)
@@ -106,7 +127,7 @@ void	draw_graph(t_renderer *renderer)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBindVertexArray(renderer->node_vao);
 	glBindBuffer(GL_ARRAY_BUFFER, renderer->node_buffer);
-	glBufferData(GL_ARRAY_BUFFER, renderer->node_coords.length * sizeof(float),
+	glBufferData(GL_ARRAY_BUFFER, renderer->node_coords.length * sizeof(float[3]),
 		renderer->node_coords.ptr, GL_DYNAMIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);

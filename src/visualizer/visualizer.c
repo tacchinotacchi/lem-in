@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/02 23:59:25 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 11:17:54 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,14 @@ void	update_position(t_view *view)
 	view->position[2] += direction[2];
 }
 
-int		enter_reading_loop(t_visualizer *vis, t_renderer *renderer)
+int		enter_reading_loop(t_lemin *info, t_visualizer *vis, t_renderer *renderer)
 {
 	int				quit;
 
 	quit = 0;
 	ft_bzero(&renderer->view, sizeof(t_view));
+	array_init(&renderer->node_coords, sizeof(float[3]));
+	array_init(&renderer->edge_indices, sizeof(GLuint[2]));
 	matrix_perspective(renderer->view.perspective_mat, 0.3f, 500.f, 0.9f);
 	while (!quit)
 	{
@@ -108,6 +110,8 @@ int		enter_reading_loop(t_visualizer *vis, t_renderer *renderer)
 			handle_event(&vis->event, &renderer->view);
 		}
 		update_position(&renderer->view);
+		update_equilibrium(&info->graph, vis);
+		convert_input(info, renderer);
 		matrix_identity(renderer->view.rotation_mat);
 		matrix_add_rotation(renderer->view.rotation_mat,
 			renderer->view.v_rotation, renderer->view.r_rotation);
@@ -131,7 +135,7 @@ int		main(int argc, char **argv)
 	(void)argv;
 	ft_bzero(&input, sizeof(t_lemin));
 	parse_input(&input, L_ANTS | L_COMMENT);
-	convert_input(&input, &renderer);
+	generate_coords(&input, &vis);
 	if (init_sdl(&vis, &renderer) < 0)
 	{
 		ft_dprintf(2, "Failed to acquire context: %s\n", SDL_GetError());
@@ -140,7 +144,7 @@ int		main(int argc, char **argv)
 	else if (setup_gl(&renderer))
 		return (0);
 	else
-		enter_reading_loop(&vis, &renderer);
+		enter_reading_loop(&input, &vis, &renderer);
 	free_resources(&vis, &renderer);
 	/*free_all(input); free_all lem-in inputs*/
 	return (0);
