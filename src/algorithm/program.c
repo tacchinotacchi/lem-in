@@ -121,6 +121,8 @@ void	print_instruction(t_lemin *info, t_array *program,
 	char			*space;
 	char			*name;
 
+	name = NULL;
+	space = NULL;
 	instr = ((t_instruction*)program->ptr);
 	if (instr[index].flusher)
 		to_print = 1;
