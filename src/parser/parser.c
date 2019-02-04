@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 22:10:40 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/04 23:01:06 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		check_input(t_lemin *info, char *line, int flags, int parser_state)
 	return (FAIL);
 }
 
-void	init_lemin(t_lemin *info)
+void	init_lemin(t_lemin *info, int *parser_state, int *ret)
 {
 	ft_bzero(info, sizeof(t_lemin));
 	info->max_x_coord = INT_MIN;
@@ -96,6 +96,8 @@ void	init_lemin(t_lemin *info)
 	info->min_y_coord = INT_MAX;
 	array_init(&(info->graph.nodes), sizeof(t_node));
 	array_init(&(info->graph.edges), sizeof(t_edge));
+	*parser_state = 0;
+	*ret = 0;
 }
 
 int		parse_input(t_lemin *info, int initial_flags)
@@ -105,9 +107,7 @@ int		parse_input(t_lemin *info, int initial_flags)
 	int		parser_state;
 	int		ret;
 
-	init_lemin(info);
-	ret = 0;
-	parser_state = 0;
+	init_lemin(info, &parser_state, &ret);
 	flags = initial_flags;
 	while (get_next_line(0, &line) > 0)
 	{
@@ -121,8 +121,7 @@ int		parse_input(t_lemin *info, int initial_flags)
 			return (-1);
 		}
 	}
-	if ((parser_state & (STATE_ANTS | STATE_START | STATE_END))
-		!= (STATE_ANTS | STATE_START | STATE_END))
+	if (parser_state != (STATE_ANTS | STATE_START | STATE_END))
 	{
 		error(info);
 		return (-1);
