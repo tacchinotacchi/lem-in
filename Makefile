@@ -1,5 +1,4 @@
-SRCS = parser/error.c \
-	parser/parser.c \
+SRCS = parser/parser.c \
 	parser/get_info.c \
 	parser/get_info2.c \
 	parser/check_func1.c \
@@ -14,6 +13,7 @@ SRCS = parser/error.c \
 	algorithm/path.c \
 	algorithm/max_flow.c \
 	algorithm/program.c \
+	error.c \
 	lem-in.c
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h \
@@ -25,18 +25,23 @@ INCLUDES = libft/includes/libft.h \
 		includes/visualizer.h
 OBJS = $(patsubst %.c,obj/%.o,$(SRCS))
 VISUALIZER_SRCS = visualizer/drawing.c \
+	visualizer/init_context.c \
+	visualizer/init_shaders.c \
 	visualizer/init_textures.c \
+	visualizer/matrix.c \
 	visualizer/visualizer.c \
+	visualizer/equilibrium.c \
+	algorithm/algorithm_util.c \
 	parser/parser.c \
 	parser/get_info.c \
 	parser/get_info2.c \
 	parser/check_func1.c \
 	parser/check_func2.c \
 	parser/check_util.c \
-	parser/error.c \
 	adjacency_list/adjacency_list.c \
 	adjacency_list/node_util.c \
-	adjacency_list/edge_util.c
+	adjacency_list/edge_util.c \
+	error.c
 VISUALIZER_OBJS = $(patsubst %.c,obj/%.o,$(VISUALIZER_SRCS))
 
 TESTS_SRCS =
@@ -64,7 +69,7 @@ LIBFT_PREFIX = libft
 include libft/Makefile.mk
 
 $(VISUALIZER): $(VISUALIZER_OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
-	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(VISUALIZER_OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft `sdl2-config --libs`
+	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(VISUALIZER_OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft -lm `pkg-config --libs glew sdl2` -framework OpenGL
 
 $(NAME): $(OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
 	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft
@@ -78,7 +83,7 @@ obj:
 	mkdir -p obj/algorithm
 
 obj/visualizer/%.o: src/visualizer/%.c $(INCLUDES) | obj
-	$(CC) $(CFLAGS) `sdl2-config --cflags` $(INCLUDE_FOLDERS) -o $@ -c $<
+	$(CC) $(CFLAGS) `pkg-config --cflags glew sdl2` $(INCLUDE_FOLDERS) -o $@ -c $<
 
 obj/%.o: src/%.c $(INCLUDES) | obj
 	$(CC) $(CFLAGS) $(INCLUDE_FOLDERS) -o $@ -c $<

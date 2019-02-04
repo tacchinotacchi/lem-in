@@ -5,56 +5,49 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/22 17:29:16 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/27 16:26:13 by aamadori         ###   ########.fr       */
+/*   Created: 2019/01/31 18:49:18 by aamadori          #+#    #+#             */
+/*   Updated: 2019/02/03 16:06:13 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
-#include "libft.h"
-#include <SDL.h>
 
-int		texture_from_file(SDL_Renderer *renderer, SDL_Texture **texture,
-			const char *filename)
+static int		texture_from_file(GLuint *id, const char *filename)
 {
-	SDL_Surface *image;
+	SDL_Surface	*surface;
 
-	image = SDL_LoadBMP(filename);
-	if (!image)
+	surface = SDL_LoadBMP(filename);
+	if (!surface)
 		return (-1);
-	(*texture) = SDL_CreateTextureFromSurface(renderer, image);
-	if (!(*texture))
-	{
-		SDL_FreeSurface(image);
-		return (-1);
-	}
-	SDL_FreeSurface(image);
+	glGenTextures(1, id);
+	glBindTexture(GL_TEXTURE_2D, *id);
+	glTexImage2D(GL_TEXTURE_2D, 0,
+		(surface->format->BitsPerPixel == 32) ? GL_RGBA : GL_RGB,
+		surface->w, surface->h,
+		0 /*TODO this value must be 0 ;) */,
+		(surface->format->BitsPerPixel == 32) ? GL_RGBA : GL_RGB,
+		GL_UNSIGNED_BYTE, surface->pixels);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	return (0);
 }
 
-int		init_textures(t_textures *textures)
+int		init_textures(t_renderer *renderer)
 {
-	/*size_t	index;
-	char	*digit_name;*/
-
-	if (texture_from_file(textures->renderer,
-		&textures->node, "resources/node.bmp") < 0)
+	if (texture_from_file(&renderer->node_texture,
+		"resources/node.bmp") < 0)
 		return (-1);
-	if (texture_from_file(textures->renderer,
-		&textures->start, "resources/start.bmp") < 0)
+	if (texture_from_file(&renderer->start_texture,
+		"resources/start.bmp") < 0)
 		return (-1);
-	if (texture_from_file(textures->renderer,
-		&textures->end, "resources/end.bmp") < 0)
+	if (texture_from_file(&renderer->end_texture,
+		"resources/end.bmp") < 0)
 		return (-1);
-	/*index = 0;
-	digit_name = ft_strdup("resources/0digit.bmp");
-	while (index < 10)
-	{
-		digit_name[10] = '0' + index;
-		if (texture_from_file(textures->renderer,
-			&textures->digits[index], digit_name) < 0)
+	if (texture_from_file(&renderer->edge_texture,
+		"resources/edge.bmp") < 0)
 			return (-1);
-		index++;
-	}*/
 	return (0);
 }

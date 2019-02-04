@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 23:03:05 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/04 03:48:22 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@
 # define END 0b10
 # define GOAL 0b100
 
+/* TODO move to libft? */
+# define ASSERT(cond, message) ft_assert(cond, message, __FILE__, __LINE__);
+# if _DEBUG
+#  define D_ASSERT(cond, message) ASSERT(cond, message)
+# else
+#  define D_ASSERT(cond, message)
+# endif
+
 typedef struct	s_colony_node_data
 {
 	char	*name;
@@ -30,6 +38,8 @@ typedef struct	s_colony_node_data
 	int		x;
 	int		y;
 	uint64_t	coord;
+	float	coords[3];
+	float	accel[3];
 	size_t	ant;
 }				t_colony_node_data;
 

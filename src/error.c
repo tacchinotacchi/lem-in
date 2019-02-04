@@ -6,10 +6,11 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:47:08 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 00:57:51 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/04 03:48:00 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "lem-in.h"
 
 void	free_stub(void *ptr, size_t stub)

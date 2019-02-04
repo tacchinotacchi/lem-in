@@ -121,6 +121,8 @@ void	print_instruction(t_lemin *info, t_array *program,
 	char			*space;
 	char			*name;
 
+	name = NULL;
+	space = NULL;
 	instr = ((t_instruction*)program->ptr);
 	if (instr[index].flusher)
 		to_print = 1;
@@ -148,10 +150,8 @@ void	print_program(t_lemin *info, t_array *program)
 {
 	t_buffer	buffer;
 	size_t		index;
-	size_t		buff_index;
 
 	index = 0;
-	buff_index = 0;
 	buffer.buffer = malloc(4096);
 	buffer.index = 0;
 	buffer.size = 4096;
