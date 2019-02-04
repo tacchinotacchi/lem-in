@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 04:50:04 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/04 21:40:03 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ int		ft_str_is_digit(const char *str); /*TODO to libft */
 int		store_ants(t_lemin *info, char *line, int index);
 int		store_commands(t_lemin *info, char *line, int index);
 int		store_comments(t_lemin *info, char *line, int index);
-int		store_node_data(t_lemin *info, char *line, int index);
+int		create_node_data(t_lemin *info, char *line, int index);
+int		store_node_data(t_lemin *info, t_colony_node_data *data);
 int		search_nodes(t_array *nodes, char *node);
 int		store_edge_data(t_lemin *info, char *line, int index);
 int		compare_names(const void *ptr1, const void *ptr2);

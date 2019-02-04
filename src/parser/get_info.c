@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 05:12:11 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/04 21:39:02 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		store_input(t_lemin *info, int index, char *line)
 	else if (index == l_start || index == l_end)
 		return (index);
 	else if (index == l_node || index == l_start_node || index == l_end_node)
-		ret = store_node_data(info, line, index);
+		ret = create_node_data(info, line, index);
     else if (index == l_edge)
         ret = store_edge_data(info, line, index);
     else if (index == l_command)
@@ -45,55 +45,6 @@ int		store_input(t_lemin *info, int index, char *line)
 		ret = store_comments(info, line, index);
 	return (ret);
 }
-
-int 	  store_node_data(t_lemin *info, char *line, int index)
-{
-	t_colony_node_data	data;
-	char			**split;
-
-	if (!(split = ft_strsplit(line, ' ')))
-	{
-		ft_splitdel(split);
-		return (FAIL);
-	}
-	init_colony_data(&data);
-	if (!(data.name = ft_strdup(split[0])))
-		return (FAIL);
-	data.x = ft_atoi(split[1]);
-	data.y = ft_atoi(split[2]);
-	data.coord |= data.x;
-	data.coord = data.coord << 32;
-	data.coord |= data.y;
-	if (index == l_start_node)
-	{
-		info->start = info->graph.nodes.length;
-		data.flags |= START;
-	}
-	else if (index == l_end_node)
-	{
-		info->end = info->graph.nodes.length;
-		data.flags |= END;
-	}
-	add_node(&(info->graph), &data, sizeof(data));
-	if (tree_insert(&(info->coord_tree),
-		node_create(&data.coord, sizeof(uint64_t)), compare_coords) == 0)
-		return (FAIL);
-	if (tree_insert(&(info->name_tree),
-		node_create((t_name_node[]){{data.name, info->graph.nodes.length - 1}},
-		sizeof(t_name_node)), compare_names) == 0)
-		return (FAIL);
-	ft_splitdel(split);
-	if (data.x > info->max_x_coord)
-		info->max_x_coord = data.x;
-	if (data.x < info->min_x_coord)
-		info->min_x_coord = data.x;
-	if (data.y > info->max_y_coord)
-		info->max_y_coord = data.y;
-	if (data.y < info->min_y_coord)
-		info->min_y_coord = data.y;
-	return (index);
-}
-
 
 static t_edge_pair	get_edge_pair(t_lemin *info, char **split)
 {
