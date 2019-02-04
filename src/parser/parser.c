@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 05:10:15 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/04 23:01:06 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		(*g_func_table[])(char*) = {
 	is_edge
 };
 
-t_flags_match	flags_match[] = {
+t_flags_match	g_flags_match[] = {
 	{L_ANTS, L_START | L_END | L_NODE | L_EDGE},
 	{L_START | L_END | L_NODE | L_EDGE, L_START_NODE},
 	{L_START | L_END | L_NODE | L_EDGE, L_END_NODE},
@@ -44,7 +44,7 @@ void	choose_flags(int *flags, int *parser_state, t_success success)
 
 	/* TODO if i get to edges without start or end nodes, quit */
 	/* TODO if i get start or end twice, quit */
-	match = flags_match[success];
+	match = g_flags_match[success];
 	flags_turn_off(flags, match.flags_off);
 	flags_turn_on(flags, match.flags_on);
 	if (success == l_ants)
@@ -55,7 +55,7 @@ void	choose_flags(int *flags, int *parser_state, t_success success)
 		*parser_state |= STATE_END;
 }
 
-int			check_parser_state(int index, int parser_state)
+int		check_parser_state(int index, int parser_state)
 {
 	if (((1 << index) & L_START) && (parser_state & STATE_START))
 		return (-1);
@@ -66,7 +66,7 @@ int			check_parser_state(int index, int parser_state)
 	return (0);
 }
 
-int			check_input(t_lemin *info, char *line, int flags, int parser_state)
+int		check_input(t_lemin *info, char *line, int flags, int parser_state)
 {
 	int	index;
 	int	ret;
@@ -87,14 +87,8 @@ int			check_input(t_lemin *info, char *line, int flags, int parser_state)
 	return (FAIL);
 }
 
-int			parse_input(t_lemin *info, int initial_flags)
+void	init_lemin(t_lemin *info, int *parser_state, int *ret)
 {
-	char		*line;
-	int		flags;
-	int		parser_state;
-	int		ret;
-
-
 	ft_bzero(info, sizeof(t_lemin));
 	info->max_x_coord = INT_MIN;
 	info->min_x_coord = INT_MAX;
@@ -102,8 +96,18 @@ int			parse_input(t_lemin *info, int initial_flags)
 	info->min_y_coord = INT_MAX;
 	array_init(&(info->graph.nodes), sizeof(t_node));
 	array_init(&(info->graph.edges), sizeof(t_edge));
-	ret = 0;
-	parser_state = 0;
+	*parser_state = 0;
+	*ret = 0;
+}
+
+int		parse_input(t_lemin *info, int initial_flags)
+{
+	char	*line;
+	int		flags;
+	int		parser_state;
+	int		ret;
+
+	init_lemin(info, &parser_state, &ret);
 	flags = initial_flags;
 	while (get_next_line(0, &line) > 0)
 	{
@@ -117,8 +121,7 @@ int			parse_input(t_lemin *info, int initial_flags)
 			return (-1);
 		}
 	}
-	if ((parser_state & (STATE_ANTS | STATE_START | STATE_END))
-		!= (STATE_ANTS | STATE_START | STATE_END))
+	if (parser_state != (STATE_ANTS | STATE_START | STATE_END))
 	{
 		error(info);
 		return (-1);

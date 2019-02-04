@@ -1,5 +1,6 @@
 SRCS = parser/parser.c \
 	parser/get_info.c \
+	parser/store_node_data.c \
 	parser/get_info2.c \
 	parser/check_gen.c \
 	parser/check_graph.c \
@@ -34,7 +35,9 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	visualizer/equilibrium.c \
 	algorithm/algorithm_util.c \
 	parser/parser.c \
+	parser/error.c \
 	parser/get_info.c \
+	parser/store_node_data.c \
 	parser/get_info2.c \
 	parser/check_gen.c \
 	parser/check_graph.c \
