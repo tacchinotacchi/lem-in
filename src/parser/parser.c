@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 23:01:07 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/04 01:01:22 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "get_next_line.h"
 #include "array.h"
 
-int		(*g_func_table[])(char*, t_lemin*) = {
+int		(*g_func_table[])(char*) = {
 	is_nbr_ants,
 	is_start,
 	is_end,
@@ -103,7 +103,7 @@ int			check_input(t_lemin *info, char *line, int flags)
 	while (index < 9)
 	{
 		flags = flags_reset;
-		if (((flags = flags >> index & 1) && g_func_table[index](line, info)))
+		if (((flags = flags >> index & 1) && g_func_table[index](line)))
 		{
 			ret = store_input(info, index, line);
 			return (ret);
@@ -140,13 +140,14 @@ int			parse_input(t_lemin *info, int initial_flags)
 		else
 		{
 			error(info);
-			return (0);
+			return (-1);
 		}
 	}
-	if (parser_state != (STATE_ANTS | STATE_START | STATE_END))
+	if ((parser_state & (STATE_ANTS | STATE_START | STATE_END))
+		!= (STATE_ANTS | STATE_START | STATE_END))
 	{
 		error(info);
-		return (0);
+		return (-1);
 	}
 	return (ret);
 }

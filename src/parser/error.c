@@ -6,46 +6,44 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:47:08 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 19:51:41 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/04 00:57:51 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-static void	free_comments(void *ptr, size_t content_size)
+void	free_stub(void *ptr, size_t stub)
 {
-	(void)content_size;
-	/* TODO initialize all variables */
+	(void)stub;
 	free(ptr);
 }
 
 static void	free_nodes(void *ptr)
 {
-	if ((t_colony_node_data*)((t_node*)ptr)->data)
-	{
-		if (((t_colony_node_data*)((t_node*)ptr)->data)->name)
-			free(((t_colony_node_data*)((t_node*)ptr)->data)->name);
-		free((t_colony_node_data*)((t_node*)ptr)->data);
-	}
-	list_del(&(((t_node*)ptr)->out_edges), free_stub);
-	list_del(&(((t_node*)ptr)->in_edges), free_stub);
+	t_node				*node;
+	t_colony_node_data	*data;
+
+	node = ptr;
+	data = node->data;
+	if (data->name)
+		free(data->name);
+	free(data);
+	list_del(&node->out_edges, free_stub);
+	list_del(&node->in_edges, free_stub);
 }
 
 static void	free_edges(void *ptr)
 {
-	free(ptr);
-}
+	t_edge *edge;
 
-static void	free_trees(void *ptr, size_t size)
-{
-	(void)size;
-	free(ptr);
+	edge = ptr;
+	free(edge->data);
 }
 
 void		error(t_lemin *info)
 {
 	array_clear(&(info->graph.nodes), free_nodes);
 	array_clear(&(info->graph.edges), free_edges);
-	list_del(&(info->comments), free_comments);
-	tree_clear(&(info->coord_tree), free_trees);
+	list_del(&(info->comments), free_stub);
+	tree_clear(&(info->coord_tree), free_stub);
 }

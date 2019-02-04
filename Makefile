@@ -33,6 +33,7 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	parser/check_func1.c \
 	parser/check_func2.c \
 	parser/check_util.c \
+	parser/error.c \
 	adjacency_list/adjacency_list.c \
 	adjacency_list/node_util.c \
 	adjacency_list/edge_util.c

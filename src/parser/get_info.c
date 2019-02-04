@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 23:22:24 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/04 01:09:46 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,15 @@ int 	  store_node_data(t_lemin *info, char *line, int index)
 		info->end = info->graph.nodes.length;
 		data.flags |= END;
 	}
-	(t_name_node[]){{split[0], 0}}, compare_names);
-	ft_splitdel(split);
 	add_node(&(info->graph), &data, sizeof(data));
 	if (tree_insert(&(info->coord_tree),
-	node_create(&data.coord, sizeof(uint64_t)), compare_coords) == 0)
+		node_create(&data.coord, sizeof(uint64_t)), compare_coords) == 0)
 		return (FAIL);
-	if (tree_insert(&(info->name_tree), node_create(&(t_name_node[]){{split[0],
-	info->graph.nodes.length}}, sizeof(t_name_node)), compare_names) == 0)
+	if (tree_insert(&(info->name_tree),
+		node_create((t_name_node[]){{data.name, info->graph.nodes.length - 1}},
+		sizeof(t_name_node)), compare_names) == 0)
 		return (FAIL);
+	ft_splitdel(split);
 	if (data.x > info->max_x_coord)
 		info->max_x_coord = data.x;
 	if (data.x < info->min_x_coord)
@@ -101,10 +101,10 @@ static t_edge_pair	get_edge_pair(t_lemin *info, char **split)
 	size_t		first;
 	size_t		second;
 
-	node = tree_search(info->edge_tree,
+	node = tree_search(info->name_tree,
 		(t_name_node[]){{split[0], 0}}, compare_names);
 	first = node ? ((t_name_node*)node->content)->index : 0;
-	node = tree_search(info->edge_tree,
+	node = tree_search(info->name_tree,
 		(t_name_node[]){{split[1], 0}}, compare_names);
 	second = node ? ((t_name_node*)node->content)->index : 0;
 	if (first >= second)
