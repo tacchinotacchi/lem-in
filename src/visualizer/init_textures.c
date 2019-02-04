@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:49:18 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/03 16:06:13 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/03 23:23:43 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int		texture_from_file(GLuint *id, const char *filename)
 		0 /*TODO this value must be 0 ;) */,
 		(surface->format->BitsPerPixel == 32) ? GL_RGBA : GL_RGB,
 		GL_UNSIGNED_BYTE, surface->pixels);
+	SDL_FreeSurface(surface);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
