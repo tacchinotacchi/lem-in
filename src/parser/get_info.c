@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 01:09:46 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/04 05:12:11 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ static t_edge_pair	get_edge_pair(t_lemin *info, char **split)
 	size_t		first;
 	size_t		second;
 
+	if (!ft_strcmp(split[0], split[1]))
+		return ((t_edge_pair){0, 0});
 	node = tree_search(info->name_tree,
 		(t_name_node[]){{split[0], 0}}, compare_names);
 	first = node ? ((t_name_node*)node->content)->index : 0;

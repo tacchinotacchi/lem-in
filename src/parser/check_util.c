@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 22:29:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 23:27:15 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/04 03:57:37 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,4 @@ int compare_coords(const void *data1, const void *data2)
 int	compare_names(const void *data1, const void *data2)
 {
 	return (ft_strcmp(((t_name_node*)data1)->name, ((t_name_node*)data2)->name));
-}
-
-void	ft_splitdel(char **split)
-{
-	int index;
-
-	index = 0;
-	while (split[index])
-	{
-		free(split[index]);
-		index++;
-	}
-	free(split);
 }

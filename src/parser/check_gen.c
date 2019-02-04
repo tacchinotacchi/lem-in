@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 17:13:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/03 23:33:01 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/04 05:13:17 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,18 @@ int  is_nbr_ants(char *line)
 	return (0);
 }
 
-int  is_start(char *line)
-{
-		if(!ft_strcmp("##start", line))
-			return (1);
-		return (0);
-}
-
-int  is_end(char *line)
-{
-		if(!ft_strcmp("##end", line))
-			return (1);
-		return (0);
-}
-
 int  is_command(char *line)
 {
-		if(line[0] == '#' && line[1] == '!')
-		/*instructions for command must be specified to add condition*/
+		if(ft_strlen(line) >= 2 && line[0] == '#' && line[1] == '#'
+			&& ft_strcmp(line, "##start") && ft_strcmp(line, "##end"))
 			return (1);
 		return (0);
+}
+
+int	is_comment(char *line)
+{
+	if (line[0] == '#'
+		&& ((ft_strlen(line) > 1 && line[1] != '#') || ft_strlen(line) <= 1))
+		return (1);
+	return (0);
 }
