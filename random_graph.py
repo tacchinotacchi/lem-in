@@ -7,34 +7,41 @@ if len(sys.argv) < 4:
 
 print(sys.argv[1])
 
-edges = []
 nodes = int(sys.argv[2])
+connections = int(sys.argv[3])
 random.seed()
-for i in range(0, int(sys.argv[3]) * nodes // 2):
-    edges.append(random.sample(range(0, nodes), 2));
 
-endpoints = random.sample(range(0, nodes), 2);
-for i in range(0, nodes):
-    if i == endpoints[0]:
+endpoints = random.sample(range(0, nodes), 2)
+
+node_list = []
+for node in range(0, nodes):
+    if (node == endpoints[0]):
         print("##start")
-        print("start", i, i)
-    elif i == endpoints[1]:
+        print("start", random.randint(0, 1000000), random.randint(0, 1000000), sep=' ')
+        node_list.append("start")
+    elif (node == endpoints[1]):
         print("##end")
-        print("end", i, i)
+        print("end", random.randint(0, 1000000), random.randint(0, 1000000), sep=' ')
+        node_list.append("end")
     else:
-        print(i, i, i, sep=" ")
+        print(node, random.randint(0, 1000000), random.randint(0, 1000000), sep=' ')
+        node_list.append(node)
 
-for edge in edges:
-    if edge[0] == endpoints[0]:
-        first_name = "start"
-    elif edge[0] == endpoints[1]:
-        first_name = "end"
-    else:
-        first_name = edge[0]
-    if edge[1] == endpoints[0]:
-        second_name = "start"
-    elif edge[1] == endpoints[1]:
-        second_name = "end"
-    else:
-        second_name = edge[1]
-    print(first_name, second_name, sep="-");
+adjacency = []
+s = 0
+while s < (nodes * connections // 2):
+    coords = random.sample(range(0, nodes), 2)
+    i = coords[0]
+    j = coords[1];
+#    print("#trying", i, j)
+    if j < i:
+        temp = i
+        i = j
+        j = temp
+    if i != j and (i, j) not in adjacency:
+        s += 1
+        adjacency.append((i, j))
+        if random.randint(0, 1) == 1:
+            print(node_list[i], node_list[j], sep="-")
+        else:
+            print(node_list[j], node_list[i], sep="-")
