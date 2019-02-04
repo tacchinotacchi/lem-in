@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 21:09:21 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 21:28:13 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/04 22:06:08 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int		store_node_data(t_lemin *info, t_colony_node_data *data)
 {
 	add_node(&(info->graph), &data, sizeof(data));
 	if (tree_insert(&(info->coord_tree),
-	node_create(&(data->coord), sizeof(uint64_t)), compare_coords) == 0)
+		node_create(&(data->coord), sizeof(uint64_t)), compare_coords) == 0)
 		return (FAIL);
 	if (tree_insert(&(info->name_tree), node_create((t_name_node[]){{data->name,
-	info->graph.nodes.length}}, sizeof(t_name_node)), compare_names) == 0)
+		info->graph.nodes.length}}, sizeof(t_name_node)), compare_names) == 0)
 		return (FAIL);
 	if (data->x > info->max_x_coord)
 		info->max_x_coord = data->x;

@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 21:39:02 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/04 22:08:44 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parser.h"
 #include "adjacency_list.h"
 
-void		init_colony_data(t_colony_node_data *data)
+void				init_colony_data(t_colony_node_data *data)
 {
 	data->flags = 0;
 	data->name = NULL;
@@ -26,7 +26,7 @@ void		init_colony_data(t_colony_node_data *data)
 	data->ant = 0;
 }
 
-int		store_input(t_lemin *info, int index, char *line)
+int					store_input(t_lemin *info, int index, char *line)
 {
 	int ret;
 
@@ -65,7 +65,7 @@ static t_edge_pair	get_edge_pair(t_lemin *info, char **split)
 	return ((t_edge_pair){second, first});
 }
 
-int			compare_edge(const void *ptr1, const void *ptr2)
+int					compare_edge(const void *ptr1, const void *ptr2)
 {
 	const t_edge_pair	*pair1;
 	const t_edge_pair	*pair2;
@@ -77,7 +77,7 @@ int			compare_edge(const void *ptr1, const void *ptr2)
 	return (pair1->minor - pair2->minor);
 }
 
-int	store_edge_data(t_lemin *info, char *line, int index)
+int					store_edge_data(t_lemin *info, char *line, int index)
 {
 	t_edge_pair	pair;
 	char		**split;

@@ -6,13 +6,13 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 04:31:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 21:39:34 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/04 21:44:46 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	is_node(char *line)
+int		is_node(char *line)
 {
 	char	**split;
 	int		cnt;
@@ -35,7 +35,7 @@ int	is_node(char *line)
 	return (0);
 }
 
-int	is_edge(char *line)
+int		is_edge(char *line)
 {
 	int		cnt;
 	char	**split;
@@ -57,16 +57,16 @@ int	is_edge(char *line)
 	return (0);
 }
 
-int  is_start(char *line)
+int		is_start(char *line)
 {
-		if(!ft_strcmp("##start", line))
-			return (1);
-		return (0);
+	if (!ft_strcmp("##start", line))
+		return (1);
+	return (0);
 }
 
-int  is_end(char *line)
+int		is_end(char *line)
 {
-		if(!ft_strcmp("##end", line))
-			return (1);
-		return (0);
+	if (!ft_strcmp("##end", line))
+		return (1);
+	return (0);
 }
