@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/03 23:28:52 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 20:58:19 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	matrix_add_movement(float *mat, float *direction);
 void	matrix_add_rotation(float *mat, float y_axis, float x_axis);
 void	matrix_perspective(float *mat, float near_clip, float far_clip,
 			float fov);
-void	handle_event(const SDL_Event *event, t_view *view);
-void	update_position(t_view *view);	
+void	handle_event(const SDL_Event *event, t_lemin *info, t_renderer *renderer);
+void	update_position(t_view *view);
 void	rotate_vector(float *v, float v_rotation, float r_rotation);
 void	convert_input(t_lemin *info, t_renderer *renderer);
 void	generate_coords(t_lemin *info, t_visualizer *vis);

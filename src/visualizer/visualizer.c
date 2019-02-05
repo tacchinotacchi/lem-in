@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/05 20:47:37 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 20:58:00 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		enter_reading_loop(t_lemin *info, t_visualizer *vis, t_renderer *renderer)
 		{
 			if (vis->event.type == SDL_QUIT)
 				quit = 1;
-			handle_event(&vis->event, &renderer->view);
+			handle_event(&vis->event, info, renderer);
 		}
 		update_position(&renderer->view);
 		update_equilibrium(&info->graph, vis);

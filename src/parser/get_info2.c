@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 22:20:45 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 21:55:11 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/05 21:01:47 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ int		store_ants(t_lemin *info, char *line, int index)
 
 int		store_commands(t_lemin *info, char *line, int index)
 {
-	(void)info;
-	(void)line;
+	t_command	command;
+
+	command.args = ft_strsplit(&line[2], ' ');
+	if (!command.args)
+		return (-1);
+	list_append(&info->commands, list_new(&command.args, sizeof(t_command)));
 	return (index);
 }
 
