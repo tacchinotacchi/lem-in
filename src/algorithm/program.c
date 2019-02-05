@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:41:40 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/30 20:00:44 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 08:03:04 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,69 +93,27 @@ int		generate_line(t_lemin *info, t_array *program)
 	return (incomplete);
 }
 
-void	flush_buffer(int fd, t_buffer *buffer)
-{
-	write(fd, buffer->buffer, buffer->index);
-	buffer->index = 0;
-}
-
-size_t	count_digits(size_t num)
-{
-	size_t	digits;
-
-	digits = 0;
-	while (num)
-	{
-		num /= 10;
-		digits++;
-	}
-	return (digits);
-}
-
-void	print_instruction(t_lemin *info, t_array *program,
-			t_buffer *buffer, size_t index)
+void	print_instruction(t_lemin *info, t_array *program, size_t index)
 {
 	t_instruction	*instr;
-	size_t			to_print;
-	char			*format_string;
-	char			*space;
-	char			*name;
 
-	name = NULL;
-	space = NULL;
 	instr = ((t_instruction*)program->ptr);
 	if (instr[index].flusher)
-		to_print = 1;
+		ft_printf("\n");
 	else
 	{
-		format_string = "L%zu-%s%s";
-		space = (index + 1 < program->length
-			&& !instr[index + 1].flusher) ? " " : "";
-		name = node_colony_data(&info->graph, instr[index].node_id)->name;
-		to_print = 2 + ft_strlen(name) + ft_strlen(space)
-			+ count_digits(instr[index].ant_id);
+		ft_printf("L%zu-%s%s", instr[index].ant_id,
+			node_colony_data(&info->graph, instr[index].node_id)->name,
+			(index + 1 < program->length && !instr[index + 1].flusher) ?
+				" " : "");
 	}
-	if (buffer->index + to_print > buffer->size)
-		flush_buffer(1, buffer);
-	if (instr[index].flusher)
-		buffer->buffer[buffer->index++] = '\n';
-	else
-		buffer->index += ft_snprintf(buffer->buffer + buffer->index,
-			buffer->size - buffer->index, format_string,
-			instr[index].ant_id, name, space);
-	index++;
 }
 
 void	print_program(t_lemin *info, t_array *program)
 {
-	t_buffer	buffer;
 	size_t		index;
 
 	index = 0;
-	buffer.buffer = malloc(4096);
-	buffer.index = 0;
-	buffer.size = 4096;
 	while (index < program->length)
-		print_instruction(info, program, &buffer, index++);
-	flush_buffer(1, &buffer);
+		print_instruction(info, program, index++);
 }
