@@ -43,6 +43,8 @@ int					store_input(t_lemin *info, int index, char *line)
 		ret = store_commands(info, line, index);
 	else if (index == l_comment)
 		ret = store_comments(info, line, index);
+	else if (index == l_instruction)
+		ret = store_instruction(info, line, index);
 	return (ret);
 }
 
@@ -91,5 +93,55 @@ int					store_edge_data(t_lemin *info, char *line, int index)
 		sizeof(t_colony_edge_data));
 	add_edge(&(info->graph), pair.major, pair.minor,
 		sizeof(t_colony_edge_data));
+	return (index);
+}
+
+static int	store_single_instruction(t_lemin *info, char *line)
+{
+	char			**array;
+	t_tree			*name;
+	t_name_node		node;
+	t_instruction	instr;
+	size_t			ant;
+
+	array = ft_strsplit(line, '-');
+	if (!array)
+		return (FAIL);
+	ant = ft_atoi(&array[0][1]);
+	node.name = array[1];
+	name = tree_search(info->name_tree, &node, compare_names);
+	if (!name)
+	{
+		ft_splitdel(array);
+		return (FAIL);
+	}
+	instr = (t_instruction){ant, LST_CONT(name, t_name_node).index, 0};
+	list_add(&info->instructions, list_new(&instr, sizeof(t_instruction)));
+	ft_splitdel(array);
+	return (0);
+}
+
+int		store_instruction(t_lemin *info, char *line, int index)
+{
+	char			**array;
+	t_instruction	flusher;
+	size_t			instr;
+
+	array = ft_strsplit(line, ' ');
+	if (!array)
+		return (FAIL);
+	instr = 0;
+	while (array[instr])
+	{
+		if (store_single_instruction(info, array[instr]) < 0)
+		{
+			ft_splitdel(array);
+			return (FAIL);
+		}
+		instr++;
+	}
+	flusher = (t_instruction){0, 0, 1};
+	list_add(&info->instructions, list_new(&flusher, sizeof(t_instruction)));
+	ft_splitdel(array);
 	return (index);
 }

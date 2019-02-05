@@ -23,19 +23,21 @@ int		(*g_func_table[])(char*) = {
 	is_node,
 	is_node,
 	is_node,
-	is_edge
+	is_edge,
+	is_instruction
 };
 
 t_flags_match	g_flags_match[] = {
 	{L_ANTS, L_START | L_END | L_NODE | L_EDGE},
-	{L_START | L_END | L_NODE | L_EDGE, L_START_NODE},
-	{L_START | L_END | L_NODE | L_EDGE, L_END_NODE},
+	{L_START | L_END | L_NODE | L_EDGE | L_INSTRUCTION, L_START_NODE},
+	{L_START | L_END | L_NODE | L_EDGE | L_INSTRUCTION, L_END_NODE},
 	{0, 0},
 	{0, 0},
-	{L_START_NODE, L_START | L_END | L_NODE | L_EDGE},
-	{L_END_NODE, L_START | L_END | L_NODE | L_EDGE},
-	{0, 0},
-	{L_NODE | L_START | L_END, 0}
+	{L_START_NODE, L_START | L_END | L_NODE | L_EDGE | L_INSTRUCTION},
+	{L_END_NODE, L_START | L_END | L_NODE | L_EDGE | L_INSTRUCTION},
+	{0, L_INSTRUCTION},
+	{L_NODE | L_START | L_END, L_INSTRUCTION},
+	{L_NODE | L_EDGE, 0}
 };
 
 void	choose_flags(int *flags, int *parser_state, t_success success)
@@ -68,17 +70,23 @@ int		check_parser_state(int index, int parser_state)
 
 int		check_input(t_lemin *info, char *line, int flags, int parser_state)
 {
-	int	index;
-	int	ret;
+	size_t	index;
+	int		ret;
 
 	ret = 0;
 	index = 0;
-	while (index < 9)
+	if (ft_strlen(line) == 0)
+	{
+		ft_putchar('\n');
+		return (l_max);
+	}
+	while (index < sizeof(g_flags_match) / sizeof(g_flags_match[0]))
 	{
 		if ((((flags >> index) & 1) && g_func_table[index](line)))
 		{
 			if (check_parser_state(index, parser_state) < 0)
 				return (FAIL);
+			ft_putendl(line);
 			ret = store_input(info, index, line);
 			return (ret);
 		}
@@ -113,9 +121,9 @@ int		parse_input(t_lemin *info, int initial_flags)
 	{
 		ret = check_input(info, line, flags, parser_state);
 		free(line);
-		if (ret > -1)
+		if (ret >= 0 && ret < l_max)
 			choose_flags(&flags, &parser_state, ret);
-		else
+		else if (ret < 0)
 		{
 			error(info);
 			return (-1);

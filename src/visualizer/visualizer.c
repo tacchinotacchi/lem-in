@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/03 16:27:36 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 01:12:24 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	handle_event(const SDL_Event *event, t_view *view)
 			view->r_rotation = PI / 2.f;
 		else if (view->r_rotation < -PI / 2.f)
 			view->r_rotation = -PI / 2.f;
-		ft_printf("%f\n", view->v_rotation);
 	}
 	else if (event->type == SDL_MOUSEBUTTONDOWN)
 		SDL_SetRelativeMouseMode(SDL_TRUE);
@@ -133,7 +132,7 @@ int		main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	ft_bzero(&input, sizeof(t_lemin));
-	parse_input(&input, L_ANTS | L_COMMENT);
+	parse_input(&input, L_ANTS | L_COMMENT | L_COMMAND | L_INSTRUCTION);
 	generate_coords(&input, &vis);
 	if (init_sdl(&vis, &renderer) < 0)
 	{
