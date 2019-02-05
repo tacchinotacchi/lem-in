@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:04:29 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/05 04:36:40 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 20:27:17 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	create_flow_pair(t_graph *input,
 	node_data.colony_id = input_id;
 	node_data.ancestor = 0;
 	node_data.path_cost = INT_MAX;
+	node_data.potential = 0;
 	node_data.path_length = 0;
 	node_data.path_max_flow = INT_MAX;
 	node_data.flags = 0;
@@ -60,6 +61,7 @@ static int	add_special_node(t_graph *input,
 	node_data.colony_id = input_id;
 	node_data.ancestor = 0;
 	node_data.path_cost = INT_MAX;
+	node_data.potential = 0;
 	node_data.path_length = 0;
 	node_data.path_max_flow = 0;
 	node_data.flags = 0;

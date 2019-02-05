@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/05 05:11:58 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 20:21:19 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static int	explore_neighbors(t_graph *flow_graph, t_pq *queue, t_node *node)
 			&& edge_data->flow < edge_data->capacity)
 		{
 			next_data->ancestor = LST_CONT(out_edges, size_t);
-			next_data->path_cost = this_data->path_cost + edge_data->weight;
+			next_data->path_cost = this_data->path_cost + edge_data->weight
+				+ this_data->potential - next_data->potential;
 			/* TODO path length probably useless now */
 			next_data->path_length = this_data->path_length + 1;
 			next_data->path_max_flow = ft_min(this_data->path_max_flow,
