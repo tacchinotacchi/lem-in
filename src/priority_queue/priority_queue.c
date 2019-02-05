@@ -6,13 +6,13 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 23:02:52 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 02:15:28 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/05 04:22:03 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "priority_queue.h"
 
-void	init_pq(t_pq *begin_pq, int elem_size)
+void	pq_init(t_pq *begin_pq, int elem_size)
 {
 	begin_pq->elem_size = elem_size;
 	begin_pq->size = 0;
@@ -20,7 +20,7 @@ void	init_pq(t_pq *begin_pq, int elem_size)
 	begin_pq->node = NULL;
 }
 
-int		add_pq(t_pq *pq, void *new_node, int(*cmp)(void*, void*))
+int	pq_add(t_pq *pq, void *new_node, int(*cmp)(void*, void*))
 {
 	int		child;
 	int		parent;
@@ -39,7 +39,7 @@ int		add_pq(t_pq *pq, void *new_node, int(*cmp)(void*, void*))
 	{
 		if (cmp(pq->node[child], pq->node[parent]) < 0)
 		{
-			swap_node_pq(pq, child, parent);
+		pq_swap_node(pq, child, parent);
 			child = parent;
 			parent = (child - 1) / 2;
 		}
@@ -48,7 +48,7 @@ int		add_pq(t_pq *pq, void *new_node, int(*cmp)(void*, void*))
 	return (0);
 }
 
-void	swap_node_pq(t_pq *pq, int child, int parent)
+void	pq_swap_node(t_pq *pq, int child, int parent)
 {
 	void	*temp;
 
@@ -57,7 +57,7 @@ void	swap_node_pq(t_pq *pq, int child, int parent)
 	pq->node[parent] = temp;
 }
 
-void	*pop_pq(t_pq *pq, int(*cmp)(void*, void*))
+void	*pq_pop(t_pq *pq, int(*cmp)(void*, void*))
 {
 	int		left_c;
 	int		right_c;
@@ -68,7 +68,7 @@ void	*pop_pq(t_pq *pq, int(*cmp)(void*, void*))
 	pop = pq->node[0];
 	pq->node[0] = NULL;
 	pq->used_size--;
-	swap_node_pq(pq, 0, pq->used_size);
+	pq_swap_node(pq, 0, pq->used_size);
 	left_c = 1;
 	right_c = 2;
 	parent = 0;
@@ -85,7 +85,7 @@ void	*pop_pq(t_pq *pq, int(*cmp)(void*, void*))
 		}
 		if (cmp(pq->node[prior_c], pq->node[parent]) < 0)
 		{
-			swap_node_pq(pq, prior_c, parent);
+		pq_swap_node(pq, prior_c, parent);
 			parent = prior_c;
 		}
 		else
@@ -96,7 +96,7 @@ void	*pop_pq(t_pq *pq, int(*cmp)(void*, void*))
 	return (pop);
 }
 
-void	destroy_pq(t_pq *pq)
+void	pq_destroy(t_pq *pq)
 {
 	int index;
 
@@ -113,7 +113,7 @@ void	destroy_pq(t_pq *pq)
 	pq->used_size = 0;
 }
 
-int		check_empty_pq(t_pq *pq)
+int	pq_empty(t_pq *pq)
 {
 	return (pq->used_size == 0);
 }

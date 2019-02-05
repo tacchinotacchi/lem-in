@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:04:29 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/30 19:35:36 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 04:36:40 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,14 @@ static int	create_flow_pair(t_graph *input,
 	node_data.ancestor = 0;
 	node_data.path_cost = INT_MAX;
 	node_data.path_length = 0;
+	node_data.path_max_flow = INT_MAX;
 	node_data.flags = 0;
 	add_node(flow_graph, &node_data, sizeof(t_flow_node_data));
 	tail = flow_graph->nodes.length - 1;
+	node_flow_data(flow_graph, tail)->own_id = tail;
 	add_node(flow_graph, &node_data, sizeof(t_flow_node_data));
 	head = flow_graph->nodes.length - 1;
+	node_flow_data(flow_graph, head)->own_id = head;
 	add_edge(flow_graph, tail, head, sizeof(edge_data));
 	add_edge(flow_graph, head, tail, sizeof(edge_data));
 	edge_data.capacity = 1;
@@ -58,6 +61,7 @@ static int	add_special_node(t_graph *input,
 	node_data.ancestor = 0;
 	node_data.path_cost = INT_MAX;
 	node_data.path_length = 0;
+	node_data.path_max_flow = 0;
 	node_data.flags = 0;
 	if (node_colony_data(input, input_id)->flags & START)
 		node_data.flags |= START;
@@ -65,6 +69,7 @@ static int	add_special_node(t_graph *input,
 		node_data.flags |= END;
 	add_node(flow_graph, &node_data, sizeof(node_data));
 	new_id = flow_graph->nodes.length - 1;
+	node_flow_data(flow_graph, new_id)->own_id = new_id;
 	node_colony_data(input, input_id)->flow_in_id = new_id;
 	node_colony_data(input, input_id)->flow_out_id = new_id;
 	return (0);

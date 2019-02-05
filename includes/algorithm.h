@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:47:24 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/29 16:24:16 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 04:29:43 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ enum	e_edge_type
 
 typedef struct	s_flow_node_data
 {
+	size_t	own_id;
 	size_t	colony_id;
 	size_t	ancestor;
 	size_t	path_length;
 	long	path_cost;
+	long	path_max_flow;
 	long	flags;
 }				t_flow_node_data;
 
@@ -41,18 +43,12 @@ typedef struct	s_flow_edge_data
 	/* TODO weight implicit or explicit? */
 }				t_flow_edge_data;
 
-typedef struct	s_aug_path
-{
-	t_list	*path;
-	size_t	max_flow;
-}				t_aug_path;
-
 t_flow_node_data	*node_flow_data(const t_graph *graph, size_t id);
 t_flow_edge_data	*edge_flow_data(const t_graph *graph, size_t id);
 int					transform_graph(t_graph *input, t_graph *flow_graph);
 int					interpret_flow(t_graph *input, t_graph *flow_graph);
 int					min_path(t_graph *flow_graph, size_t source);
 int					min_cost_flow(t_graph *flow_graph, size_t source,
-						size_t sink, int flow);	
+						size_t sink, int flow);
 
 #endif
