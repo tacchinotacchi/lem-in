@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 03:48:22 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/04 23:45:01 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct 	s_lemin
 	t_graph		graph;
 	t_list		*comments;
 	t_list		*commands;
+	t_list		*instructions;
 	size_t		start;
 	size_t		end;
 	int			max_x_coord;

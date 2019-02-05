@@ -1,9 +1,11 @@
 SRCS = parser/parser.c \
 	parser/get_info.c \
+	parser/store_node_data.c \
 	parser/get_info2.c \
-	parser/check_func1.c \
-	parser/check_func2.c \
+	parser/check_gen.c \
+	parser/check_graph.c \
 	parser/check_util.c \
+	parser/flags.c \
 	adjacency_list/adjacency_list.c \
 	adjacency_list/node_util.c \
 	adjacency_list/edge_util.c \
@@ -31,13 +33,16 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	visualizer/matrix.c \
 	visualizer/visualizer.c \
 	visualizer/equilibrium.c \
+	visualizer/input.c \
 	algorithm/algorithm_util.c \
 	parser/parser.c \
 	parser/get_info.c \
+	parser/store_node_data.c \
 	parser/get_info2.c \
-	parser/check_func1.c \
-	parser/check_func2.c \
+	parser/check_gen.c \
+	parser/check_graph.c \
 	parser/check_util.c \
+	parser/flags.c \
 	adjacency_list/adjacency_list.c \
 	adjacency_list/node_util.c \
 	adjacency_list/edge_util.c \
