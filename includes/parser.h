@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 22:48:20 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/05 06:38:06 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int		compare_edge(const void *ptr1, const void *ptr2);
 int 	compare_coords(const void *data1, const void *data2);
 
 void	error(t_lemin *info);
+void	free_all(t_lemin *info);
 
 
 #endif
