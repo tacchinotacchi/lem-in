@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:49:18 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/03 23:23:43 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 01:31:18 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int		init_textures(t_renderer *renderer)
 		return (-1);
 	if (texture_from_file(&renderer->end_texture,
 		"resources/end.bmp") < 0)
+		return (-1);
+	if (texture_from_file(&renderer->ant_texture,
+		"resources/ant.bmp") < 0)
 		return (-1);
 	if (texture_from_file(&renderer->edge_texture,
 		"resources/edge.bmp") < 0)

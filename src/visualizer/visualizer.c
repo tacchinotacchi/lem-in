@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/05 01:18:42 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 01:44:35 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		enter_reading_loop(t_lemin *info, t_visualizer *vis, t_renderer *renderer)
 
 	quit = 0;
 	ft_bzero(&renderer->view, sizeof(t_view));
+	array_init(&renderer->ant_coords, sizeof(float[3]));
 	array_init(&renderer->node_coords, sizeof(float[3]));
 	array_init(&renderer->edge_indices, sizeof(GLuint[2]));
 	matrix_perspective(renderer->view.perspective_mat, 0.1f, 200.f, 0.9f);

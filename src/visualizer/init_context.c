@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:29:16 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/01 17:08:57 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 01:35:49 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,18 @@ int		init_main_buffers(t_renderer *renderer)
 {
 	glGenBuffers(1, &renderer->node_buffer);
 	glGenBuffers(1, &renderer->edge_buffer);
+	glGenBuffers(1, &renderer->ant_buffer);
 	glGenVertexArrays(1, &renderer->node_vao);
+	glGenVertexArrays(1, &renderer->node_vao);
+	glBindVertexArray(renderer->node_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, renderer->node_buffer);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer->edge_buffer);
+	glBindVertexArray(renderer->ant_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, renderer->ant_buffer);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
 	return (0);
 }
 

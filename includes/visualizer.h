@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/03 23:28:52 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 02:11:34 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,31 @@ typedef struct	s_renderer
 	GLuint			node_texture;
 	GLuint			start_texture;
 	GLuint			end_texture;
+	GLuint			ant_texture;
 	GLuint			edge_texture;
 	GLuint			node_buffer;
-	GLuint			node_vao;
+	GLuint			ant_buffer;
 	GLuint			edge_buffer;
+	GLuint			node_vao;
+	GLuint			ant_vao;
 	t_array			node_coords;
+	t_array			ant_coords;
 	t_array			edge_indices;
 	t_view			view;
 }				t_renderer;
+
+typedef struct	s_ant_data
+{
+	size_t	ant_id;
+	size_t	target_node;
+}				t_ant_data;
 
 typedef struct	s_visualizer
 {
 	SDL_Window	*window;
 	SDL_Surface	*surf;
 	SDL_Event	event;
+	t_tree		*ant_positions;
 	char		*adj_matrix;
 	size_t		width;
 	int			loop;
@@ -72,7 +83,7 @@ void	matrix_add_rotation(float *mat, float y_axis, float x_axis);
 void	matrix_perspective(float *mat, float near_clip, float far_clip,
 			float fov);
 void	handle_event(const SDL_Event *event, t_view *view);
-void	update_position(t_view *view);	
+void	update_position(t_view *view);
 void	rotate_vector(float *v, float v_rotation, float r_rotation);
 void	convert_input(t_lemin *info, t_renderer *renderer);
 void	generate_coords(t_lemin *info, t_visualizer *vis);
