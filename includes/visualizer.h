@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/05 20:58:19 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 16:32:07 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,16 @@ typedef struct	s_renderer
 	GLuint			start_texture;
 	GLuint			end_texture;
 	GLuint			edge_texture;
-	GLuint			node_buffer;
 	GLuint			node_vao;
+	GLuint			ant_vao;
+	GLuint			node_buffer;
 	GLuint			edge_buffer;
+	GLuint			ant_buffer;
 	t_array			node_coords;
 	t_array			edge_indices;
+	t_array			ant_data;
 	t_view			view;
+	float			animation_time;
 }				t_renderer;
 
 typedef struct	s_visualizer
@@ -71,6 +75,7 @@ void	matrix_add_movement(float *mat, float *direction);
 void	matrix_add_rotation(float *mat, float y_axis, float x_axis);
 void	matrix_perspective(float *mat, float near_clip, float far_clip,
 			float fov);
+void	execute_line(t_lemin *info, t_renderer *renderer, char animate);
 void	handle_event(const SDL_Event *event, t_lemin *info, t_renderer *renderer);
 void	update_position(t_view *view);
 void	rotate_vector(float *v, float v_rotation, float r_rotation);

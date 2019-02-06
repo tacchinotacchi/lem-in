@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/05 20:58:00 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 16:47:26 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int		enter_reading_loop(t_lemin *info, t_visualizer *vis, t_renderer *renderer)
 	ft_bzero(&renderer->view, sizeof(t_view));
 	array_init(&renderer->node_coords, sizeof(float[3]));
 	array_init(&renderer->edge_indices, sizeof(GLuint[2]));
+	array_init(&renderer->ant_data, sizeof(GLuint[2]));
+	renderer->animation_time = 1.f;
 	matrix_perspective(renderer->view.perspective_mat, 0.1f, 200.f, 0.9f);
 	while (!quit)
 	{
@@ -69,6 +71,8 @@ int		enter_reading_loop(t_lemin *info, t_visualizer *vis, t_renderer *renderer)
 		update_position(&renderer->view);
 		update_equilibrium(&info->graph, vis);
 		convert_input(info, renderer);
+		/* TODO measure time */
+		renderer->animation_time += 0.025f;
 		matrix_identity(renderer->view.rotation_mat);
 		matrix_add_rotation(renderer->view.rotation_mat,
 			renderer->view.v_rotation, renderer->view.r_rotation);
