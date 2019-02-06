@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 20:13:10 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 22:31:24 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	rotate_vector(float *v, float v_rotation, float r_rotation);
 void	convert_input(t_lemin *info, t_renderer *renderer);
 void	generate_coords(t_lemin *info, t_visualizer *vis);
 void	update_equilibrium(t_graph *graph, t_visualizer *vis);
-void	draw_graph(t_renderer *renderer);
+void	draw_graph(t_lemin *info, t_renderer *renderer);
 int		enter_reading_loop(t_lemin *info, t_visualizer *vis,
 			t_renderer *renderer);
 

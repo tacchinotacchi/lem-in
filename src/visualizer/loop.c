@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 18:28:25 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 20:16:44 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 22:33:26 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			enter_reading_loop(t_lemin *info, t_visualizer *vis,
 		update_position(&renderer->view);
 		update_equilibrium(&info->graph, vis);
 		update_shader_data(info, renderer);
-		draw_graph(renderer);
+		draw_graph(info, renderer);
 		curr_time = SDL_GetTicks();
 		if (curr_time - renderer->last_frame_time < 17)
 		{
