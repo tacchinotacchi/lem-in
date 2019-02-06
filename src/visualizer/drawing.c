@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:45:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/03 16:05:25 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 13:56:50 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	generate_coords(t_lemin *info, t_visualizer *vis)
 			node_colony_data(&info->graph, id)->y);
 		node_colony_data(&info->graph, id)->coords[2] = 1.f * sin(
 			node_colony_data(&info->graph, id)->x);
+		ft_memset(node_colony_data(&info->graph, id)->color, 0, sizeof(float[3]));
 		id++;
 	}
 	id = 0;
@@ -69,6 +70,8 @@ void	convert_input(t_lemin *info, t_renderer *renderer)
 	{
 		array_push_back(&renderer->node_coords,
 			node_colony_data(&info->graph, id)->coords);
+		array_push_back(&renderer->node_coords,
+			node_colony_data(&info->graph, id)->color);
 		id++;
 	}
 	id = 0;
@@ -97,7 +100,7 @@ static void	draw_nodes(t_renderer *renderer)
 		1, GL_TRUE, renderer->view.perspective_mat);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, renderer->node_texture);
-	glDrawArrays(GL_POINTS, 0, renderer->node_coords.length);
+	glDrawArrays(GL_POINTS, 0, renderer->node_coords.length / 2);
 }
 
 static void	draw_edges(t_renderer *renderer)
@@ -129,8 +132,10 @@ void	draw_graph(t_renderer *renderer)
 	glBindBuffer(GL_ARRAY_BUFFER, renderer->node_buffer);
 	glBufferData(GL_ARRAY_BUFFER, renderer->node_coords.length * sizeof(float[3]),
 		renderer->node_coords.ptr, GL_DYNAMIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, 0);
 	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (GLvoid*)(sizeof(float) * 3));
+	glEnableVertexAttribArray(1);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer->edge_buffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, renderer->edge_indices.length * sizeof(GLuint[2]),
 		renderer->edge_indices.ptr, GL_DYNAMIC_DRAW);

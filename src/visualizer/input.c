@@ -6,12 +6,29 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 23:26:04 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/05 21:08:17 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 14:17:11 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 #include "ft_printf.h"
+
+static void	update_color(t_lemin *info, t_command command)
+{
+	t_colony_node_data	*node_data;
+	size_t				count;
+
+	count = 0;
+	while (command.args[count])
+		count++;
+	if (count == 5)
+	{
+		node_data = node_colony_data(&info->graph, ft_atoi(command.args[1]));
+		node_data->color[0] = (float)ft_atoi(command.args[2]) / 255.f;
+		node_data->color[1] = (float)ft_atoi(command.args[3]) / 255.f;
+		node_data->color[2] = (float)ft_atoi(command.args[4]) / 255.f;
+	}
+}
 
 static void	execute_command(t_lemin *info)
 {
@@ -25,7 +42,7 @@ static void	execute_command(t_lemin *info)
 		if (command.args[0])
 		{
 			if (!ft_strcmp("color", command.args[0]))
-				; /*TODO*/
+				update_color(info, command);
 			else
 				ft_dprintf(2, "Command %s unknown\n", command.args[0]);
 		}
@@ -46,7 +63,7 @@ void	handle_key(const SDL_Event *event, t_lemin *info, t_renderer *renderer)
 		renderer->view.velocity[0] = (event->key.type == SDL_KEYDOWN) ? 0.05f : 0.f;
 	else if (event->key.keysym.sym == SDLK_d)
 		renderer->view.velocity[0] = (event->key.type == SDL_KEYDOWN) ? -0.05f : 0.f;
-	else if (event->key.keysym.sym == SDLK_n)
+	else if (event->key.keysym.sym == SDLK_n && event->key.type == SDL_KEYDOWN)
 		execute_command(info);
 }
 

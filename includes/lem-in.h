@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/05 20:50:26 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 13:38:08 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,17 @@
 
 typedef struct	s_colony_node_data
 {
-	char	*name;
-	int		flags;
-	size_t	flow_in_id;
-	size_t	flow_out_id;
-	int		x;
-	int		y;
+	char		*name;
+	int			flags;
+	size_t		flow_in_id;
+	size_t		flow_out_id;
+	int			x;
+	int			y;
 	uint64_t	coord;
-	float	coords[3];
-	float	accel[3];
-	size_t	ant;
+	float		coords[3];
+	float		accel[3];
+	float		color[3];
+	size_t		ant;
 }				t_colony_node_data;
 
 typedef struct	s_colony_edge_data
