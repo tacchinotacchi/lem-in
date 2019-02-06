@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 23:26:04 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 16:43:46 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 19:42:00 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static void	execute_command(t_lemin *info)
 	free(pop);
 }
 
-void	handle_key(const SDL_Event *event, t_lemin *info, t_renderer *renderer)
+static void	handle_key(const SDL_Event *event, t_lemin *info,
+				t_visualizer *vis, t_renderer *renderer)
 {
 	if (event->key.keysym.sym == SDLK_ESCAPE)
 		SDL_SetRelativeMouseMode(SDL_FALSE);
@@ -52,10 +53,12 @@ void	handle_key(const SDL_Event *event, t_lemin *info, t_renderer *renderer)
 		execute_line(info, renderer, 1);
 	else if (event->key.keysym.sym == SDLK_p && event->key.type == SDL_KEYDOWN)
 		execute_line(info, renderer, 0);
+	else if (event->key.keysym.sym == SDLK_r && event->key.type == SDL_KEYDOWN)
+		generate_coords(info, vis);
 }
 
 void	handle_event(const SDL_Event *event, t_lemin *info,
-			t_renderer *renderer)
+			t_visualizer *vis, t_renderer *renderer)
 {
 	if (event->type == SDL_MOUSEMOTION)
 	{
@@ -70,7 +73,7 @@ void	handle_event(const SDL_Event *event, t_lemin *info,
 	else if (event->type == SDL_MOUSEBUTTONDOWN)
 		SDL_SetRelativeMouseMode(SDL_TRUE);
 	else if (event->type == SDL_KEYDOWN || event->type == SDL_KEYUP)
-		handle_key(event, info, renderer);
+		handle_key(event, info, vis, renderer);
 }
 
 void	update_position(t_view *view)
