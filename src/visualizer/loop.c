@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 18:28:25 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 19:45:18 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 20:16:44 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	update_shader_data(t_lemin *info, t_renderer *renderer)
 
 	curr_time = SDL_GetTicks();
 	renderer->animation_time
-		+= (float)(curr_time - renderer->last_frame_time) * 0.025f;
+		+= (float)(curr_time - renderer->last_frame_time + renderer->msec_waited) * 0.001f;
 	if (renderer->animation_time > 1.f)
 		renderer->animation_time = 1.f;
 	convert_input(info, renderer);
@@ -63,10 +63,12 @@ int			enter_reading_loop(t_lemin *info, t_visualizer *vis,
 		draw_graph(renderer);
 		curr_time = SDL_GetTicks();
 		if (curr_time - renderer->last_frame_time < 17)
-		SDL_Delay(17 - (curr_time - renderer->last_frame_time));
+		{
+			SDL_Delay(17 - (curr_time - renderer->last_frame_time));
+			renderer->msec_waited = 17 - (curr_time - renderer->last_frame_time);
+		}
 		SDL_GL_SwapWindow(vis->window);
 		renderer->last_frame_time = SDL_GetTicks();
-		/* TODO decent fps limiter */
 	}
 	return (0);
 }

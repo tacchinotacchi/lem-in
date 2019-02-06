@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 19:41:51 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 20:13:10 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct	s_renderer
 	t_view			view;
 	float			animation_time;
 	uint64_t		last_frame_time;
+	uint64_t		msec_waited;
 }				t_renderer;
 
 typedef struct	s_visualizer

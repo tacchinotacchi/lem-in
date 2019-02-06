@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 19:36:49 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 19:44:49 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 19:55:18 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	generate_coords(t_lemin *info, t_visualizer *vis)
 		node_colony_data(&info->graph, id)->coords[1] = transform_y(info,
 			node_colony_data(&info->graph, id)->y);
 		node_colony_data(&info->graph, id)->coords[2]
-			= (float)(rand() % 101) / 100.f;
+			= 20.f * (float)(rand() % 101) / 100.f - 10.f;
 		id++;
 	}
 	id = 0;
