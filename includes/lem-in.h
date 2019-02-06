@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 23:45:01 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 20:50:26 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ typedef	struct	s_instruction
 	size_t	node_id;
 	int		flusher;
 }				t_instruction;
+
+typedef struct	s_command
+{
+	char	**args;
+}				t_command;
 
 typedef struct 	s_lemin
 {
