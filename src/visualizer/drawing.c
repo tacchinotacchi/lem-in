@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:45:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 16:42:28 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 18:24:45 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,26 @@ static void	draw_edges(t_renderer *renderer)
 		GL_UNSIGNED_INT, 0);
 }
 
+static void	draw_ants(t_renderer *renderer)
+{
+	glUseProgram(renderer->ant_program);
+	glUniform1f(
+		glGetUniformLocation(renderer->ant_program, "ant_scale"), 0.035f);
+	glUniform1f(
+		glGetUniformLocation(renderer->ant_program, "animation_time"), renderer->animation_time);
+	glUniform1i(glGetUniformLocation(renderer->edge_texture, "ant_tex"), 0);
+	glUniformMatrix4fv(glGetUniformLocation(renderer->ant_program, "transform"),
+		1, GL_TRUE, renderer->view.transform_mat);
+	glUniformMatrix4fv(glGetUniformLocation(renderer->ant_program, "rotation"),
+		1, GL_TRUE, renderer->view.rotation_mat);
+	glUniformMatrix4fv(glGetUniformLocation(renderer->ant_program, "perspective"),
+		1, GL_TRUE, renderer->view.perspective_mat);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, renderer->ant_texture);
+	glDrawElements(GL_LINES, renderer->ant_data.length * 2,
+		GL_UNSIGNED_INT, 0);
+}
+
 void	draw_graph(t_renderer *renderer)
 {
 	glEnable(GL_BLEND);
@@ -133,5 +153,8 @@ void	draw_graph(t_renderer *renderer)
 	draw_edges(renderer);
 	draw_nodes(renderer);
 	glBindVertexArray(renderer->ant_vao);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, renderer->ant_data.length * sizeof(GLuint[2]),
+		renderer->ant_data.ptr, GL_DYNAMIC_DRAW);
+	draw_ants(renderer);
 	/*TODO draw ants*/
 }

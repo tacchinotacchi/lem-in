@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 16:32:07 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 17:00:45 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@ typedef struct	s_renderer
 	SDL_GLContext	*ctx;
 	GLuint			node_program;
 	GLuint			edge_program;
+	GLuint			ant_program;
 	GLuint			node_texture;
 	GLuint			start_texture;
 	GLuint			end_texture;
 	GLuint			edge_texture;
+	GLuint			ant_texture;
 	GLuint			node_vao;
 	GLuint			ant_vao;
 	GLuint			node_buffer;
