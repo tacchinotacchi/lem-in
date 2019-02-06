@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 03:49:23 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 19:46:16 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 21:59:32 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static void	node_attract(t_graph *graph, size_t tail, size_t head,
 	float	diff[3];
 	float	desired;
 
-	desired = vis->adj_matrix[tail * vis->width + head] ? 0.01f
-		: 0.5f * pow(graph->nodes.length, 0.333333);
+	desired = vis->adj_matrix[tail * vis->width + head] ? 0.05f
+		: 0.45f * pow(graph->nodes.length, 0.5);
 	diff[0] = node_colony_data(graph, head)->coords[0]
 		- node_colony_data(graph, tail)->coords[0];
 	diff[1] = node_colony_data(graph, head)->coords[1]
