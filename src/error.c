@@ -6,18 +6,12 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:47:08 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 03:48:00 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 00:11:19 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "lem-in.h"
-
-void	free_stub(void *ptr, size_t stub)
-{
-	(void)stub;
-	free(ptr);
-}
 
 static void	free_nodes(void *ptr)
 {
@@ -29,8 +23,8 @@ static void	free_nodes(void *ptr)
 	if (data->name)
 		free(data->name);
 	free(data);
-	list_del(&node->out_edges, free_stub);
-	list_del(&node->in_edges, free_stub);
+	list_del(&node->out_edges, ft_free_stub);
+	list_del(&node->in_edges, ft_free_stub);
 }
 
 static void	free_edges(void *ptr)
@@ -45,6 +39,6 @@ void		error(t_lemin *info)
 {
 	array_clear(&(info->graph.nodes), free_nodes);
 	array_clear(&(info->graph.edges), free_edges);
-	list_del(&(info->comments), free_stub);
-	tree_clear(&(info->coord_tree), free_stub);
+	list_del(&(info->comments), ft_free_stub);
+	tree_clear(&(info->coord_tree), ft_free_stub);
 }

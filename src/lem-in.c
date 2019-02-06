@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/04 23:36:39 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 00:11:29 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(void)
 
 	parse_input(&info, L_ANTS | L_COMMENT | L_COMMAND);
 	ft_putchar('\n');
-	tree_clear(&(info.coord_tree), free_stub);
+	tree_clear(&(info.coord_tree), ft_free_stub);
 	array_init(&flow_graph.nodes, sizeof(t_node));
 	array_init(&flow_graph.edges, sizeof(t_edge));
 	transform_graph(&info.graph, &flow_graph);

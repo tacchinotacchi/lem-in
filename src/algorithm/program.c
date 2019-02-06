@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:41:40 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/05 08:03:04 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 00:10:49 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		generate_line(t_lemin *info, t_array *program)
 			pop = list_pop(&node_queue);
 			/* TODO assert if node is not end but absorbs more than one ant */
 			incomplete |= absorb_ants(info, program, &new_queue, LST_CONT(pop, size_t));
-			list_del(&pop, free_stub);
+			list_del(&pop, ft_free_stub);
 		}
 		node_queue = new_queue;
 	}
