@@ -6,61 +6,12 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 23:26:04 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 16:08:10 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 19:42:00 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 #include "ft_printf.h"
-
-static ssize_t	instruction_is_valid(t_lemin *info, t_instruction instr)
-{
-	t_colony_node_data	*node_data;
-	t_list				*traverse;
-
-	traverse = *node_in_edges(&info->graph, instr.node_id);
-	while (traverse)
-	{
-		node_data = node_colony_data(&info->graph,
-			edge_tail(&info->graph, LST_CONT(traverse, size_t)));
-		if ((node_data->flags & START) || node_data->ant == instr.ant_id)
-			return (edge_tail(&info->graph, LST_CONT(traverse, size_t)));
-		traverse = traverse->next;
-	}
-	return (-1);
-}
-
-static void	execute_instruction(t_lemin *info)
-{
-	t_colony_node_data	*node_data;
-	t_instruction		instruction;
-	t_list				*pop;
-	ssize_t				prev_node;
-
-	pop = list_pop(&info->instructions);
-	while(pop && LST_CONT(pop, t_instruction).flusher)
-		pop = list_pop(&info->instructions);
-	if (pop)
-	{
-		instruction = LST_CONT(pop, t_instruction);
-		node_data = node_colony_data(&info->graph, instruction.node_id);
-		/* TODO ant tree to make sure ant is in a node connected to node_id */
-		if ((prev_node = instruction_is_valid(info, instruction)) >= 0)
-		{
-			ft_printf("%sInstruction valid%s: ant %zu to %s\n",
-				ANSI_COLOR_GREEN, ANSI_COLOR_RESET,
-				instruction.ant_id, node_data->name);
-			node_data->ant = instruction.ant_id;
-			node_colony_data(&info->graph, prev_node)->ant = 0;
-		}
-		else
-			ft_printf("%sInstruction invalid%s: ant %zu to %s\n",
-				ANSI_COLOR_RED, ANSI_COLOR_RESET,
-				instruction.ant_id, node_data->name);
-		/* TODO remove ants that get absorbed message if tree is empty*/
-	}
-	free(pop);
-}
 
 static void	execute_command(t_lemin *info)
 {
@@ -83,7 +34,8 @@ static void	execute_command(t_lemin *info)
 	free(pop);
 }
 
-void	handle_key(const SDL_Event *event, t_lemin *info, t_renderer *renderer)
+static void	handle_key(const SDL_Event *event, t_lemin *info,
+				t_visualizer *vis, t_renderer *renderer)
 {
 	if (event->key.keysym.sym == SDLK_ESCAPE)
 		SDL_SetRelativeMouseMode(SDL_FALSE);
@@ -98,11 +50,15 @@ void	handle_key(const SDL_Event *event, t_lemin *info, t_renderer *renderer)
 	else if (event->key.keysym.sym == SDLK_n && event->key.type == SDL_KEYDOWN)
 		execute_command(info);
 	else if (event->key.keysym.sym == SDLK_m && event->key.type == SDL_KEYDOWN)
-		execute_instruction(info);
+		execute_line(info, renderer, 1);
+	else if (event->key.keysym.sym == SDLK_p && event->key.type == SDL_KEYDOWN)
+		execute_line(info, renderer, 0);
+	else if (event->key.keysym.sym == SDLK_r && event->key.type == SDL_KEYDOWN)
+		generate_coords(info, vis);
 }
 
 void	handle_event(const SDL_Event *event, t_lemin *info,
-			t_renderer *renderer)
+			t_visualizer *vis, t_renderer *renderer)
 {
 	if (event->type == SDL_MOUSEMOTION)
 	{
@@ -117,7 +73,7 @@ void	handle_event(const SDL_Event *event, t_lemin *info,
 	else if (event->type == SDL_MOUSEBUTTONDOWN)
 		SDL_SetRelativeMouseMode(SDL_TRUE);
 	else if (event->type == SDL_KEYDOWN || event->type == SDL_KEYUP)
-		handle_key(event, info, renderer);
+		handle_key(event, info, vis, renderer);
 }
 
 void	update_position(t_view *view)

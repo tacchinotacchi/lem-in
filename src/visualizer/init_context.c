@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:29:16 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/01 17:08:57 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 20:11:34 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		sdl_set_attr()
 int		acquire_context(t_visualizer *vis, t_renderer *renderer)
 {
 	renderer->ctx = SDL_GL_CreateContext(vis->window);
-	if (!renderer->ctx)
+	if (!renderer->ctx || SDL_GL_SetSwapInterval(0) < 0)
 		return (-1);
 	return (0);
 }
@@ -40,7 +40,19 @@ int		init_main_buffers(t_renderer *renderer)
 {
 	glGenBuffers(1, &renderer->node_buffer);
 	glGenBuffers(1, &renderer->edge_buffer);
+	glGenBuffers(1, &renderer->ant_buffer);
 	glGenVertexArrays(1, &renderer->node_vao);
+	glGenVertexArrays(1, &renderer->ant_vao);
+	glBindVertexArray(renderer->node_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, renderer->node_buffer);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer->edge_buffer);
+	glBindVertexArray(renderer->ant_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, renderer->node_buffer);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer->ant_buffer);
 	return (0);
 }
 

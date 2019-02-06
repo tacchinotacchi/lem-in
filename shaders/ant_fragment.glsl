@@ -6,11 +6,11 @@ in vec2 texture_coords;
 
 //uniform float start;
 //uniform float end;
-uniform sampler2D edge_tex;
+uniform sampler2D ant_tex;
 
 void	main()
 {
-	color = texture(edge_tex, texture_coords);
+	color = texture(ant_tex, texture_coords);
 	if (color.a < 0.9)
 		discard;
 }
