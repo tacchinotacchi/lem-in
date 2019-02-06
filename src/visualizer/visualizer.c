@@ -92,6 +92,7 @@ int		main(int argc, char **argv)
 	ft_bzero(&input, sizeof(t_lemin));
 	parse_input(&input, L_ANTS | L_COMMENT | L_COMMAND | L_INSTRUCTION);
 	generate_coords(&input, &vis);
+	init_ants(&input);
 	if (init_sdl(&vis, &renderer) < 0)
 	{
 		ft_dprintf(2, "Failed to acquire context: %s\n", SDL_GetError());

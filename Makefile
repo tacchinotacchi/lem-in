@@ -34,6 +34,7 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	visualizer/visualizer.c \
 	visualizer/equilibrium.c \
 	visualizer/input.c \
+	algorithm/program.c \
 	algorithm/algorithm_util.c \
 	parser/parser.c \
 	parser/get_info.c \

@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 22:29:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 22:56:04 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/06 16:02:33 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		ft_str_is_digit(const char *str)
 	{
 		if (str[index] == '+')
 			index++;
-		else if (ft_isdigit(str[index] == 0))
+		else if (!ft_isdigit(str[index]))
 			return (0);
 		else
 			index++;
