@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 23:02:52 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/05 04:22:03 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 01:48:30 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	pq_add(t_pq *pq, void *new_node, int(*cmp)(void*, void*))
 	if (pq->used_size == pq->size)
 	{
 		pq->size = (pq->size + 1) * 2 - 1;
+		/* TODO -42!!!!!!!!!!!!*/
 		if (!(pq->node = (void**)realloc(pq->node, sizeof(void*) * pq->size)))
 			return (-1);
 	}
