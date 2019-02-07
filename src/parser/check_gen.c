@@ -6,20 +6,20 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 17:13:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/05 01:01:34 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 12:00:53 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int		is_nbr_ants(char *line)
+int			is_nbr_ants(char *line)
 {
 	if (ft_str_is_digit(line) && ft_atoi(line) > 0)
 		return (1);
 	return (0);
 }
 
-int		is_command(char *line)
+int			is_command(char *line)
 {
 	if (ft_strlen(line) >= 2 && line[0] == '#' && line[1] == '#'
 		&& ft_strcmp(line, "##start") && ft_strcmp(line, "##end"))
@@ -27,7 +27,7 @@ int		is_command(char *line)
 	return (0);
 }
 
-int		is_comment(char *line)
+int			is_comment(char *line)
 {
 	if (line[0] == '#'
 		&& ((ft_strlen(line) > 1 && line[1] != '#') || ft_strlen(line) <= 1))
@@ -51,7 +51,7 @@ static int	check_potential_instruction(const char *instr)
 	return (0);
 }
 
-int		is_instruction(char *line)
+int			is_instruction(char *line)
 {
 	char	**array;
 	size_t	index;

@@ -50,7 +50,7 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	adjacency_list/adjacency_list.c \
 	adjacency_list/node_util.c \
 	adjacency_list/edge_util.c \
-	error.c
+	free_and_error.c
 VISUALIZER_OBJS = $(patsubst %.c,obj/%.o,$(VISUALIZER_SRCS))
 
 TESTS_SRCS =
