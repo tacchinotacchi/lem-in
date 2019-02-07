@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 00:06:59 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 00:10:45 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,15 @@ int			min_path(t_graph *flow_graph, size_t source)
 {
 	t_list	*pop;
 	t_queue	queue;
-	int		ret;
 	char	*in_queue;
 
-	ret = 0;
 	if (!(in_queue = ft_memalloc(flow_graph->nodes.length)))
 		return (-1);
-	pop = NULL;
 	queue_init(&queue);
 	queue_push(&queue, list_new(&source, sizeof(size_t)));
 	in_queue[source] = 1;
 	while (queue.size > 0)
 	{
-		
 		pop = queue_pop(&queue);
 		in_queue[LST_CONT(pop, size_t)] = 0;
 		if (detect_cycle(flow_graph, LST_CONT(pop, size_t)))
@@ -103,5 +99,5 @@ int			min_path(t_graph *flow_graph, size_t source)
 	free(pop);
 	free(in_queue);
 	queue_destroy(&queue, free_stub);
-	return (ret);
+	return (0);
 }

@@ -17,6 +17,7 @@ SRCS = parser/parser.c \
 	algorithm/program.c \
 	algorithm/flow_util.c \
 	algorithm/interpret_flow.c \
+	algorithm/ant_scheduler.c \
 	error.c \
 	lem-in.c
 INCLUDES = libft/includes/libft.h \
@@ -41,6 +42,7 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	visualizer/loop.c \
 	algorithm/program.c \
 	algorithm/algorithm_util.c \
+	algorithm/ant_scheduler.c \
 	parser/parser.c \
 	parser/get_info.c \
 	parser/store_node_data.c \
