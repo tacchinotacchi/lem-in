@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:04:29 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/05 20:27:17 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 01:38:54 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,18 @@ static int	create_flow_pair(t_graph *input,
 	size_t				tail;
 	size_t				head;
 
+	node_data_init(&node_data);
 	node_data.colony_id = input_id;
-	node_data.ancestor = 0;
-	node_data.path_cost = INT_MAX;
-	node_data.potential = 0;
-	node_data.path_length = 0;
-	node_data.path_max_flow = INT_MAX;
-	node_data.flags = 0;
 	add_node(flow_graph, &node_data, sizeof(t_flow_node_data));
 	tail = flow_graph->nodes.length - 1;
-	node_flow_data(flow_graph, tail)->own_id = tail;
 	add_node(flow_graph, &node_data, sizeof(t_flow_node_data));
 	head = flow_graph->nodes.length - 1;
-	node_flow_data(flow_graph, head)->own_id = head;
 	add_edge(flow_graph, tail, head, sizeof(edge_data));
 	add_edge(flow_graph, head, tail, sizeof(edge_data));
-	edge_data.capacity = 1;
-	edge_data.flow = 0;
-	edge_data.weight = 0;
-	edge_data.type = e_normal;
+	edge_data_init(&edge_data, 0, 0);
 	edge_data.inverse = flow_graph->edges.length - 1;
-	edge_data.colony_id = 0;
 	*(edge_flow_data(flow_graph, flow_graph->edges.length - 2)) = edge_data;
-	edge_data.capacity = 0;
-	edge_data.type = e_back;
+	edge_data_init(&edge_data, 0, 1);
 	edge_data.inverse = flow_graph->edges.length - 2;
 	*(edge_flow_data(flow_graph, flow_graph->edges.length - 1)) = edge_data;
 	node_colony_data(input, input_id)->flow_in_id = tail;
@@ -58,20 +46,14 @@ static int	add_special_node(t_graph *input,
 	t_flow_node_data	node_data;
 	size_t				new_id;
 
+	node_data_init(&node_data);
 	node_data.colony_id = input_id;
-	node_data.ancestor = 0;
-	node_data.path_cost = INT_MAX;
-	node_data.potential = 0;
-	node_data.path_length = 0;
-	node_data.path_max_flow = 0;
-	node_data.flags = 0;
 	if (node_colony_data(input, input_id)->flags & START)
 		node_data.flags |= START;
 	if (node_colony_data(input, input_id)->flags & END)
 		node_data.flags |= END;
 	add_node(flow_graph, &node_data, sizeof(node_data));
 	new_id = flow_graph->nodes.length - 1;
-	node_flow_data(flow_graph, new_id)->own_id = new_id;
 	node_colony_data(input, input_id)->flow_in_id = new_id;
 	node_colony_data(input, input_id)->flow_out_id = new_id;
 	return (0);
@@ -94,25 +76,24 @@ static int	create_edges(t_graph *input, t_graph *flow_graph, size_t input_id)
 		node_colony_data(input, colony_tail_id)->flow_out_id,
 		sizeof(t_flow_edge_data));
 	edge_colony_data(input, input_id)->flow_id = flow_graph->edges.length - 2;
+	edge_data_init(&edge_data, 1, 0);
 	edge_data.capacity = INT_MAX;
-	edge_data.flow = 0;
-	edge_data.weight = 1;
-	edge_data.type = e_normal;
 	edge_data.colony_id = input_id;
 	edge_data.inverse = flow_graph->edges.length - 1;
 	*(edge_flow_data(flow_graph, flow_graph->edges.length - 2)) = edge_data;
-	edge_data.capacity = 0;
-	edge_data.weight = -1;
-	edge_data.type = e_back;
+	edge_data_init(&edge_data, 1, 1);
+	edge_data.colony_id = input_id;
 	edge_data.inverse = flow_graph->edges.length - 2;
 	*(edge_flow_data(flow_graph, flow_graph->edges.length - 1)) = edge_data;
 	return (0);
 }
 
-int		transform_graph(t_graph *input, t_graph *flow_graph)
+int			transform_graph(t_graph *input, t_graph *flow_graph)
 {
 	size_t	node_id;
 	size_t	edge_id;
+	size_t	tail_id;
+	size_t	head_id;
 
 	node_id = 0;
 	while (node_id < input->nodes.length)
@@ -126,31 +107,12 @@ int		transform_graph(t_graph *input, t_graph *flow_graph)
 	edge_id = 0;
 	while (edge_id < input->edges.length)
 	{
-		if (!(node_colony_data(input, edge_tail(input, edge_id))->flags & END)
-			&& !(node_colony_data(input, edge_head(input, edge_id))->flags & START))
+		tail_id = edge_tail(input, edge_id);
+		head_id = edge_head(input, edge_id);
+		if (!(node_colony_data(input, tail_id)->flags & END)
+			&& !(node_colony_data(input, head_id)->flags & START))
 			create_edges(input, flow_graph, edge_id);
 		edge_id++;
-	}
-	return (0);
-}
-
-int		interpret_flow(t_graph *input, t_graph *flow_graph)
-{
-	size_t	colony_id;
-	size_t	flow_id;
-
-	colony_id = 0;
-	while (colony_id < input->edges.length)
-	{
-		/* TODO it's better to remove these edges from the input network in the first place */
-		if (!(node_colony_data(input, edge_head(input, colony_id))->flags & START)
-			&& !(node_colony_data(input, edge_tail(input, colony_id))->flags & END))
-		{
-			flow_id = edge_colony_data(input, colony_id)->flow_id;
-			edge_colony_data(input, colony_id)->in_use
-				= edge_flow_data(flow_graph, flow_id)->flow;
-		}
-		colony_id++;
 	}
 	return (0);
 }

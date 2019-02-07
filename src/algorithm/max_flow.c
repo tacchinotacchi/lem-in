@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:06:06 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/05 20:25:33 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 01:41:03 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "algorithm.h"
 #include "lem-in.h"
 
-void	reset_node_data(t_graph *flow_graph)
+void		reset_node_data(t_graph *flow_graph)
 {
 	t_flow_node_data	*data;
 	size_t				index;
@@ -24,7 +24,6 @@ void	reset_node_data(t_graph *flow_graph)
 	{
 		data = node_flow_data(flow_graph, index);
 		data->ancestor = 0;
-		data->path_length = 0;
 		data->path_max_flow = INT_MAX;
 		if (data->flags & START)
 			data->path_cost = 0;
@@ -36,8 +35,8 @@ void	reset_node_data(t_graph *flow_graph)
 
 static void	reduce_weights(t_graph *flow_graph)
 {
-	t_flow_node_data *node_data;
-	size_t	node_id;
+	t_flow_node_data	*node_data;
+	size_t				node_id;
 
 	node_id = 0;
 	while (node_id < flow_graph->nodes.length)
@@ -49,7 +48,7 @@ static void	reduce_weights(t_graph *flow_graph)
 	}
 }
 
-void	use_augmenting(t_graph *flow_graph, size_t source, int max_flow)
+void		use_augmenting(t_graph *flow_graph, size_t source, int max_flow)
 {
 	t_flow_node_data	*node_data;
 	t_flow_edge_data	*edge_data;
@@ -70,17 +69,20 @@ void	use_augmenting(t_graph *flow_graph, size_t source, int max_flow)
 	}
 }
 
-int		min_cost_flow(t_graph *flow_graph, size_t source, size_t sink, int flow)
+int			min_cost_flow(t_graph *flow_graph, size_t source,
+				size_t sink, int flow)
 {
 	int			max_flow;
 	char		found;
 
+	/* TODO limit flow to number of ants */
 	(void)flow;
 	found = 1;
 	while (found)
 	{
 		reset_node_data(flow_graph);
-		min_path(flow_graph, source);
+		if (min_path(flow_graph, source) < 0)
+			return (-1);
 		if (node_flow_data(flow_graph, sink)->path_cost == INT_MAX)
 			found = 0;
 		else

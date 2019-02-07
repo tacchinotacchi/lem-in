@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/05 20:21:19 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 01:40:30 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,43 @@ static int	compare_cost(void *ptr1, void *ptr2)
 	return (0);
 }
 
+static int	schedule_node(t_graph *flow_graph, t_pq *queue, t_list *edge,
+				t_flow_node_data *this_data)
+{
+	size_t				next_id;
+	t_flow_edge_data	*edge_data;
+	t_flow_node_data	*next_data;
+	t_node				*next_node;
+
+	next_id = edge_head(flow_graph, LST_CONT(edge, size_t));
+	next_data = node_flow_data(flow_graph, next_id);
+	edge_data = edge_flow_data(flow_graph, LST_CONT(edge, size_t));
+	if (next_data->path_cost == INT_MAX
+		&& edge_data->flow < edge_data->capacity)
+	{
+		next_data->ancestor = LST_CONT(edge, size_t);
+		next_data->path_cost = this_data->path_cost + edge_data->weight
+			+ this_data->potential - next_data->potential;
+		next_data->path_max_flow = ft_min(this_data->path_max_flow,
+			edge_data->capacity - edge_data->flow);
+		next_node = (t_node*)flow_graph->nodes.ptr + next_id;
+		if (pq_add(queue, next_node, compare_cost) < 0)
+			return (-1);
+	}
+	return (0);
+}
+
 static int	explore_neighbors(t_graph *flow_graph, t_pq *queue, t_node *node)
 {
 	t_flow_node_data	*this_data;
-	t_flow_node_data	*next_data;
-	size_t				next_id;
-	t_flow_edge_data	*edge_data;
 	t_list				*out_edges;
 
 	this_data = node->data;
 	out_edges = node->out_edges;
 	while (out_edges)
 	{
-		next_id = edge_head(flow_graph, LST_CONT(out_edges, size_t));
-		next_data = node_flow_data(flow_graph, next_id);
-		edge_data = edge_flow_data(flow_graph, LST_CONT(out_edges, size_t));
-		if (next_data->path_cost == INT_MAX
-			&& edge_data->flow < edge_data->capacity)
-		{
-			next_data->ancestor = LST_CONT(out_edges, size_t);
-			next_data->path_cost = this_data->path_cost + edge_data->weight
-				+ this_data->potential - next_data->potential;
-			/* TODO path length probably useless now */
-			next_data->path_length = this_data->path_length + 1;
-			next_data->path_max_flow = ft_min(this_data->path_max_flow,
-				edge_data->capacity - edge_data->flow);
-			pq_add(queue, &((t_node*)flow_graph->nodes.ptr)[next_id], compare_cost);
-		}
+		if (schedule_node(flow_graph, queue, out_edges, this_data) < 0)
+			return (-1);
 		out_edges = out_edges->next;
 	}
 	return (0);
@@ -72,7 +82,7 @@ int			min_path(t_graph *flow_graph, size_t source)
 	{
 		pop = pq_pop(&queue, compare_cost);
 		if (((t_flow_node_data*)pop->data)->flags & END)
-			break;
+			break ;
 		explore_neighbors(flow_graph, &queue, pop);
 		free(pop);
 		pop = NULL;
