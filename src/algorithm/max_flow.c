@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:06:06 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 01:41:03 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 05:05:46 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,15 @@ void		use_augmenting(t_graph *flow_graph, size_t source, int max_flow)
 }
 
 int			min_cost_flow(t_graph *flow_graph, size_t source,
-				size_t sink, int flow)
+				size_t sink, int allowed_flow)
 {
+	int			flow;
 	int			max_flow;
 	char		found;
 
-	/* TODO limit flow to number of ants */
-	(void)flow;
+	flow = 0;
 	found = 1;
-	while (found)
+	while (found && flow < allowed_flow)
 	{
 		reset_node_data(flow_graph);
 		if (min_path(flow_graph, source) < 0)
@@ -88,6 +88,8 @@ int			min_cost_flow(t_graph *flow_graph, size_t source,
 		else
 		{
 			max_flow = node_flow_data(flow_graph, sink)->path_max_flow;
+			max_flow = ft_min(flow + max_flow, allowed_flow) - flow;
+			flow += max_flow;
 			reduce_weights(flow_graph);
 			use_augmenting(flow_graph, sink, max_flow);
 		}
