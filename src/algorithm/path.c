@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 23:44:15 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 00:06:59 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ static void	explore_neighbors(t_graph *flow_graph, t_queue *queue,
 		edge_id = LST_CONT(out_edges, size_t);
 		if (try_relaxation(flow_graph, node_id, edge_id))
 		{
-			if (!in_queue[edge_id])
+			head_id = edge_head(flow_graph, edge_id);
+			if (!in_queue[head_id])
 			{
-				head_id = edge_head(flow_graph, edge_id);
 				queue_push(queue, list_new(&head_id, sizeof(size_t)));
-				in_queue[edge_id] = 1;
+				in_queue[head_id] = 1;
 			}
 		}
 		out_edges = out_edges->next;
@@ -83,15 +83,17 @@ int			min_path(t_graph *flow_graph, size_t source)
 	char	*in_queue;
 
 	ret = 0;
-	if (!(in_queue = ft_memalloc(flow_graph->edges.length)))
+	if (!(in_queue = ft_memalloc(flow_graph->nodes.length)))
 		return (-1);
 	pop = NULL;
 	queue_init(&queue);
 	queue_push(&queue, list_new(&source, sizeof(size_t)));
+	in_queue[source] = 1;
 	while (queue.size > 0)
 	{
 		
 		pop = queue_pop(&queue);
+		in_queue[LST_CONT(pop, size_t)] = 0;
 		if (detect_cycle(flow_graph, LST_CONT(pop, size_t)))
 			break ;
 		explore_neighbors(flow_graph, &queue, in_queue, LST_CONT(pop, size_t));
