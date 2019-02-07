@@ -6,14 +6,14 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:47:08 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 23:23:44 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/07 14:09:06 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "lem-in.h"
 
-void	free_stub(void *ptr, size_t stub)
+void		free_stub(void *ptr, size_t stub)
 {
 	(void)stub;
 	free(ptr);
@@ -56,4 +56,3 @@ void		free_all(t_lemin *info)
 	list_del(&(info->comments), free_stub);
 	tree_clear(&(info->coord_tree), free_stub);
 }
-
