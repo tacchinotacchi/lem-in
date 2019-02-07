@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:47:24 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 01:22:49 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 23:31:54 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_flow_node_data
 	long	path_cost;
 	long	potential;
 	long	path_max_flow;
+	size_t	path_length;
 	long	flags;
 }				t_flow_node_data;
 
