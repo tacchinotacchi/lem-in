@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 23:26:04 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 19:42:00 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 19:41:01 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,17 @@ static void	handle_key(const SDL_Event *event, t_lemin *info,
 	if (event->key.keysym.sym == SDLK_ESCAPE)
 		SDL_SetRelativeMouseMode(SDL_FALSE);
 	else if (event->key.keysym.sym == SDLK_w)
-		renderer->view.velocity[2] = (event->key.type == SDL_KEYDOWN) ? 0.05f : 0.f;
+		renderer->view.velocity[2] = (event->key.type == SDL_KEYDOWN) ?
+		0.05f : 0.f;
 	else if (event->key.keysym.sym == SDLK_s)
-		renderer->view.velocity[2] = (event->key.type == SDL_KEYDOWN) ? -0.05f : 0.f;
+		renderer->view.velocity[2] = (event->key.type == SDL_KEYDOWN) ?
+		-0.05f : 0.f;
 	else if (event->key.keysym.sym == SDLK_a)
-		renderer->view.velocity[0] = (event->key.type == SDL_KEYDOWN) ? 0.05f : 0.f;
+		renderer->view.velocity[0] = (event->key.type == SDL_KEYDOWN) ?
+		0.05f : 0.f;
 	else if (event->key.keysym.sym == SDLK_d)
-		renderer->view.velocity[0] = (event->key.type == SDL_KEYDOWN) ? -0.05f : 0.f;
+		renderer->view.velocity[0] = (event->key.type == SDL_KEYDOWN) ?
+		-0.05f : 0.f;
 	else if (event->key.keysym.sym == SDLK_n && event->key.type == SDL_KEYDOWN)
 		execute_command(info);
 	else if (event->key.keysym.sym == SDLK_m && event->key.type == SDL_KEYDOWN)
@@ -57,7 +61,7 @@ static void	handle_key(const SDL_Event *event, t_lemin *info,
 		generate_coords(info, vis);
 }
 
-void	handle_event(const SDL_Event *event, t_lemin *info,
+void		handle_event(const SDL_Event *event, t_lemin *info,
 			t_visualizer *vis, t_renderer *renderer)
 {
 	if (event->type == SDL_MOUSEMOTION)
@@ -76,7 +80,7 @@ void	handle_event(const SDL_Event *event, t_lemin *info,
 		handle_key(event, info, vis, renderer);
 }
 
-void	update_position(t_view *view)
+void		update_position(t_view *view)
 {
 	float	direction[3];
 

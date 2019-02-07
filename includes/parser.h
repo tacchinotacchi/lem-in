@@ -6,13 +6,13 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/07 11:43:01 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/07 18:38:33 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-# include "lem-in.h"
+# include "lem_in.h"
 # include "array.h"
 # define L_ANTS 0b1
 # define L_START 0b10
@@ -29,7 +29,7 @@
 # define STATE_ANTS 0b100
 # define FAIL -1
 
-typedef enum	s_success
+enum			e_success
 {
 	l_ants = 0,
 	l_start,
@@ -42,7 +42,7 @@ typedef enum	s_success
 	l_edge,
 	l_instruction,
 	l_max
-}				t_success;
+};
 
 typedef struct	s_flags_match
 {
@@ -62,50 +62,38 @@ typedef struct	s_name_node
 	size_t	index;
 }				t_name_node;
 
-int		parse_input(t_lemin *info, int initial_flags);
-
-/*return -1 for wrong inputs and return 'index' keep track of the type of input*/
-int		check_input(t_lemin *info, char *line, int flags, int parser_state);
-
-void	choose_flags(int *flags, int *parser_state, t_success success);
-
-void	init_colony_data(t_colony_node_data *data);
-/*return -1 for error(malloc failure) return 'index' to keep track of the type
-of input*/
-int		store_input(t_lemin *info, int index, char *line);
-
-int		is_map_valid(t_lemin *info); /*TODO map validity check*/
-
-
-/* return 1 for right_input return 0 for wrong input*/
-int		is_nbr_ants(char *line);
-int		is_start(char *line);
-int		is_end(char *line);
-int		is_command(char *line);
-int		is_comment(char *line);
-int		is_start_node(char *line);
-int		is_end_node(char *line);
-int		is_node(char *line);
-int		is_edge(char *line);
-int		is_instruction(char *line);
-void	flags_turn_on(int *field, int bits);
-void	flags_turn_off(int *field, int bits);
-int		check_parser_state(int index, int parser_state);
-int		ft_str_is_digit(const char *str); /*TODO to libft */
-int		store_ants(t_lemin *info, char *line, int index);
-int		store_commands(t_lemin *info, char *line, int index);
-int		store_comments(t_lemin *info, char *line, int index);
-int		create_node_data(t_lemin *info, char *line, int index);
-int		store_node_data(t_lemin *info, t_colony_node_data *data);
-int		search_nodes(t_array *nodes, char *node);
-int		store_edge_data(t_lemin *info, char *line, int index);
-int		store_instruction(t_lemin *info, char *line, int index);
-int		compare_names(const void *ptr1, const void *ptr2);
-int		compare_edge(const void *ptr1, const void *ptr2);
-int 	compare_coords(const void *data1, const void *data2);
-
-void	error(t_lemin *info);
-void	free_all(t_lemin *info);
-
+int				parse_input(t_lemin *info, int initial_flags);
+int				check_input(t_lemin *info, char *line, int flags,
+					int parser_state);
+void			choose_flags(int *flags, int *parser_state, int success);
+void			init_colony_data(t_colony_node_data *data);
+int				store_input(t_lemin *info, int index, char *line);
+int				is_nbr_ants(char *line);
+int				is_start(char *line);
+int				is_end(char *line);
+int				is_command(char *line);
+int				is_comment(char *line);
+int				is_start_node(char *line);
+int				is_end_node(char *line);
+int				is_node(char *line);
+int				is_edge(char *line);
+int				is_instruction(char *line);
+void			flags_turn_on(int *field, int bits);
+void			flags_turn_off(int *field, int bits);
+int				check_parser_state(int index, int parser_state);
+int				ft_str_is_digit(const char *str);
+int				store_ants(t_lemin *info, char *line, int index);
+int				store_commands(t_lemin *info, char *line, int index);
+int				store_comments(t_lemin *info, char *line, int index);
+int				create_node_data(t_lemin *info, char *line, int index);
+int				store_node_data(t_lemin *info, t_colony_node_data *data);
+int				search_nodes(t_array *nodes, char *node);
+int				store_edge_data(t_lemin *info, char *line, int index);
+int				store_instruction(t_lemin *info, char *line, int index);
+int				compare_names(const void *ptr1, const void *ptr2);
+int				compare_edge(const void *ptr1, const void *ptr2);
+int				compare_coords(const void *data1, const void *data2);
+void			error(t_lemin *info);
+void			free_all(t_lemin *info);
 
 #endif

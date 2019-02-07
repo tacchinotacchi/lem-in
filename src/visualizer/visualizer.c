@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visualizer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 19:45:03 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 19:45:53 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "adjacency_list.h"
 #include "visualizer.h"
 #include "parser.h"
-#include "lem-in.h"
+#include "lem_in.h"
 #include "ft_printf.h"
 #include <SDL.h>
 
@@ -51,7 +51,7 @@ void	free_resources(t_visualizer *vis, t_renderer *renderer)
 
 int		main(int argc, char **argv)
 {
-	t_lemin 		input;
+	t_lemin			input;
 	t_visualizer	vis;
 	t_renderer		renderer;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buffers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 19:36:49 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 19:55:18 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 19:11:36 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static float	transform_x(t_lemin *info, int coord)
 	float	result;
 
 	result = (float)(coord - info->min_x_coord);
-	result *= 1.8f/(float)(info->max_x_coord - info->min_x_coord);
-	result = result - 1.8f/2.f;
+	result *= 1.8f / (float)(info->max_x_coord - info->min_x_coord);
+	result = result - 1.8f / 2.f;
 	return (result);
 }
 
@@ -27,12 +27,12 @@ static float	transform_y(t_lemin *info, int coord)
 	float	result;
 
 	result = (float)(coord - info->min_y_coord);
-	result *= 1.8f/(float)(info->max_y_coord - info->min_y_coord);
-	result = result - 1.8f/2.f;
+	result *= 1.8f / (float)(info->max_y_coord - info->min_y_coord);
+	result = result - 1.8f / 2.f;
 	return (result);
 }
 
-void	generate_coords(t_lemin *info, t_visualizer *vis)
+void			generate_coords(t_lemin *info, t_visualizer *vis)
 {
 	size_t	id;
 
@@ -45,8 +45,8 @@ void	generate_coords(t_lemin *info, t_visualizer *vis)
 			node_colony_data(&info->graph, id)->x);
 		node_colony_data(&info->graph, id)->coords[1] = transform_y(info,
 			node_colony_data(&info->graph, id)->y);
-		node_colony_data(&info->graph, id)->coords[2]
-			= 20.f * (float)(rand() % 101) / 100.f - 10.f;
+		node_colony_data(&info->graph, id)->coords[2] =
+		20.f * (float)(rand() % 101) / 100.f - 10.f;
 		id++;
 	}
 	id = 0;
@@ -58,7 +58,7 @@ void	generate_coords(t_lemin *info, t_visualizer *vis)
 	}
 }
 
-void	convert_input(t_lemin *info, t_renderer *renderer)
+void			convert_input(t_lemin *info, t_renderer *renderer)
 {
 	size_t	id;
 
@@ -74,7 +74,7 @@ void	convert_input(t_lemin *info, t_renderer *renderer)
 	array_clear(&renderer->edge_indices, NULL);
 	while (id < info->graph.edges.length)
 	{
-		array_push_back(&renderer->edge_indices, (GLuint[2]){
+		array_push_back(&renderer->edge_indices, (const GLuint[2]){
 			edge_tail(&info->graph, id),
 			edge_head(&info->graph, id)
 		});

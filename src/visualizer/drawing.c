@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:45:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 22:36:57 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 23:19:53 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "adjacency_list.h"
-#include "lem-in.h"
+#include "lem_in.h"
 #include "visualizer.h"
 
 static void	draw_nodes(t_lemin *info, t_renderer *renderer)
@@ -65,7 +65,8 @@ static void	draw_ants(t_renderer *renderer)
 	glUniform1f(
 		glGetUniformLocation(renderer->ant_program, "ant_scale"), 0.035f);
 	glUniform1f(
-		glGetUniformLocation(renderer->ant_program, "animation_time"), renderer->animation_time);
+		glGetUniformLocation(renderer->ant_program, "animation_time"),
+			renderer->animation_time);
 	glUniform1i(glGetUniformLocation(renderer->edge_texture, "ant_tex"), 0);
 	glUniformMatrix4fv(glGetUniformLocation(renderer->ant_program, "transform"),
 		1, GL_TRUE, renderer->view.transform_mat);
@@ -87,15 +88,18 @@ void	draw_graph(t_lemin *info, t_renderer *renderer)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBindVertexArray(renderer->node_vao);
-	glBufferData(GL_ARRAY_BUFFER, renderer->node_coords.length * sizeof(float[3]),
-		renderer->node_coords.ptr, GL_DYNAMIC_DRAW);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, renderer->edge_indices.length * sizeof(GLuint[2]),
-		renderer->edge_indices.ptr, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER,
+		renderer->node_coords.length * sizeof(float[3]),
+			renderer->node_coords.ptr, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+		renderer->edge_indices.length * sizeof(GLuint[2]),
+			renderer->edge_indices.ptr, GL_DYNAMIC_DRAW);
 	draw_edges(renderer);
 	draw_nodes(info, renderer);
 	glBindVertexArray(renderer->ant_vao);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, renderer->ant_data.length * sizeof(GLuint[2]),
-		renderer->ant_data.ptr, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+		renderer->ant_data.length * sizeof(GLuint[2]),
+			renderer->ant_data.ptr, GL_DYNAMIC_DRAW);
 	draw_ants(renderer);
 	/*TODO draw ants*/
 }

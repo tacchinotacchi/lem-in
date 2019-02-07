@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/07 14:11:05 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/07 18:17:39 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_flags_match	g_flags_match[] = {
 	{L_NODE | L_EDGE, 0}
 };
 
-void	choose_flags(int *flags, int *parser_state, t_success success)
+void	choose_flags(int *flags, int *parser_state, int success)
 {
 	t_flags_match	match;
 
@@ -84,7 +84,7 @@ int		check_input(t_lemin *info, char *line, int flags, int parser_state)
 		{
 			if (check_parser_state(index, parser_state) < 0)
 				return (FAIL);
-			ft_putendl(line); /*must not print anything if there's error*/
+			ft_putendl(line);
 			ret = store_input(info, index, line);
 			return (ret);
 		}

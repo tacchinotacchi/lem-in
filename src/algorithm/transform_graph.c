@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   transform_graph.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:04:29 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/05 20:27:17 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 18:39:41 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 #include "algorithm.h"
 
 static int	create_flow_pair(t_graph *input,

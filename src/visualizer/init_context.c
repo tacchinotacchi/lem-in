@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_context.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:29:16 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 20:11:34 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 19:27:12 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-int		sdl_set_attr()
+int		sdl_set_attr(void)
 {
-	if (SDL_GL_SetAttribute (SDL_GL_CONTEXT_FLAGS,
+	if (SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS,
 			SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG) < 0
 		|| SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
 			SDL_GL_CONTEXT_PROFILE_CORE) < 0

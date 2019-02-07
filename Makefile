@@ -16,12 +16,12 @@ SRCS = parser/parser.c \
 	algorithm/max_flow.c \
 	algorithm/program.c \
 	free_and_error.c \
-	lem-in.c
+	lem_in.c
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h \
 		includes/adjacency_list.h \
 		includes/algorithm.h \
-		includes/lem-in.h \
+		includes/lem_in.h \
 		includes/parser.h \
 		includes/priority_queue.h \
 		includes/visualizer.h
@@ -31,6 +31,7 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	visualizer/init_shaders.c \
 	visualizer/init_textures.c \
 	visualizer/matrix.c \
+	visualizer/matrix_operations.c \
 	visualizer/visualizer.c \
 	visualizer/equilibrium.c \
 	visualizer/input.c \
