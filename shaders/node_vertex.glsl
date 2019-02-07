@@ -1,7 +1,9 @@
 #version 330
 layout(location = 0) in vec3 world_coord;
 
-out float texture_alphas_geom[4];
+out vertex_data {
+	float texture_alphas[4];
+} vertex_out;
 
 uniform mat4 transform;
 uniform mat4 rotation;
@@ -13,8 +15,8 @@ void	main()
 {
 	gl_Position = perspective * rotation * transform * vec4(world_coord, 1.0);
 	gl_Position.z -= 0.005;
-	texture_alphas_geom[1] = 1 * float(length(world_coord - start_coord) < 0.1);
-	texture_alphas_geom[2] = 1 * float(length(world_coord - end_coord) < 0.1);
-	texture_alphas_geom[0] = 1 * float(texture_alphas_geom[1] == 0 && texture_alphas_geom[2] == 0);
-	texture_alphas_geom[3] = texture_alphas_geom[1] * texture_alphas_geom[2];
+	vertex_out.texture_alphas[1] = 1 * float(length(world_coord - start_coord) < 0.1);
+	vertex_out.texture_alphas[2] = 1 * float(length(world_coord - end_coord) < 0.1);
+	vertex_out.texture_alphas[0] = 1 * float(vertex_out.texture_alphas[1] == 0 && vertex_out.texture_alphas[2] == 0);
+	vertex_out.texture_alphas[3] = vertex_out.texture_alphas[1] * vertex_out.texture_alphas[2];
 }
