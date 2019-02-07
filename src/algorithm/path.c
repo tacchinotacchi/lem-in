@@ -6,92 +6,78 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/04 03:48:13 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/05 20:21:19 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "adjacency_list.h"
 #include "algorithm.h"
-#include "queue.h"
+#include "priority_queue.h"
 #include "lem-in.h"
 
-static int	try_relaxation(t_graph *flow_graph, t_list *curr, t_list *edge)
+static int	compare_cost(void *ptr1, void *ptr2)
 {
-	t_flow_edge_data	*edge_data;
-	t_flow_node_data	*curr_data;
+	t_flow_node_data	*data1;
+	t_flow_node_data	*data2;
+
+	data1 = ((t_node*)ptr1)->data;
+	data2 = ((t_node*)ptr2)->data;
+	if (data1->path_cost > data2->path_cost)
+		return (1);
+	else if (data1->path_cost < data2->path_cost)
+		return (-1);
+	return (0);
+}
+
+static int	explore_neighbors(t_graph *flow_graph, t_pq *queue, t_node *node)
+{
+	t_flow_node_data	*this_data;
 	t_flow_node_data	*next_data;
+	size_t				next_id;
+	t_flow_edge_data	*edge_data;
+	t_list				*out_edges;
 
-	edge_data = edge_flow_data(flow_graph, LST_CONT(edge, size_t));
-	if (edge_data->flow >= edge_data->capacity)
-		return (0);
-	curr_data = node_flow_data(flow_graph, LST_CONT(curr, size_t));
-	next_data = node_flow_data(flow_graph,
-		edge_head(flow_graph, LST_CONT(edge, size_t)));
-	if (curr_data->path_cost + edge_data->weight < next_data->path_cost)
+	this_data = node->data;
+	out_edges = node->out_edges;
+	while (out_edges)
 	{
-		next_data->path_cost = curr_data->path_cost + edge_data->weight;
-		next_data->ancestor = LST_CONT(edge, size_t);
-		next_data->path_length = curr_data->path_length + 1;
-		return (1);
-	}
-	return (0);
-}
-
-static int	detect_cycle(t_graph *flow_graph, size_t id)
-{
-	size_t	max_length;
-
-	max_length = flow_graph->nodes.length - 1;
-	if (node_flow_data(flow_graph, id)->path_length > max_length)
-		return (1);
-	return (0);
-}
-
-static int	put_in_queue(t_graph *flow_graph, t_queue *queue,
-				char *in_queue, t_list *edge)
-{
-	size_t	head;
-
-	head = edge_head(flow_graph, LST_CONT(edge, size_t));
-	if (!in_queue[head])
-	{
-		in_queue[head] = 1;
-		queue_push(queue, list_new(&head, sizeof(size_t)));
-	}
-	return (0);
-}
-
-int		min_path(t_graph *flow_graph, size_t source)
-{
-	t_queue	queue;
-	t_list	*curr_id;
-	t_list	*edge_traverse;
-	char	*in_queue;
-	size_t	steps;
-
-	steps = 0;
-	queue_init(&queue);
-	node_flow_data(flow_graph, source)->path_cost = 0;
-	queue_push(&queue, list_new(&source, sizeof(size_t)));
-	in_queue = ft_memalloc(flow_graph->nodes.length * sizeof(char));
-	in_queue[source] = 1;
-	while (queue.size != 0)
-	{
-		curr_id = queue_pop(&queue);
-		if (detect_cycle(flow_graph, LST_CONT(curr_id, size_t)))
-			break ;
-		in_queue[LST_CONT(curr_id, size_t)] = 0;
-		edge_traverse = *node_out_edges(flow_graph, LST_CONT(curr_id, size_t));
-		steps++;
-		while (edge_traverse)
+		next_id = edge_head(flow_graph, LST_CONT(out_edges, size_t));
+		next_data = node_flow_data(flow_graph, next_id);
+		edge_data = edge_flow_data(flow_graph, LST_CONT(out_edges, size_t));
+		if (next_data->path_cost == INT_MAX
+			&& edge_data->flow < edge_data->capacity)
 		{
-			if (try_relaxation(flow_graph, curr_id, edge_traverse))
-				put_in_queue(flow_graph, &queue, in_queue, edge_traverse);
-			edge_traverse = edge_traverse->next;
+			next_data->ancestor = LST_CONT(out_edges, size_t);
+			next_data->path_cost = this_data->path_cost + edge_data->weight
+				+ this_data->potential - next_data->potential;
+			/* TODO path length probably useless now */
+			next_data->path_length = this_data->path_length + 1;
+			next_data->path_max_flow = ft_min(this_data->path_max_flow,
+				edge_data->capacity - edge_data->flow);
+			pq_add(queue, &((t_node*)flow_graph->nodes.ptr)[next_id], compare_cost);
 		}
-		list_del(&curr_id, free_stub);
+		out_edges = out_edges->next;
 	}
-	free(in_queue);
-	queue_destroy(&queue, free_stub);
+	return (0);
+}
+
+int			min_path(t_graph *flow_graph, size_t source)
+{
+	t_node	*pop;
+	t_pq	queue;
+
+	pq_init(&queue, sizeof(t_node));
+	pq_add(&queue, &((t_node*)flow_graph->nodes.ptr)[source], compare_cost);
+	while (!pq_empty(&queue))
+	{
+		pop = pq_pop(&queue, compare_cost);
+		if (((t_flow_node_data*)pop->data)->flags & END)
+			break;
+		explore_neighbors(flow_graph, &queue, pop);
+		free(pop);
+		pop = NULL;
+	}
+	pq_destroy(&queue);
+	free(pop);
 	return (0);
 }

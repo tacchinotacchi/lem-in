@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:59:27 by jaelee            #+#    #+#             */
-/*   Updated: 2019/01/25 02:23:02 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/05 04:22:03 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ typedef struct	s_pq
 	int		used_size;
 }				t_pq;
 
-void			init_pq(t_pq *begin_pq, int elem_size);
-int				add_pq(t_pq *pq, void *new_node, int(*cmp)(void*, void*));
-void			*pop_pq(t_pq *pq, int(*cmp)(void*, void*));
-void			swap_node_pq(t_pq *pq, int child, int parent);
-void			destroy_pq(t_pq *pq);
-int				check_empty_pq(t_pq *pq);
+void		pq_init(t_pq *begin_pq, int elem_size);
+int			pq_add(t_pq *pq, void *new_node, int(*cmp)(void*, void*));
+void		*pq_pop(t_pq *pq, int(*cmp)(void*, void*));
+void		pq_swap_node(t_pq *pq, int child, int parent);
+void		pq_destroy(t_pq *pq);
+int			pq_empty(t_pq *pq);
 
 #endif

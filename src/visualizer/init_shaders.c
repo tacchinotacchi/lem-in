@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:49:59 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/03 16:05:54 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/06 16:59:11 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,42 @@ static int		init_edge_shader(t_renderer *renderer)
 	return (0);
 }
 
+static int		init_ant_shader(t_renderer *renderer)
+{
+	GLuint	vertex_shader;
+	GLuint	geometry_shader;
+	GLuint	frag_shader;
+
+
+	if ((init_any_shader(&vertex_shader, GL_VERTEX_SHADER,
+		"shaders/ant_vertex.glsl") < 0)
+		|| (init_any_shader(&geometry_shader, GL_GEOMETRY_SHADER_EXT,
+			"shaders/ant_geometry.glsl") < 0)
+		|| (init_any_shader(&frag_shader, GL_FRAGMENT_SHADER,
+			"shaders/ant_fragment.glsl") < 0))
+		return (-1);
+	renderer->ant_program = glCreateProgram();
+	glAttachShader(renderer->ant_program, vertex_shader);
+	glAttachShader(renderer->ant_program, geometry_shader);
+	glAttachShader(renderer->ant_program, frag_shader);
+	glLinkProgram(renderer->ant_program);
+	if (check_link_error(&renderer->ant_program, "Ant shader linking:") < 0)
+		return (-1);
+	glDetachShader(renderer->ant_program, vertex_shader);
+	glDetachShader(renderer->ant_program, geometry_shader);
+	glDetachShader(renderer->ant_program, frag_shader);
+	glDeleteShader(vertex_shader);
+	glDeleteShader(geometry_shader);
+	glDeleteShader(frag_shader);
+	return (0);
+}
+
 int		init_shaders(t_renderer *renderer)
 {
 	if (init_node_shader(renderer) < 0
-		|| init_edge_shader(renderer) < 0)
+		|| init_edge_shader(renderer) < 0
+		|| init_ant_shader(renderer) < 0)
 		return (-1);
+		/* TODO print error if file doesn't exist */
 	return (0);
 }

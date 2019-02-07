@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 21:09:21 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/05 07:58:40 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/07 11:42:23 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		create_node_data(t_lemin *info, char *line, int index)
 	data.coord |= data.x;
 	data.coord = data.coord << 32;
 	data.coord |= data.y;
+	data.ant = 0;
 	if (index == l_start_node)
 	{
 		info->start = info->graph.nodes.length;
