@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 01:03:33 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:47:42 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,10 @@ int			min_path(t_graph *flow_graph, size_t source)
 		if (detect_cycle(flow_graph, LST_CONT(pop, size_t)))
 			break ;
 		explore_neighbors(flow_graph, &queue, in_queue, LST_CONT(pop, size_t));
-		free(pop);
-		pop = NULL;
+		list_del(&pop, free_stub);
 	}
-	free(pop);
 	free(in_queue);
+	list_del(&pop, free_stub);
 	queue_destroy(&queue, free_stub);
 	return (0);
 }

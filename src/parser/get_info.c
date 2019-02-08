@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/07 18:38:20 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 05:12:08 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int					store_edge_data(t_lemin *info, char *line, int index)
 		ft_splitdel(split);
 		return (FAIL);
 	}
+	ft_splitdel(split);
 	add_edge(&(info->graph), pair.minor, pair.major,
 		sizeof(t_colony_edge_data));
 	add_edge(&(info->graph), pair.major, pair.minor,

@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/07 18:17:39 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 06:28:43 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int		parse_input(t_lemin *info, int initial_flags)
 			return (-1);
 		}
 	}
+	free(line);
 	if (parser_state != (STATE_ANTS | STATE_START | STATE_END))
 	{
 		error(info);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/07 18:29:31 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 14:49:44 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,17 @@ void				error(t_lemin *info);
 int					search_nodes(t_array *nodes, char *node);
 t_colony_node_data	*node_colony_data(const t_graph *graph, size_t id);
 t_colony_edge_data	*edge_colony_data(const t_graph *graph, size_t id);
-void				free_stub(void *ptr, size_t stub);
 int					generate_line(t_lemin *info, t_array *program);
 void				print_program(t_lemin *info, t_array *program);
 int					init_ants(t_lemin *info);
+
+void				free_stub(void *ptr, size_t stub);
+void				free_t_name_node(void *ptr, size_t content_size);
+void				free_nodes(void *ptr);
+void				free_edges(void *ptr);
+void				free_trees(t_lemin *info);
+void				free_flow_nodes(void *ptr);
+void				free_instructions(void *ptr);
+void				free_all(t_lemin *info, t_graph *flow_graph, t_array *program);
 
 #endif
