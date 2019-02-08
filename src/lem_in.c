@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 17:43:57 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 18:38:49 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			main(void)
 	if (parse_input(&info, L_ANTS | L_COMMENT | L_COMMAND) < 0)
 	{
 		parser_error(&info);
-		ft_dprintf(2, "Error\n");
+		ft_dprintf(2, "ERROR\n");
 		return (0);
 	}
 	free_trees(&info);
@@ -47,7 +47,7 @@ int			main(void)
 		node_colony_data(&info.graph, info.end)->flow_in_id,
 		info.ants);
 	if (interpret_flow(&info, &flow_graph) < 1)
-		ft_dprintf(2, "Error\n");
+		ft_dprintf(2, "ERROR\n");
 	else
 	{
 		ft_putchar('\n');
