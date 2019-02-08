@@ -32,8 +32,7 @@ s = 0
 while s < (nodes * connections // 2):
     coords = random.sample(range(0, nodes), 2)
     i = coords[0]
-    j = coords[1];
-#    print("#trying", i, j)
+    j = coords[1]
     if j < i:
         temp = i
         i = j
