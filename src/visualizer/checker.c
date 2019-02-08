@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:34 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 16:24:39 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 16:25:38 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static ssize_t	execute_instruction(t_lemin *info, t_instruction instruction)
 	if (((node_data->flags & END) || node_data->ant == 0)
 		&& (prev_node = instruction_is_valid(info, instruction)) >= 0)
 	{
-		/* TODO log ants left in start so as to know if the puzzle is solved */
 		ft_printf("%sInstruction valid%s: ant %zu to %s\n",
 			ANSI_COLOR_GREEN, ANSI_COLOR_RESET,
 			instruction.ant_id, node_data->name);
