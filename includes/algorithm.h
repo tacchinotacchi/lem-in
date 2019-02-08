@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:47:24 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 17:33:32 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 17:40:58 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void				node_data_init(t_flow_node_data *node_data);
 void				edge_data_init(t_flow_edge_data *edge_data,
 						long weight, char inverse);
 int					transform_graph(t_graph *input, t_graph *flow_graph);
-int					interpret_flow(t_graph *input, t_graph *flow_graph);
 int					min_path(t_graph *flow_graph, size_t source);
 int					min_cost_flow(t_graph *flow_graph, size_t source,
 						size_t sink, int flow);

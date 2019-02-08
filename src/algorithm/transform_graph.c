@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:04:29 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 01:03:46 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 17:58:07 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static int	add_special_node(t_graph *input,
 	return (0);
 }
 
-static int	create_edges(t_graph *input, t_graph *flow_graph, size_t input_id)
+static int	create_edge_pair(t_graph *input, t_graph *flow_graph,
+				size_t input_id)
 {
 	size_t				colony_tail_id;
 	size_t				colony_head_id;
@@ -88,13 +89,31 @@ static int	create_edges(t_graph *input, t_graph *flow_graph, size_t input_id)
 	return (0);
 }
 
-int			transform_graph(t_graph *input, t_graph *flow_graph)
+static int	create_edges(t_graph *input, t_graph *flow_graph)
 {
-	size_t	node_id;
 	size_t	edge_id;
 	size_t	tail_id;
 	size_t	head_id;
 
+	edge_id = 0;
+	while (edge_id < input->edges.length)
+	{
+		tail_id = edge_tail(input, edge_id);
+		head_id = edge_head(input, edge_id);
+		if (!(node_colony_data(input, tail_id)->flags & END)
+			&& !(node_colony_data(input, head_id)->flags & START))
+			create_edge_pair(input, flow_graph, edge_id);
+		edge_id++;
+	}
+	return (0);
+}
+
+int			transform_graph(t_graph *input, t_graph *flow_graph)
+{
+	size_t	node_id;
+
+	array_init(&flow_graph->nodes, sizeof(t_node));
+	array_init(&flow_graph->edges, sizeof(t_edge));
 	node_id = 0;
 	while (node_id < input->nodes.length)
 	{
@@ -104,15 +123,6 @@ int			transform_graph(t_graph *input, t_graph *flow_graph)
 			create_flow_pair(input, flow_graph, node_id);
 		node_id++;
 	}
-	edge_id = 0;
-	while (edge_id < input->edges.length)
-	{
-		tail_id = edge_tail(input, edge_id);
-		head_id = edge_head(input, edge_id);
-		if (!(node_colony_data(input, tail_id)->flags & END)
-			&& !(node_colony_data(input, head_id)->flags & START))
-			create_edges(input, flow_graph, edge_id);
-		edge_id++;
-	}
+	create_edges(input, flow_graph);
 	return (0);
 }

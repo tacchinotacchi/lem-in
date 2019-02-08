@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:47:08 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 17:27:22 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 17:43:11 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 #include "parser.h"
 #include "algorithm.h"
 
-void		parser_error(t_lemin *info)
-{
-	array_clear(&(info->graph.nodes), free_nodes);
-	array_clear(&(info->graph.edges), free_edges);
-	list_del(&(info->comments), free_stub);
-	tree_clear(&(info->coord_tree), free_stub);
-	tree_clear(&(info->name_tree), free_t_name_node);
-	tree_clear(&(info->edge_tree), free_stub);
-}
-
 void		free_trees(t_lemin *info)
 {
 	tree_clear(&(info->coord_tree), free_stub);
 	tree_clear(&(info->name_tree), free_t_name_node);
 	tree_clear(&(info->edge_tree), free_stub);
+}
+
+void		parser_error(t_lemin *info)
+{
+	array_clear(&(info->graph.nodes), free_nodes);
+	array_clear(&(info->graph.edges), free_edges);
+	list_del(&(info->comments), free_stub);
+	free_trees(info);
 }
 
 static void	free_command(void *ptr, size_t stub_size)
