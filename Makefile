@@ -122,7 +122,9 @@ clean:
 fclean: clean
 	rm -f $(LIBFT_NAME)
 	rm -f $(FTPRINTF_NAME)
+	rm -rf $(VISUALIZER).dSYM/
 	rm -f $(VISUALIZER)
+	rm -rf $(NAME).dSYM/
 	rm -f $(NAME)
 
 re: fclean
