@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 02:48:19 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 15:57:10 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ int				sdl_set_attr();
 int				setup_gl(t_renderer *renderer);
 int				init_textures(t_renderer *renderer);
 int				init_shaders(t_renderer *renderer);
+int				init_any_shader(GLuint *id, GLenum shader_type,
+					const char *filename);
+int				check_link_error(GLuint *id, const char *message);
 void			matrix_add(float *dst, float *a, float *b);
 void			matrix_sub(float *dst, float *a, float *b);
 void			matrix_mul(float *dst, float *a, float *b);
