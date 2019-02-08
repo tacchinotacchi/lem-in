@@ -20,6 +20,7 @@ SRCS = parser/parser.c \
 	algorithm/ant_scheduler.c \
 	free_and_error.c \
 	free_utils_parser.c \
+	free_utils_algo.c \
 	lem_in.c
 INCLUDES = libft/includes/libft.h \
 		ft_printf/includes/ft_printf.h \
@@ -57,7 +58,8 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	adjacency_list/node_util.c \
 	adjacency_list/edge_util.c \
 	free_and_error.c \
-	free_utils_parser.c
+	free_utils_parser.c \
+	free_utils_algo.c
 VISUALIZER_OBJS = $(patsubst %.c,obj/%.o,$(VISUALIZER_SRCS))
 
 TESTS_SRCS =

@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 06:22:44 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 06:35:12 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int		main(void)
 		print_program(&info, &program);
 		array_clear(&program, NULL);
 	}
-	free_all(&info);
+	free_all(&info, &flow_graph);
 	return (0);
 }

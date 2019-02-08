@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 06:21:44 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 06:48:03 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void				free_t_name_node(void *ptr, size_t content_size);
 void				free_nodes(void *ptr);
 void				free_edges(void *ptr);
 void				free_trees(t_lemin *info);
-void				free_all(t_lemin *info);
+void				free_flow_nodes(void *ptr);
+void				free_all(t_lemin *info, t_graph *flow_graph);
 
 #endif
