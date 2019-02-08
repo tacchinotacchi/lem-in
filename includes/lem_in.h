@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/07 18:29:31 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 06:21:44 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,12 @@ void				free_stub(void *ptr, size_t stub);
 int					generate_line(t_lemin *info, t_array *program);
 void				print_program(t_lemin *info, t_array *program);
 int					init_ants(t_lemin *info);
+
+void				free_stub(void *ptr, size_t stub);
+void				free_t_name_node(void *ptr, size_t content_size);
+void				free_nodes(void *ptr);
+void				free_edges(void *ptr);
+void				free_trees(t_lemin *info);
+void				free_all(t_lemin *info);
 
 #endif

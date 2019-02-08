@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 21:09:21 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/07 13:42:57 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 05:00:13 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int			store_node_data(t_lemin *info, t_colony_node_data *data)
 	t_name_node	name;
 
 	add_node(&(info->graph), data, sizeof(t_colony_node_data));
-	name.name = data->name;
+	if (!(name.name = ft_strdup(data->name)))
+		return (FAIL);
 	name.index = info->graph.nodes.length - 1;
 	new_node_coord = node_create(&(data->coord), sizeof(uint64_t));
 	new_node_name = node_create(&(name), sizeof(t_name_node));
