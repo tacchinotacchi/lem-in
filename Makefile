@@ -9,7 +9,6 @@ SRCS = parser/parser.c \
 	adjacency_list/adjacency_list.c \
 	adjacency_list/node_util.c \
 	adjacency_list/edge_util.c \
-	priority_queue/priority_queue.c \
 	algorithm/algorithm_util.c \
 	algorithm/transform_graph.c \
 	algorithm/path.c \
@@ -28,7 +27,6 @@ INCLUDES = libft/includes/libft.h \
 		includes/algorithm.h \
 		includes/lem_in.h \
 		includes/parser.h \
-		includes/priority_queue.h \
 		includes/visualizer.h
 OBJS = $(patsubst %.c,obj/%.o,$(SRCS))
 VISUALIZER_SRCS = visualizer/drawing.c \
@@ -99,7 +97,6 @@ obj:
 	mkdir -p obj/parser
 	mkdir -p obj/adjacency_list
 	mkdir -p obj/visualizer
-	mkdir -p obj/priority_queue
 	mkdir -p obj/algorithm
 
 obj/visualizer/%.o: src/visualizer/%.c $(INCLUDES) | obj
