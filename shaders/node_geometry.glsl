@@ -12,35 +12,31 @@ out float texture_alphas[4];
 
 uniform float node_scale;
 
+void	set_texture_alphas()
+{
+	texture_alphas[0] = vertex_out[0].texture_alphas[0];
+	texture_alphas[1] = vertex_out[0].texture_alphas[1];
+	texture_alphas[2] = vertex_out[0].texture_alphas[2];
+	texture_alphas[3] = vertex_out[0].texture_alphas[3];
+}
+
 void	main()
 {
 	gl_Position = gl_in[0].gl_Position + vec4(-node_scale, node_scale, 0.0, 0.0);
 	texture_coords = vec2(0.0, 0.0);
-	texture_alphas[0] = vertex_out[0].texture_alphas[0];
-	texture_alphas[1] = vertex_out[0].texture_alphas[1];
-	texture_alphas[2] = vertex_out[0].texture_alphas[2];
-	texture_alphas[3] = vertex_out[0].texture_alphas[3];
+	set_texture_alphas();
 	EmitVertex();
 	gl_Position = gl_in[0].gl_Position + vec4(-node_scale, -node_scale, 0.0, 0.0);
 	texture_coords = vec2(0.0, 1.0);
-	texture_alphas[0] = vertex_out[0].texture_alphas[0];
-	texture_alphas[1] = vertex_out[0].texture_alphas[1];
-	texture_alphas[2] = vertex_out[0].texture_alphas[2];
-	texture_alphas[3] = vertex_out[0].texture_alphas[3];
+	set_texture_alphas();
 	EmitVertex();
 	gl_Position = gl_in[0].gl_Position + vec4(node_scale, node_scale, 0.0, 0.0);
 	texture_coords = vec2(1.0, 0.0);
-	texture_alphas[0] = vertex_out[0].texture_alphas[0];
-	texture_alphas[1] = vertex_out[0].texture_alphas[1];
-	texture_alphas[2] = vertex_out[0].texture_alphas[2];
-	texture_alphas[3] = vertex_out[0].texture_alphas[3];
+	set_texture_alphas();
 	EmitVertex();
 	gl_Position = gl_in[0].gl_Position + vec4(node_scale, -node_scale, 0.0, 0.0);
 	texture_coords = vec2(1.0, 1.0);
-	texture_alphas[0] = vertex_out[0].texture_alphas[0];
-	texture_alphas[1] = vertex_out[0].texture_alphas[1];
-	texture_alphas[2] = vertex_out[0].texture_alphas[2];
-	texture_alphas[3] = vertex_out[0].texture_alphas[3];
+	set_texture_alphas();
 	EmitVertex();
 	EndPrimitive();
 }
