@@ -3,36 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 23:26:04 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 19:41:01 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 22:43:02 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 #include "ft_printf.h"
-
-static void	execute_command(t_lemin *info)
-{
-	t_command	command;
-	t_list		*pop;
-
-	pop = list_pop(&info->commands);
-	if (pop)
-	{
-		command = LST_CONT(pop, t_command);
-		if (command.args[0])
-		{
-			if (!ft_strcmp("color", command.args[0]))
-				; /*TODO*/
-			else
-				ft_dprintf(2, "Command %s unknown\n", command.args[0]);
-		}
-		ft_splitdel(command.args);
-	}
-	free(pop);
-}
 
 static void	handle_key(const SDL_Event *event, t_lemin *info,
 				t_visualizer *vis, t_renderer *renderer)
@@ -51,8 +30,6 @@ static void	handle_key(const SDL_Event *event, t_lemin *info,
 	else if (event->key.keysym.sym == SDLK_d)
 		renderer->view.velocity[0] = (event->key.type == SDL_KEYDOWN) ?
 		-0.05f : 0.f;
-	else if (event->key.keysym.sym == SDLK_n && event->key.type == SDL_KEYDOWN)
-		execute_command(info);
 	else if (event->key.keysym.sym == SDLK_m && event->key.type == SDL_KEYDOWN)
 		execute_line(info, renderer, 1);
 	else if (event->key.keysym.sym == SDLK_p && event->key.type == SDL_KEYDOWN)
