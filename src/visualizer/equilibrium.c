@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   equilibrium.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 03:49:23 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 19:50:59 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 02:52:09 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ void		update_equilibrium(t_graph *graph, t_visualizer *vis)
 
 	id = 0;
 	while (id < graph->nodes.length)
-	{
-		ft_bzero(node_colony_data(graph, id)->accel, sizeof(float) * 3);
-		id++;
-	}
+		ft_bzero(node_colony_data(graph, id++)->accel, sizeof(float) * 3);
 	id = 0;
 	while (id < graph->nodes.length)
 	{

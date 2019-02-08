@@ -41,6 +41,7 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	visualizer/checker.c \
 	visualizer/buffers.c \
 	visualizer/loop.c \
+	visualizer/shader_util.c \
 	algorithm/program.c \
 	algorithm/algorithm_util.c \
 	algorithm/ant_scheduler.c \

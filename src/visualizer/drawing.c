@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:45:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 23:19:53 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 02:50:50 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #include "lem_in.h"
 #include "visualizer.h"
 
-static void	draw_nodes(t_lemin *info, t_renderer *renderer)
+static void		draw_nodes(t_lemin *info, t_renderer *renderer)
 {
 	glUseProgram(renderer->node_program);
+	transform_matrices_set(renderer, renderer->node_program);
 	glUniform1f(
 		glGetUniformLocation(renderer->node_program, "node_scale"), 0.06f);
 	glUniform1i(glGetUniformLocation(renderer->node_program, "note_tex"), 0);
@@ -26,12 +27,6 @@ static void	draw_nodes(t_lemin *info, t_renderer *renderer)
 		1, node_colony_data(&info->graph, info->start)->coords);
 	glUniform3fv(glGetUniformLocation(renderer->node_program, "end_coord"),
 		1, node_colony_data(&info->graph, info->end)->coords);
-	glUniformMatrix4fv(glGetUniformLocation(renderer->node_program, "transform"),
-		1, GL_TRUE, renderer->view.transform_mat);
-	glUniformMatrix4fv(glGetUniformLocation(renderer->node_program, "rotation"),
-		1, GL_TRUE, renderer->view.rotation_mat);
-	glUniformMatrix4fv(glGetUniformLocation(renderer->node_program, "perspective"),
-		1, GL_TRUE, renderer->view.perspective_mat);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, renderer->node_texture);
 	glActiveTexture(GL_TEXTURE1);
@@ -41,46 +36,35 @@ static void	draw_nodes(t_lemin *info, t_renderer *renderer)
 	glDrawArrays(GL_POINTS, 0, renderer->node_coords.length);
 }
 
-static void	draw_edges(t_renderer *renderer)
+static void		draw_edges(t_renderer *renderer)
 {
 	glUseProgram(renderer->edge_program);
+	transform_matrices_set(renderer, renderer->edge_program);
 	glUniform1f(
 		glGetUniformLocation(renderer->edge_program, "edge_scale"), 0.02f);
 	glUniform1i(glGetUniformLocation(renderer->edge_texture, "edge_tex"), 0);
-	glUniformMatrix4fv(glGetUniformLocation(renderer->edge_program, "transform"),
-		1, GL_TRUE, renderer->view.transform_mat);
-	glUniformMatrix4fv(glGetUniformLocation(renderer->edge_program, "rotation"),
-		1, GL_TRUE, renderer->view.rotation_mat);
-	glUniformMatrix4fv(glGetUniformLocation(renderer->edge_program, "perspective"),
-		1, GL_TRUE, renderer->view.perspective_mat);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, renderer->edge_texture);
 	glDrawElements(GL_LINES, renderer->edge_indices.length * 2,
 		GL_UNSIGNED_INT, 0);
 }
 
-static void	draw_ants(t_renderer *renderer)
+static void		draw_ants(t_renderer *renderer)
 {
 	glUseProgram(renderer->ant_program);
-	glUniform1f(
-		glGetUniformLocation(renderer->ant_program, "ant_scale"), 0.035f);
-	glUniform1f(
-		glGetUniformLocation(renderer->ant_program, "animation_time"),
-			renderer->animation_time);
+	transform_matrices_set(renderer, renderer->ant_program);
+	glUniform1f(glGetUniformLocation(renderer->ant_program, "ant_scale"),
+		0.035f);
+	glUniform1f(glGetUniformLocation(renderer->ant_program, "animation_time"),
+		renderer->animation_time);
 	glUniform1i(glGetUniformLocation(renderer->edge_texture, "ant_tex"), 0);
-	glUniformMatrix4fv(glGetUniformLocation(renderer->ant_program, "transform"),
-		1, GL_TRUE, renderer->view.transform_mat);
-	glUniformMatrix4fv(glGetUniformLocation(renderer->ant_program, "rotation"),
-		1, GL_TRUE, renderer->view.rotation_mat);
-	glUniformMatrix4fv(glGetUniformLocation(renderer->ant_program, "perspective"),
-		1, GL_TRUE, renderer->view.perspective_mat);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, renderer->ant_texture);
 	glDrawElements(GL_LINES, renderer->ant_data.length * 2,
 		GL_UNSIGNED_INT, 0);
 }
 
-void	draw_graph(t_lemin *info, t_renderer *renderer)
+void			draw_graph(t_lemin *info, t_renderer *renderer)
 {
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
@@ -101,5 +85,4 @@ void	draw_graph(t_lemin *info, t_renderer *renderer)
 		renderer->ant_data.length * sizeof(GLuint[2]),
 			renderer->ant_data.ptr, GL_DYNAMIC_DRAW);
 	draw_ants(renderer);
-	/*TODO draw ants*/
 }

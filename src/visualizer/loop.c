@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 18:28:25 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 19:42:46 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 02:55:46 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,25 @@ static void	update_shader_data(t_lemin *info, t_renderer *renderer)
 	matrix_add_movement(renderer->view.transform_mat, renderer->view.position);
 }
 
+static void	sync_frame(t_renderer *renderer)
+{
+	uint64_t	curr_time;
+
+	curr_time = SDL_GetTicks();
+	if (curr_time - renderer->last_frame_time < 17)
+	{
+		SDL_Delay(17 - (curr_time - renderer->last_frame_time));
+		renderer->msec_waited =
+			17 - (curr_time - renderer->last_frame_time);
+	}
+}
+
 int			enter_reading_loop(t_lemin *info, t_visualizer *vis,
 				t_renderer *renderer)
 {
 	int			quit;
-	uint64_t	curr_time;
 
 	quit = 0;
-	srand(SDL_GetTicks());
 	init_data(renderer);
 	while (!quit)
 	{
@@ -61,13 +72,7 @@ int			enter_reading_loop(t_lemin *info, t_visualizer *vis,
 		update_equilibrium(&info->graph, vis);
 		update_shader_data(info, renderer);
 		draw_graph(info, renderer);
-		curr_time = SDL_GetTicks();
-		if (curr_time - renderer->last_frame_time < 17)
-		{
-			SDL_Delay(17 - (curr_time - renderer->last_frame_time));
-			renderer->msec_waited =
-				17 - (curr_time - renderer->last_frame_time);
-		}
+		sync_frame(renderer);
 		SDL_GL_SwapWindow(vis->window);
 		renderer->last_frame_time = SDL_GetTicks();
 	}

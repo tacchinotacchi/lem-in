@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visualizer.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:22:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 18:55:21 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 02:48:19 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ void			update_equilibrium(t_graph *graph, t_visualizer *vis);
 void			draw_graph(t_lemin *info, t_renderer *renderer);
 int				enter_reading_loop(t_lemin *info, t_visualizer *vis,
 					t_renderer *renderer);
+void			transform_matrices_set(t_renderer *renderer, GLuint program);
 
 #endif
