@@ -6,11 +6,11 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 01:05:53 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 01:38:19 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 01:04:45 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 #include "algorithm.h"
 
 int		interpret_flow(t_graph *input, t_graph *flow_graph)

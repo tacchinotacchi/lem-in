@@ -6,13 +6,13 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:06:06 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 23:32:11 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 01:03:08 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "adjacency_list.h"
 #include "algorithm.h"
-#include "lem-in.h"
+#include "lem_in.h"
 
 void		reset_node_data(t_graph *flow_graph)
 {

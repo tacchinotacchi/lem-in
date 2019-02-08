@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shaders.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:49:59 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 16:59:11 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 23:46:47 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_array	load_file(const char *filename)
 	return (array);
 }
 
-static int	check_compile_error(GLuint *id, const char *message)
+static int		check_compile_error(GLuint *id, const char *message)
 {
 	GLint	info;
 	char	*error;
@@ -56,7 +56,7 @@ static int	check_compile_error(GLuint *id, const char *message)
 	return (0);
 }
 
-static int	check_link_error(GLuint *id, const char *message)
+static int		check_link_error(GLuint *id, const char *message)
 {
 	GLint	info;
 	char	*error;
@@ -74,7 +74,8 @@ static int	check_link_error(GLuint *id, const char *message)
 	return (0);
 }
 
-static int		init_any_shader(GLuint *id, GLenum shader_type, const char *filename)
+static int		init_any_shader(GLuint *id, GLenum shader_type,
+					const char *filename)
 {
 	t_array	source;
 
@@ -82,7 +83,7 @@ static int		init_any_shader(GLuint *id, GLenum shader_type, const char *filename
 	if (source.length == 0)
 		return (-1);
 	*id = glCreateShader(shader_type);
-	glShaderSource(*id,	1, (const char**)&source.ptr, NULL);
+	glShaderSource(*id, 1, (const char**)&source.ptr, NULL);
 	array_clear(&source, NULL);
 	glCompileShader(*id);
 	if (check_compile_error(id, filename) < 0)
@@ -95,7 +96,6 @@ static int		init_node_shader(t_renderer *renderer)
 	GLuint	vertex_shader;
 	GLuint	geometry_shader;
 	GLuint	frag_shader;
-
 
 	if ((init_any_shader(&vertex_shader, GL_VERTEX_SHADER,
 		"shaders/node_vertex.glsl") < 0)
@@ -126,7 +126,6 @@ static int		init_edge_shader(t_renderer *renderer)
 	GLuint	geometry_shader;
 	GLuint	frag_shader;
 
-
 	if ((init_any_shader(&vertex_shader, GL_VERTEX_SHADER,
 		"shaders/edge_vertex.glsl") < 0)
 		|| (init_any_shader(&geometry_shader, GL_GEOMETRY_SHADER_EXT,
@@ -156,7 +155,6 @@ static int		init_ant_shader(t_renderer *renderer)
 	GLuint	geometry_shader;
 	GLuint	frag_shader;
 
-
 	if ((init_any_shader(&vertex_shader, GL_VERTEX_SHADER,
 		"shaders/ant_vertex.glsl") < 0)
 		|| (init_any_shader(&geometry_shader, GL_GEOMETRY_SHADER_EXT,
@@ -180,7 +178,7 @@ static int		init_ant_shader(t_renderer *renderer)
 	return (0);
 }
 
-int		init_shaders(t_renderer *renderer)
+int				init_shaders(t_renderer *renderer)
 {
 	if (init_node_shader(renderer) < 0
 		|| init_edge_shader(renderer) < 0

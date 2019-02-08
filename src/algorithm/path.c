@@ -6,14 +6,14 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 00:10:45 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 01:03:33 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "adjacency_list.h"
 #include "algorithm.h"
 #include "queue.h"
-#include "lem-in.h"
+#include "lem_in.h"
 
 static int	try_relaxation(t_graph *flow_graph, size_t node_id, size_t edge_id)
 {

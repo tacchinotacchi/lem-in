@@ -6,11 +6,11 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:41:40 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 00:19:11 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 01:03:42 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 #include "ft_printf.h"
 
 void	print_instruction(t_lemin *info, t_array *program, size_t index)

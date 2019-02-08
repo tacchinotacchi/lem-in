@@ -6,13 +6,13 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 23:02:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 00:50:59 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 01:02:47 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "adjacency_list.h"
 #include "algorithm.h"
-#include "lem-in.h"
+#include "lem_in.h"
 
 t_colony_node_data		*node_colony_data(const t_graph *graph, size_t id)
 {

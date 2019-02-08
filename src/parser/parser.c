@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/04 23:01:06 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/07 18:17:39 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,10 @@ t_flags_match	g_flags_match[] = {
 	{L_NODE | L_EDGE, 0}
 };
 
-void	choose_flags(int *flags, int *parser_state, t_success success)
+void	choose_flags(int *flags, int *parser_state, int success)
 {
 	t_flags_match	match;
 
-	/* TODO if i get to edges without start or end nodes, quit */
-	/* TODO if i get start or end twice, quit */
 	match = g_flags_match[success];
 	flags_turn_off(flags, match.flags_off);
 	flags_turn_on(flags, match.flags_on);

@@ -6,13 +6,25 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 21:09:21 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/06 15:04:28 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 13:42:57 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int		store_node_data(t_lemin *info, t_colony_node_data *data)
+void		init_colony_data(t_colony_node_data *data)
+{
+	data->flags = 0;
+	data->name = NULL;
+	data->flow_in_id = 0;
+	data->flow_out_id = 0;
+	data->x = 0;
+	data->y = 0;
+	data->coord = 0;
+	data->ant = 0;
+}
+
+int			store_node_data(t_lemin *info, t_colony_node_data *data)
 {
 	t_tree		*new_node_coord;
 	t_tree		*new_node_name;
@@ -38,7 +50,22 @@ int		store_node_data(t_lemin *info, t_colony_node_data *data)
 	return (1);
 }
 
-int		create_node_data(t_lemin *info, char *line, int index)
+static void	node_data_flag_update(t_lemin *info, t_colony_node_data *data,\
+			int index)
+{
+	if (index == l_start_node)
+	{
+		info->start = info->graph.nodes.length;
+		data->flags |= START;
+	}
+	else if (index == l_end_node)
+	{
+		info->end = info->graph.nodes.length;
+		data->flags |= END;
+	}
+}
+
+int			create_node_data(t_lemin *info, char *line, int index)
 {
 	t_colony_node_data	data;
 	char				**split;
@@ -54,16 +81,8 @@ int		create_node_data(t_lemin *info, char *line, int index)
 	data.coord = data.coord << 32;
 	data.coord |= data.y;
 	data.ant = 0;
-	if (index == l_start_node)
-	{
-		info->start = info->graph.nodes.length;
-		data.flags |= START;
-	}
-	else if (index == l_end_node)
-	{
-		info->end = info->graph.nodes.length;
-		data.flags |= END;
-	}
+	if (index == l_start_node || index == l_end_node)
+		node_data_flag_update(info, &data, index);
 	ft_splitdel(split);
 	return (store_node_data(info, &data) > 0 ? index : 0);
 }

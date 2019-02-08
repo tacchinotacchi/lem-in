@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 18:28:25 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 22:33:26 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 19:42:46 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	update_shader_data(t_lemin *info, t_renderer *renderer)
 	uint64_t	curr_time;
 
 	curr_time = SDL_GetTicks();
-	renderer->animation_time
-		+= (float)(curr_time - renderer->last_frame_time + renderer->msec_waited) * 0.001f;
+	renderer->animation_time += (float)(curr_time - renderer->last_frame_time +
+		renderer->msec_waited) * 0.001f;
 	if (renderer->animation_time > 1.f)
 		renderer->animation_time = 1.f;
 	convert_input(info, renderer);
@@ -51,7 +51,7 @@ int			enter_reading_loop(t_lemin *info, t_visualizer *vis,
 	init_data(renderer);
 	while (!quit)
 	{
-		while(SDL_PollEvent(&vis->event) != 0)
+		while (SDL_PollEvent(&vis->event) != 0)
 		{
 			if (vis->event.type == SDL_QUIT)
 				quit = 1;
@@ -65,7 +65,8 @@ int			enter_reading_loop(t_lemin *info, t_visualizer *vis,
 		if (curr_time - renderer->last_frame_time < 17)
 		{
 			SDL_Delay(17 - (curr_time - renderer->last_frame_time));
-			renderer->msec_waited = 17 - (curr_time - renderer->last_frame_time);
+			renderer->msec_waited =
+				17 - (curr_time - renderer->last_frame_time);
 		}
 		SDL_GL_SwapWindow(vis->window);
 		renderer->last_frame_time = SDL_GetTicks();

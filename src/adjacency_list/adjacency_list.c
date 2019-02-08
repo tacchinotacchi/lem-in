@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   adjacency_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 17:31:01 by aamadori          #+#    #+#             */
-/*   Updated: 2019/01/28 18:53:54 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 18:01:18 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "adjacency_list.h"
 
-void	add_node(t_graph* graph, void *data, size_t data_size)
+void	add_node(t_graph *graph, void *data, size_t data_size)
 {
 	t_node new_node;
 
@@ -26,7 +26,7 @@ void	add_node(t_graph* graph, void *data, size_t data_size)
 	}
 }
 
-void	add_edge(t_graph* graph, ssize_t tail, ssize_t head, size_t data_size)
+void	add_edge(t_graph *graph, ssize_t tail, ssize_t head, size_t data_size)
 {
 	t_edge	edge;
 	ssize_t	index;

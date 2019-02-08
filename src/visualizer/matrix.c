@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:42:42 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/03 16:06:19 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 00:58:03 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	matrix_identity(float *mat)
 	}
 }
 
-void	matrix_perspective(float *mat, float near_clip, float far_clip, float fov)
+void	matrix_perspective(float *mat, float near_clip, float far_clip,
+			float fov)
 {
 	float	near_width;
 
@@ -81,65 +82,4 @@ void	matrix_add_rotation(float *mat, float y_axis, float x_axis)
 	rotation[2 * 4 + 1] = sin(x_axis);
 	rotation[2 * 4 + 2] = cos(x_axis);
 	matrix_mul(mat, rotation, inter);
-}
-
-void	matrix_add(float *dst, float *a, float *b)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			dst[i * 4 + j] = a[i * 4 + j] + b[i * 4 + j];
-			j++;
-		}
-		i++;
-	}
-}
-
-void	matrix_sub(float *dst, float *a, float *b)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			dst[i * 4 + j] = a[i * 4 + j] - b[i * 4 + j];
-			j++;
-		}
-		i++;
-	}
-}
-
-void	matrix_mul(float *dst, float *a, float *b)
-{
-	size_t	i;
-	size_t	j;
-	size_t	k;
-
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			k = 0;
-			dst[i * 4 + j] = 0;
-			while (k < 4)
-			{
-				dst[i * 4 + j] += a[i * 4 + k] * b[k * 4 + j];
-				k++;
-			}
-			j++;
-		}
-		i++;
-	}
 }

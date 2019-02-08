@@ -6,11 +6,11 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:04:29 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 01:38:54 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 01:03:46 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 #include "algorithm.h"
 
 static int	create_flow_pair(t_graph *input,

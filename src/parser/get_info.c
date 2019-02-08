@@ -6,25 +6,13 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/06 15:54:15 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 18:38:20 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 #include "parser.h"
 #include "adjacency_list.h"
-
-void				init_colony_data(t_colony_node_data *data)
-{
-	data->flags = 0;
-	data->name = NULL;
-	data->flow_in_id = 0;
-	data->flow_out_id = 0;
-	data->x = 0;
-	data->y = 0;
-	data->coord = 0;
-	data->ant = 0;
-}
 
 int					store_input(t_lemin *info, int index, char *line)
 {
@@ -96,7 +84,7 @@ int					store_edge_data(t_lemin *info, char *line, int index)
 	return (index);
 }
 
-static int	store_single_instruction(t_lemin *info, char *line)
+static int			store_single_instruction(t_lemin *info, char *line)
 {
 	char			**array;
 	t_tree			*name;
@@ -121,7 +109,7 @@ static int	store_single_instruction(t_lemin *info, char *line)
 	return (0);
 }
 
-int		store_instruction(t_lemin *info, char *line, int index)
+int					store_instruction(t_lemin *info, char *line, int index)
 {
 	char			**array;
 	t_instruction	flusher;

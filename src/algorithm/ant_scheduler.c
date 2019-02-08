@@ -6,11 +6,11 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 00:19:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 00:21:08 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 01:04:45 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 #include "algorithm.h"
 
 int		init_ants(t_lemin *info)

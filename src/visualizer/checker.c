@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:34 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/06 16:46:15 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/07 19:12:32 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static ssize_t	execute_instruction(t_lemin *info, t_instruction instruction)
 	return (prev_node);
 }
 
-void	execute_line(t_lemin *info, t_renderer *renderer,  char animate)
+void			execute_line(t_lemin *info, t_renderer *renderer, char animate)
 {
 	t_instruction		instruction;
 	t_list				*pop;
