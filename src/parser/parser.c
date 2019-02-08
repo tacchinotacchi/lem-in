@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 15:23:51 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 19:08:51 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "get_next_line.h"
 #include "array.h"
 
-int		(*g_func_table[])(char*) = {
+int				(*const g_func_table[])(char*) = {
 	is_nbr_ants,
 	is_start,
 	is_end,
@@ -29,18 +29,19 @@ int		(*g_func_table[])(char*) = {
 
 t_flags_match	g_flags_match[] = {
 	{L_ANTS, L_START | L_END | L_NODE | L_EDGE},
-	{L_START | L_END | L_NODE | L_EDGE | L_INSTRUCTION, L_START_NODE},
-	{L_START | L_END | L_NODE | L_EDGE | L_INSTRUCTION, L_END_NODE},
+	{L_START | L_END | L_NODE | L_EDGE, L_START_NODE},
+	{L_START | L_END | L_NODE | L_EDGE, L_END_NODE},
 	{0, 0},
 	{0, 0},
-	{L_START_NODE, L_START | L_END | L_NODE | L_EDGE | L_INSTRUCTION},
-	{L_END_NODE, L_START | L_END | L_NODE | L_EDGE | L_INSTRUCTION},
-	{0, L_INSTRUCTION},
-	{L_NODE | L_START | L_END, L_INSTRUCTION},
+	{L_START_NODE, L_START | L_END | L_NODE | L_EDGE},
+	{L_END_NODE, L_START | L_END | L_NODE | L_EDGE},
+	{0, 0},
+	{L_NODE | L_START | L_END, 0},
+	{L_NODE | L_EDGE, 0},
 	{L_NODE | L_EDGE, 0}
 };
 
-void	choose_flags(int *flags, int *parser_state, int success)
+void			choose_flags(int *flags, int *parser_state, int success)
 {
 	t_flags_match	match;
 
@@ -55,7 +56,7 @@ void	choose_flags(int *flags, int *parser_state, int success)
 		*parser_state |= STATE_END;
 }
 
-int		check_parser_state(int index, int parser_state)
+int				check_parser_state(int index, int parser_state)
 {
 	if (((1 << index) & L_START) && (parser_state & STATE_START))
 		return (-1);
@@ -66,7 +67,8 @@ int		check_parser_state(int index, int parser_state)
 	return (0);
 }
 
-int		check_input(t_lemin *info, char *line, int flags, int parser_state)
+int				check_input(t_lemin *info, char *line,
+					int flags, int parser_state)
 {
 	size_t	index;
 	int		ret;
@@ -93,7 +95,7 @@ int		check_input(t_lemin *info, char *line, int flags, int parser_state)
 	return (FAIL);
 }
 
-void	init_lemin(t_lemin *info, int *parser_state, int *ret)
+static void		init_parser(t_lemin *info, int *parser_state, char visualizer)
 {
 	ft_bzero(info, sizeof(t_lemin));
 	info->max_x_coord = INT_MIN;
@@ -103,18 +105,27 @@ void	init_lemin(t_lemin *info, int *parser_state, int *ret)
 	array_init(&(info->graph.nodes), sizeof(t_node));
 	array_init(&(info->graph.edges), sizeof(t_edge));
 	*parser_state = 0;
-	*ret = 0;
+	if (visualizer)
+	{
+		g_flags_match[l_start].flags_off |= L_INSTRUCTION;
+		g_flags_match[l_end].flags_off |= L_INSTRUCTION;
+		g_flags_match[l_start_node].flags_on |= L_INSTRUCTION;
+		g_flags_match[l_end_node].flags_on |= L_INSTRUCTION;
+		g_flags_match[l_node].flags_on |= L_INSTRUCTION;
+		g_flags_match[l_edge].flags_on |= L_INSTRUCTION;
+	}
 }
 
-int		parse_input(t_lemin *info, int initial_flags)
+int				parse_input(t_lemin *info, char visualizer)
 {
 	char	*line;
 	int		flags;
 	int		parser_state;
 	int		ret;
 
-	init_lemin(info, &parser_state, &ret);
-	flags = initial_flags;
+	ret = 0;
+	flags = L_ANTS | L_COMMENT | L_COMMAND;
+	init_parser(info, &parser_state, visualizer);
 	while (get_next_line(0, &line) > 0)
 	{
 		ret = check_input(info, line, flags, parser_state);

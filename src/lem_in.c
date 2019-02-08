@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 18:38:49 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 19:00:56 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			main(void)
 	t_lemin		info;
 	t_graph		flow_graph;
 
-	if (parse_input(&info, L_ANTS | L_COMMENT | L_COMMAND) < 0)
+	if (parse_input(&info, 0) < 0)
 	{
 		parser_error(&info);
 		ft_dprintf(2, "ERROR\n");

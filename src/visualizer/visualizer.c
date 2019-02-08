@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 17:26:53 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 19:01:08 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	ft_bzero(&input, sizeof(t_lemin));
-	parse_input(&input, L_ANTS | L_COMMENT | L_COMMAND | L_INSTRUCTION);
+	parse_input(&input, 1);
 	generate_coords(&input, &vis);
 	init_ants(&input);
 	if (init_sdl(&vis, &renderer) < 0)

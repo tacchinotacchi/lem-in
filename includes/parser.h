@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 15:23:01 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 19:00:48 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct	s_name_node
 	size_t	index;
 }				t_name_node;
 
-int				parse_input(t_lemin *info, int initial_flags);
+int				parse_input(t_lemin *info, char visualizer);
 int				check_input(t_lemin *info, char *line, int flags,
 					int parser_state);
 void			choose_flags(int *flags, int *parser_state, int success);
