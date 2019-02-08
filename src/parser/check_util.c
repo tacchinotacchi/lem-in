@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 22:29:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/06 16:02:33 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 15:28:14 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		ft_str_is_digit(const char *str)
 {
-	ssize_t index;
+	size_t index;
 
 	index = 0;
 	while (str[index] != '\0')

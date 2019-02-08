@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   adjacency_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 17:31:01 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 18:01:18 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 15:28:24 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ void	add_node(t_graph *graph, void *data, size_t data_size)
 	}
 }
 
-void	add_edge(t_graph *graph, ssize_t tail, ssize_t head, size_t data_size)
+void	add_edge(t_graph *graph, size_t tail, size_t head, size_t data_size)
 {
 	t_edge	edge;
-	ssize_t	index;
+	size_t	index;
 
 	edge.tail = tail;
 	edge.head = head;
 	edge.data = ft_memalloc(data_size);
 	array_push_back(&graph->edges, &edge);
 	index = graph->edges.length - 1;
-	list_add(node_out_edges(graph, tail), list_new(&index, sizeof(ssize_t)));
-	list_add(node_in_edges(graph, head), list_new(&index, sizeof(ssize_t)));
+	list_add(node_out_edges(graph, tail), list_new(&index, sizeof(size_t)));
+	list_add(node_in_edges(graph, head), list_new(&index, sizeof(size_t)));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils_algo.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 06:46:32 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 07:11:00 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 15:35:39 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void		free_flow_nodes(void *ptr)
 {
-	t_node	*node;
-	t_flow_node_data *data;
+	t_node				*node;
+	t_flow_node_data	*data;
 
 	node = ptr;
 	data = node->data;

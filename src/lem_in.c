@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 15:25:17 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 15:38:47 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,25 @@
 #include "algorithm.h"
 #include "lem_in.h"
 
-int		main(void)
+static void	output_program(t_lemin *info)
+{
+	t_array	program;
+
+	array_init(&program, sizeof(t_instruction));
+	init_ants(info);
+	while (generate_line(info, &program))
+	{
+		print_program(info, &program);
+		array_clear(&program, NULL);
+	}
+	/* TODO is this call needed? */
+	array_clear(&program, NULL);
+}
+
+int			main(void)
 {
 	t_lemin		info;
 	t_graph		flow_graph;
-	t_array		program;
 
 	if (parse_input(&info, L_ANTS | L_COMMENT | L_COMMAND) < 0)
 	{
@@ -35,13 +49,7 @@ int		main(void)
 		node_colony_data(&info.graph, info.end)->flow_in_id,
 		info.ants);
 	interpret_flow(&info.graph, &flow_graph);
-	array_init(&program, sizeof(t_instruction));
-	init_ants(&info);
-	while (generate_line(&info, &program))
-	{
-		print_program(&info, &program);
-		array_clear(&program, NULL);
-	}
-	free_all(&info, &flow_graph, &program);
+	output_program(&info);
+	free_all(&info, &flow_graph);
 	return (0);
 }
