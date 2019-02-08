@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 06:28:43 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 15:23:51 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,10 @@ int		parse_input(t_lemin *info, int initial_flags)
 		if (ret >= 0 && ret < l_max)
 			choose_flags(&flags, &parser_state, ret);
 		else if (ret < 0)
-		{
-			error(info);
 			return (-1);
-		}
 	}
 	free(line);
 	if (parser_state != (STATE_ANTS | STATE_START | STATE_END))
-	{
-		error(info);
 		return (-1);
-	}
 	return (ret);
 }

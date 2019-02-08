@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 05:29:21 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 15:23:01 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ int				store_instruction(t_lemin *info, char *line, int index);
 int				compare_names(const void *ptr1, const void *ptr2);
 int				compare_edge(const void *ptr1, const void *ptr2);
 int				compare_coords(const void *data1, const void *data2);
-void			error(t_lemin *info);
+void			parser_error(t_lemin *info);
 
 #endif

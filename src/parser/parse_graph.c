@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_info.c                                         :+:      :+:    :+:   */
+/*   parse_graph.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 05:12:08 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 15:19:31 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static t_edge_pair	get_edge_pair(t_lemin *info, char **split)
 int					store_edge_data(t_lemin *info, char *line, int index)
 {
 	t_edge_pair	pair;
+	t_tree		*new_node;
 	char		**split;
 
 	if (!(split = ft_strsplit(line, '-')))
@@ -70,67 +71,19 @@ int					store_edge_data(t_lemin *info, char *line, int index)
 		return (FAIL);
 	}
 	pair = get_edge_pair(info, split);
-	if (pair.minor == pair.major
-		|| !tree_insert(&info->edge_tree,
-			node_create(&pair, sizeof(pair)), compare_edge))
+	new_node = NULL;
+	if (pair.minor != pair.major)
 	{
-		ft_splitdel(split);
-		return (FAIL);
+		new_node = node_create(&pair, sizeof(pair));
+		if (tree_insert(&info->edge_tree, new_node, compare_edge) == 0)
+			tree_clear(&new_node, free_stub);
 	}
 	ft_splitdel(split);
+	if (!new_node)
+		return (FAIL);
 	add_edge(&(info->graph), pair.minor, pair.major,
 		sizeof(t_colony_edge_data));
 	add_edge(&(info->graph), pair.major, pair.minor,
 		sizeof(t_colony_edge_data));
-	return (index);
-}
-
-static int			store_single_instruction(t_lemin *info, char *line)
-{
-	char			**array;
-	t_tree			*name;
-	t_name_node		node;
-	t_instruction	instr;
-	size_t			ant;
-
-	array = ft_strsplit(line, '-');
-	if (!array)
-		return (FAIL);
-	ant = ft_atoi(&array[0][1]);
-	node.name = array[1];
-	name = tree_search(info->name_tree, &node, compare_names);
-	if (!name)
-	{
-		ft_splitdel(array);
-		return (FAIL);
-	}
-	instr = (t_instruction){ant, LST_CONT(name, t_name_node).index, 0};
-	list_append(&info->instructions, list_new(&instr, sizeof(t_instruction)));
-	ft_splitdel(array);
-	return (0);
-}
-
-int					store_instruction(t_lemin *info, char *line, int index)
-{
-	char			**array;
-	t_instruction	flusher;
-	size_t			instr;
-
-	array = ft_strsplit(line, ' ');
-	if (!array)
-		return (FAIL);
-	instr = 0;
-	while (array[instr])
-	{
-		if (store_single_instruction(info, array[instr]) < 0)
-		{
-			ft_splitdel(array);
-			return (FAIL);
-		}
-		instr++;
-	}
-	flusher = (t_instruction){0, 0, 1};
-	list_append(&info->instructions, list_new(&flusher, sizeof(t_instruction)));
-	ft_splitdel(array);
 	return (index);
 }

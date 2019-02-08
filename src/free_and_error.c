@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_and_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:47:08 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 07:15:37 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 15:23:01 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parser.h"
 #include "algorithm.h"
 
-void		error(t_lemin *info)
+void		parser_error(t_lemin *info)
 {
 	array_clear(&(info->graph.nodes), free_nodes);
 	array_clear(&(info->graph.edges), free_edges);

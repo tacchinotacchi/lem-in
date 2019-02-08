@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_node_data.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 21:09:21 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 05:00:13 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 15:23:13 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ void		init_colony_data(t_colony_node_data *data)
 	data->ant = 0;
 }
 
+static void	update_coordinates(t_lemin *info, t_colony_node_data *data)
+{
+	if (data->x > info->max_x_coord)
+		info->max_x_coord = data->x;
+	if (data->x < info->min_x_coord)
+		info->min_x_coord = data->x;
+	if (data->y > info->max_y_coord)
+		info->max_y_coord = data->y;
+	if (data->y < info->min_y_coord)
+		info->min_y_coord = data->y;
+}
+
 int			store_node_data(t_lemin *info, t_colony_node_data *data)
 {
 	t_tree		*new_node_coord;
@@ -35,19 +47,19 @@ int			store_node_data(t_lemin *info, t_colony_node_data *data)
 		return (FAIL);
 	name.index = info->graph.nodes.length - 1;
 	new_node_coord = node_create(&(data->coord), sizeof(uint64_t));
-	new_node_name = node_create(&(name), sizeof(t_name_node));
 	if (tree_insert(&(info->coord_tree), new_node_coord, compare_coords) == 0)
+	{
+		free(name.name);
+		tree_clear(&new_node_coord, free_stub);
 		return (FAIL);
+	}
+	new_node_name = node_create(&(name), sizeof(t_name_node));
 	if (tree_insert(&(info->name_tree), new_node_name, compare_names) == 0)
+	{
+		tree_clear(&new_node_name, free_t_name_node);
 		return (FAIL);
-	if (data->x > info->max_x_coord)
-		info->max_x_coord = data->x;
-	if (data->x < info->min_x_coord)
-		info->min_x_coord = data->x;
-	if (data->y > info->max_y_coord)
-		info->max_y_coord = data->y;
-	if (data->y < info->min_y_coord)
-		info->min_y_coord = data->y;
+	}
+	update_coordinates(info, data);
 	return (1);
 }
 

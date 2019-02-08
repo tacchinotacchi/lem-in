@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 14:49:44 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 15:23:01 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void				get_start_data(t_lemin *info);
 void				get_end_data(t_lemin *info);
 void				get_node_data(t_lemin *info, char **split, int flags);
 void				get_edge_data(t_lemin *info, char **split);
-void				error(t_lemin *info);
+void				parser_error(t_lemin *info);
 int					search_nodes(t_array *nodes, char *node);
 t_colony_node_data	*node_colony_data(const t_graph *graph, size_t id);
 t_colony_edge_data	*edge_colony_data(const t_graph *graph, size_t id);

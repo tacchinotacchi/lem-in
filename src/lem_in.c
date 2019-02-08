@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 07:15:28 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/08 15:25:17 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int		main(void)
 	t_array		program;
 
 	if (parse_input(&info, L_ANTS | L_COMMENT | L_COMMAND) < 0)
+	{
+		parser_error(&info);
 		return (0);
+	}
 	ft_putchar('\n');
 	free_trees(&info);
 	array_init(&flow_graph.nodes, sizeof(t_node));
