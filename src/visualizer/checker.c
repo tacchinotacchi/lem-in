@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:34 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 15:29:10 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 16:24:39 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static ssize_t	instruction_is_valid(t_lemin *info, t_instruction instr)
 	{
 		node_data = node_colony_data(&info->graph,
 			edge_tail(&info->graph, LST_CONT(traverse, size_t)));
-		if ((node_data->flags & START) || node_data->ant == instr.ant_id)
+		if (node_data->ant == instr.ant_id)
 			return (edge_tail(&info->graph, LST_CONT(traverse, size_t)));
 		traverse = traverse->next;
 	}
@@ -51,11 +51,15 @@ static ssize_t	execute_instruction(t_lemin *info, t_instruction instruction)
 	if (((node_data->flags & END) || node_data->ant == 0)
 		&& (prev_node = instruction_is_valid(info, instruction)) >= 0)
 	{
+		/* TODO log ants left in start so as to know if the puzzle is solved */
 		ft_printf("%sInstruction valid%s: ant %zu to %s\n",
 			ANSI_COLOR_GREEN, ANSI_COLOR_RESET,
 			instruction.ant_id, node_data->name);
 		node_data->ant = instruction.ant_id;
-		node_colony_data(&info->graph, prev_node)->ant = 0;
+		if (node_colony_data(&info->graph, prev_node)->flags & START)
+			node_colony_data(&info->graph, prev_node)->ant--;
+		else
+			node_colony_data(&info->graph, prev_node)->ant = 0;
 	}
 	else
 		ft_printf("%sInstruction invalid%s: ant %zu to %s\n",
@@ -87,5 +91,8 @@ void			execute_line(t_lemin *info, t_renderer *renderer, char animate)
 			animate_ant(renderer, prev_node, instruction);
 		pop = list_pop(&info->instructions);
 	}
+	ft_printf("%sAnts left at start:%s %zu\n",
+			ANSI_COLOR_MAGENTA, ANSI_COLOR_RESET,
+			node_colony_data(&info->graph, info->start)->ant);
 	free(pop);
 }
