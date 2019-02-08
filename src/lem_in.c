@@ -6,12 +6,13 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 17:29:23 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 17:34:31 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "algorithm.h"
+#include "ft_printf.h"
 #include "lem_in.h"
 
 static void	output_program(t_lemin *info)
