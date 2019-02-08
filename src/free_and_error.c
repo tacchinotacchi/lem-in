@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:47:08 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 15:40:01 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 17:27:22 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,16 @@ static void	free_command(void *ptr, size_t stub_size)
 	ft_splitdel(cmd->args);
 }
 
-void		free_all(t_lemin *info, t_graph *flow_graph)
+void		free_flow_graph(t_graph *flow_graph)
+{
+	array_clear(&(flow_graph->nodes), free_flow_nodes);
+	array_clear(&(flow_graph->edges), free_edges);
+}
+
+void		free_lemin(t_lemin *info)
 {
 	array_clear(&(info->graph.nodes), free_nodes);
 	array_clear(&(info->graph.edges), free_edges);
-	array_clear(&(flow_graph->nodes), free_flow_nodes);
-	array_clear(&(flow_graph->edges), free_edges);
 	list_del(&(info->comments), free_stub);
 	list_del(&info->commands, free_command);
 	list_del(&info->instructions, free_stub);

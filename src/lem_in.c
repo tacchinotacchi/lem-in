@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 15:38:47 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 17:29:23 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int			main(void)
 	if (parse_input(&info, L_ANTS | L_COMMENT | L_COMMAND) < 0)
 	{
 		parser_error(&info);
+		ft_dprintf(2, "Error\n");
 		return (0);
 	}
-	ft_putchar('\n');
 	free_trees(&info);
 	array_init(&flow_graph.nodes, sizeof(t_node));
 	array_init(&flow_graph.edges, sizeof(t_edge));
@@ -49,7 +49,10 @@ int			main(void)
 		node_colony_data(&info.graph, info.end)->flow_in_id,
 		info.ants);
 	interpret_flow(&info.graph, &flow_graph);
+	/* TODO check the flow is at least 1 */
+	ft_putchar('\n');
 	output_program(&info);
-	free_all(&info, &flow_graph);
+	free_lemin(&info);
+	free_flow_graph(&flow_graph);
 	return (0);
 }

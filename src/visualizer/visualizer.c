@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 02:53:56 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 17:26:53 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ int		main(int argc, char **argv)
 		enter_reading_loop(&input, &vis, &renderer);
 	}
 	free_resources(&vis, &renderer);
-	/*free_all(input); free_all lem-in inputs*/
+	free_lemin(&input);
 	return (0);
 }

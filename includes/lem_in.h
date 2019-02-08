@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 15:39:03 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 17:27:49 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void				free_edges(void *ptr);
 void				free_trees(t_lemin *info);
 void				free_flow_nodes(void *ptr);
 void				free_instructions(void *ptr);
-void				free_all(t_lemin *info, t_graph *flow_graph);
+void				free_lemin(t_lemin *info);
+void				free_flow_graph(t_graph *flow_graph);
 
 #endif
