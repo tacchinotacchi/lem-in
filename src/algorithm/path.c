@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 01:03:33 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/08 08:39:59 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int			min_path(t_graph *flow_graph, size_t source)
 		if (detect_cycle(flow_graph, LST_CONT(pop, size_t)))
 			break ;
 		explore_neighbors(flow_graph, &queue, in_queue, LST_CONT(pop, size_t));
+		free(pop->content); /* needs review but it fixes the leak */
 		free(pop);
 		pop = NULL;
 	}
