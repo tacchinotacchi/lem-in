@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 19:00:56 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/09 16:30:27 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,10 @@ int			main(void)
 
 	if (parse_input(&info, 0) < 0)
 	{
-		parser_error(&info);
+		free_parser(&info);
 		ft_dprintf(2, "ERROR\n");
 		return (0);
 	}
-	free_trees(&info);
 	transform_graph(&info.graph, &flow_graph);
 	min_cost_flow(&flow_graph,
 		node_colony_data(&info.graph, info.start)->flow_out_id,

@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:34 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 16:25:38 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/09 16:39:22 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,11 @@ void			execute_line(t_lemin *info, t_renderer *renderer, char animate)
 			return ;
 		if (animate)
 			animate_ant(renderer, prev_node, instruction);
+		list_del(&pop, free_stub);
 		pop = list_pop(&info->instructions);
 	}
 	ft_printf("%sAnts left at start:%s %zu\n",
 			ANSI_COLOR_MAGENTA, ANSI_COLOR_RESET,
 			node_colony_data(&info->graph, info->start)->ant);
-	free(pop);
+	list_del(&pop, free_stub);
 }

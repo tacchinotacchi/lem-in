@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_gen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 17:13:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/07 12:00:53 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/09 16:38:22 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ static int	check_potential_instruction(const char *instr)
 	while (array[count])
 		count++;
 	if (count == 2 && array[0][0] == 'L' && array[0][1] && array[1][0])
+	{
+		ft_splitdel(array);
 		return (1);
+	}
+	ft_splitdel(array);
 	return (0);
 }
 
@@ -61,7 +65,10 @@ int			is_instruction(char *line)
 	if (!array)
 		return (-1);
 	if (!array[0])
+	{
+		ft_splitdel(array);
 		return (0);
+	}
 	index = 0;
 	while (array[index])
 	{
@@ -70,6 +77,6 @@ int			is_instruction(char *line)
 			break ;
 		index++;
 	}
-	ft_strdel(array);
+	ft_splitdel(array);
 	return (result);
 }
