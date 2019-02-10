@@ -79,11 +79,13 @@ int					store_edge_data(t_lemin *info, char *line, int index)
 			tree_clear(&new_node, free_stub);
 	}
 	ft_splitdel(split);
-	if (!new_node)
-		return (FAIL);
-	add_edge(&(info->graph), pair.minor, pair.major,
-		sizeof(t_colony_edge_data));
-	add_edge(&(info->graph), pair.major, pair.minor,
-		sizeof(t_colony_edge_data));
+	if (new_node)
+	{
+		/* TODO tolerant with double edges */
+		add_edge(&(info->graph), pair.minor, pair.major,
+			sizeof(t_colony_edge_data));
+		add_edge(&(info->graph), pair.major, pair.minor,
+			sizeof(t_colony_edge_data));
+	}
 	return (index);
 }

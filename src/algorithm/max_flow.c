@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:06:06 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 01:03:08 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/10 18:12:14 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,30 @@ void		reset_node_data(t_graph *flow_graph)
 		data = node_flow_data(flow_graph, index);
 		data->ancestor = 0;
 		data->path_max_flow = INT_MAX;
+		data->visited = 0;
 		data->path_length = 0;
 		if (data->flags & START)
 			data->path_cost = 0;
 		else
 			data->path_cost = INT_MAX;
 		index++;
+	}
+}
+
+void		reduce_weights(t_graph *flow_graph)
+{
+	t_flow_node_data	*node_data;
+	size_t				id;
+
+	id = 0;
+	while (id < flow_graph->nodes.length)
+	{
+		node_data = node_flow_data(flow_graph, id);
+		if (node_data->visited)
+		{
+			node_data->potential = node_data->next_potential;
+		}
+		id++;
 	}
 }
 
@@ -76,6 +94,7 @@ int			min_cost_flow(t_graph *flow_graph, size_t source,
 			max_flow = node_flow_data(flow_graph, sink)->path_max_flow;
 			max_flow = ft_min(flow + max_flow, allowed_flow) - flow;
 			flow += max_flow;
+			reduce_weights(flow_graph);
 			use_augmenting(flow_graph, sink, max_flow);
 		}
 	}

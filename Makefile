@@ -17,6 +17,8 @@ SRCS = parser/parser.c \
 	algorithm/flow_util.c \
 	algorithm/interpret_flow.c \
 	algorithm/ant_scheduler.c \
+	priority_queue/pq.c \
+	priority_queue/pq_rebalance.c \
 	free_error.c \
 	free_parser.c \
 	free_algo.c \
@@ -87,7 +89,7 @@ LIBFT_PREFIX = libft
 include libft/Makefile.mk
 
 $(VISUALIZER): $(VISUALIZER_OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
-	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(VISUALIZER_OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft -lm `pkg-config --libs glew sdl2` -framework OpenGL
+	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(VISUALIZER_OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft -lm `pkg-config --libs glew sdl2`
 
 $(NAME): $(OBJS) $(LIBFT_NAME) $(FTPRINTF_NAME)
 	gcc $(CFLAGS) $(INCLUDE_FOLDERS) $(OBJS) -o $@ $(LIBRARY_PATHS) -lftprintf -lft
@@ -98,6 +100,7 @@ obj:
 	mkdir -p obj/adjacency_list
 	mkdir -p obj/visualizer
 	mkdir -p obj/algorithm
+	mkdir -p obj/priority_queue
 
 obj/visualizer/%.o: src/visualizer/%.c $(INCLUDES) | obj
 	$(CC) $(CFLAGS) `pkg-config --cflags glew sdl2` $(INCLUDE_FOLDERS) -o $@ -c $<

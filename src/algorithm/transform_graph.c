@@ -23,8 +23,10 @@ static int	create_flow_pair(t_graph *input,
 
 	node_data_init(&node_data);
 	node_data.colony_id = input_id;
+	node_data.own_id = flow_graph->nodes.length;
 	add_node(flow_graph, &node_data, sizeof(t_flow_node_data));
 	tail = flow_graph->nodes.length - 1;
+	node_data.own_id = flow_graph->nodes.length;
 	add_node(flow_graph, &node_data, sizeof(t_flow_node_data));
 	head = flow_graph->nodes.length - 1;
 	add_edge(flow_graph, tail, head, sizeof(edge_data));
@@ -48,6 +50,7 @@ static int	add_special_node(t_graph *input,
 
 	node_data_init(&node_data);
 	node_data.colony_id = input_id;
+	node_data.own_id = flow_graph->nodes.length;
 	if (node_colony_data(input, input_id)->flags & START)
 		node_data.flags |= START;
 	if (node_colony_data(input, input_id)->flags & END)

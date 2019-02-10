@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:47:24 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 17:40:58 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/10 18:12:03 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,13 @@ enum				e_edge_type
 typedef struct		s_flow_node_data
 {
 	size_t	colony_id;
+	size_t	own_id;
 	size_t	ancestor;
 	long	path_cost;
 	long	potential;
+	long	next_potential;
 	long	path_max_flow;
+	char	visited;
 	size_t	path_length;
 	long	flags;
 }					t_flow_node_data;
