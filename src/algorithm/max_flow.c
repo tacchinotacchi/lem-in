@@ -35,23 +35,6 @@ void		reset_node_data(t_graph *flow_graph)
 	}
 }
 
-void		reduce_weights(t_graph *flow_graph)
-{
-	t_flow_node_data	*node_data;
-	size_t				id;
-
-	id = 0;
-	while (id < flow_graph->nodes.length)
-	{
-		node_data = node_flow_data(flow_graph, id);
-		if (node_data->visited)
-		{
-			node_data->potential = node_data->next_potential;
-		}
-		id++;
-	}
-}
-
 void		use_augmenting(t_graph *flow_graph, size_t source, int max_flow)
 {
 	t_flow_node_data	*node_data;
@@ -63,6 +46,7 @@ void		use_augmenting(t_graph *flow_graph, size_t source, int max_flow)
 	node_data = node_flow_data(flow_graph, node_id);
 	while (!(node_data->flags & START))
 	{
+		node_data->potential = node_data->next_potential;
 		edge_id = node_data->ancestor;
 		edge_data = edge_flow_data(flow_graph, edge_id);
 		edge_data->flow += max_flow;
@@ -94,7 +78,6 @@ int			min_cost_flow(t_graph *flow_graph, size_t source,
 			max_flow = node_flow_data(flow_graph, sink)->path_max_flow;
 			max_flow = ft_min(flow + max_flow, allowed_flow) - flow;
 			flow += max_flow;
-			reduce_weights(flow_graph);
 			use_augmenting(flow_graph, sink, max_flow);
 		}
 	}
