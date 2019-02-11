@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 01:03:14 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 01:25:28 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/11 12:22:47 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	node_data_init(t_flow_node_data *node_data)
 	node_data->ancestor = 0;
 	node_data->path_cost = INT_MAX;
 	node_data->potential = 0;
+	node_data->next_potential = 0;
 	node_data->path_max_flow = INT_MAX;
 	node_data->flags = 0;
 }

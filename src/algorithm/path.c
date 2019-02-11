@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 20:55:15 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/10 18:20:33 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/11 13:03:44 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static int	node_compare(const void *ptr1, const void *ptr2)
 		return (1);
 	return (0);
 }
+
+#include "ft_printf.h"
 
 static void	explore_neighbor(t_graph *flow_graph, t_pq *queue,
 				size_t node_id, size_t edge_id)
@@ -94,9 +96,9 @@ int		min_path(t_graph *flow_graph, size_t source)
 	while (!pq_empty(&queue))
 	{
 		pop = pq_pop(&queue, node_compare);
+		explore_node(flow_graph, &queue, pop->own_id);
 		if (pop->flags & END)
 			break ;
-		explore_node(flow_graph, &queue, pop->own_id);
 		free(pop);
 		pop = NULL;
 	}
