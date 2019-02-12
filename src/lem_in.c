@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/12 21:43:37 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 22:58:40 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,31 @@
 static t_program	try_flows(t_lemin *info)
 {
 	t_graph		flow_graph;
-	t_program	program;
-	t_program	test_program;
+	t_program	min;
+	t_program	test;
 
-	program.flow_used = 0;
+	array_init(&min.instr, sizeof(t_instruction));
 	transform_graph(&info->graph, &flow_graph);
 	while (increase_flow(&flow_graph,
 		node_colony_data(&info->graph, info->start)->flow_out_id,
 		node_colony_data(&info->graph, info->end)->flow_in_id))
 	{
 		interpret_flow(info, &flow_graph);
-		test_program = output_program(info);
-		if (!test_program.flow_used)
-			break ;
-		if (!program.flow_used || test_program.flushers < program.flushers)
+		test = output_program(info);
+		if (test.flow_used
+			&& (!min.instr.length || test.flushers < min.flushers))
 		{
-			if (program.flow_used)
-				array_clear(&program.instr, NULL);
-			program = test_program;
+			array_clear(&min.instr, NULL);
+			min = test;
 		}
-		else if (program.flow_used && test_program.flushers > program.flushers)
+		else
+			array_clear(&test.instr, NULL);		
+		if (!test.flow_used
+			|| (min.instr.length && test.flushers > min.flushers))
 			break ;
 	}
 	free_flow_graph(&flow_graph);
-	return (program);
+	return (min);
 }
 
 int			main(void)
@@ -57,7 +58,6 @@ int			main(void)
 	}
 	best_program = try_flows(&info);
 	ft_putchar('\n');
-	output_program(&info);
 	print_program(&info, &best_program.instr);
 	array_clear(&best_program.instr, NULL);
 	free_lemin(&info);

@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 00:19:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/12 15:22:20 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 22:03:53 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	repartition_ants(t_list *paths, size_t ants)
 	size_t	total_cost;
 
 	allocated_ants = 0;
+	total_cost = 0;
 	while (allocated_ants < ants)
 	{
 		total_cost = make_choice(paths, total_cost);
