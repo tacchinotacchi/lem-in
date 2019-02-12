@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:41:40 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/12 17:08:49 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 18:09:24 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print_instruction(t_lemin *info, t_array *program, size_t index)
 	}
 }
 
-void	print_line(t_lemin *info, t_array *program)
+void	print_program(t_lemin *info, t_array *program)
 {
 	size_t		index;
 
@@ -88,43 +88,49 @@ static void	pull_ants(t_lemin *info, t_path *path, t_array *program)
 		pull_wave(tail_data, head_data, path, program);
 }
 
-int		generate_line(t_lemin *info, t_list *paths, t_array *program)
+void	generate_instructions(t_lemin *info, t_list *paths, t_program *program)
 {
 	t_path			*curr;
+	t_list			*traverse;
 	t_instruction	flusher;
-	int				incomplete;
+	size_t			path_number;
 
-	incomplete = 0;
-	while (paths)
+	path_number = 1;
+	while (path_number)
 	{
-		curr = paths->content;
-		if (curr->running_ants + curr->ants > 0)
+		path_number = 0;
+		traverse = paths;
+		while (traverse)
 		{
-			incomplete = 1;
-			pull_ants(info, curr, program);
+			curr = traverse->content;
+			if (curr->running_ants + curr->ants > 0)
+			{
+				program->flow_used = ft_max(program->flow_used, ++path_number);
+				pull_ants(info, curr, &program->instr);
+			}
+			traverse = traverse->next;
 		}
-		paths = paths->next;
+		if (path_number)
+		{
+			flusher = (t_instruction){0, 0, 1};
+			program->flushers++;
+			array_push_back(&program->instr, &flusher);
+		}
 	}
-	if (incomplete)
-		flusher = (t_instruction){0, 0, 1};
-	array_push_back(program, &flusher);
-	return (incomplete);
 }
 
-void	output_program(t_lemin *info)
+t_program	output_program(t_lemin *info)
 {
-	t_array	program;
-	t_list	*paths;
+	t_program	program;
+	t_list		*paths;
 
-	array_init(&program, sizeof(t_instruction));
+	array_init(&program.instr, sizeof(t_instruction));
+	program.flushers = 0;
+	program.flow_used = 0;
 	init_ants(&info->graph, info->ants);
 	paths = init_paths(info);
 	repartition_ants(paths, info->ants);
-	while (generate_line(info, paths, &program))
-	{
-		print_line(info, &program);
-		array_clear(&program, NULL);
-	}
-	array_clear(&program, NULL);
+	generate_instructions(info, paths, &program);
 	list_del(&paths, free_stub);
+	return (program);
 }

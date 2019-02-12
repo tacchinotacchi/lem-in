@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/12 15:13:54 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 17:57:57 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ typedef	struct		s_instruction
 	int		flusher;
 }					t_instruction;
 
+typedef struct		s_program
+{
+	t_array	instr;
+	size_t	flushers;
+	size_t	flow_used;
+}					t_program;
+
+
 typedef struct		s_command
 {
 	char	**args;
@@ -84,9 +92,8 @@ int					search_nodes(t_array *nodes, char *node);
 t_colony_node_data	*node_colony_data(const t_graph *graph, size_t id);
 t_colony_edge_data	*edge_colony_data(const t_graph *graph, size_t id);
 long				interpret_flow(t_lemin *input, t_graph *flow_graph);
-int					generate_line(t_lemin *info, t_list *paths, t_array *program);
-void				print_line(t_lemin *info, t_array *program);
-void				output_program(t_lemin *info);
+void				print_program(t_lemin *info, t_array *program);
+t_program			output_program(t_lemin *info);
 t_list				*init_paths(t_lemin *info);
 int					init_ants(t_graph *graph, size_t ants);
 

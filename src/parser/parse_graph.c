@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 15:19:31 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 18:48:37 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,12 @@ int					store_edge_data(t_lemin *info, char *line, int index)
 			tree_clear(&new_node, free_stub);
 	}
 	ft_splitdel(split);
-	if (!new_node)
-		return (FAIL);
-	add_edge(&(info->graph), pair.minor, pair.major,
-		sizeof(t_colony_edge_data));
-	add_edge(&(info->graph), pair.major, pair.minor,
-		sizeof(t_colony_edge_data));
+	if (new_node)
+	{
+		add_edge(&(info->graph), pair.minor, pair.major,
+			sizeof(t_colony_edge_data));
+		add_edge(&(info->graph), pair.major, pair.minor,
+			sizeof(t_colony_edge_data));
+	}
 	return (index);
 }
