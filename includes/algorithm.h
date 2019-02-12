@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:47:24 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 17:40:58 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 12:06:20 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ typedef struct		s_flow_edge_data
 	enum e_edge_type	type;
 }					t_flow_edge_data;
 
+typedef struct		s_path
+{
+	size_t	node;
+	size_t	length;
+	size_t	ants;
+	size_t	running_ants;
+}					t_path;
+
 t_flow_node_data	*node_flow_data(const t_graph *graph, size_t id);
 t_flow_edge_data	*edge_flow_data(const t_graph *graph, size_t id);
 void				node_data_init(t_flow_node_data *node_data);
@@ -51,5 +59,9 @@ int					transform_graph(t_graph *input, t_graph *flow_graph);
 int					min_path(t_graph *flow_graph, size_t source);
 int					min_cost_flow(t_graph *flow_graph, size_t source,
 						size_t sink, int flow);
+void				repartition_ants(t_lemin *info, t_list *paths);
+int					init_ants(t_lemin *info);
+size_t				walk_back(t_graph *graph, size_t node_id);
+void				sort_paths(t_list **paths);
 
 #endif

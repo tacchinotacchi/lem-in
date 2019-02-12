@@ -6,100 +6,53 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 00:19:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 01:04:45 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 12:30:04 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "algorithm.h"
 
-int		init_ants(t_lemin *info)
+static size_t	evaluate_cost(t_lemin *info, t_path path, size_t current_cost)
 {
-	size_t	node;
-
-	node = 0;
-	while (node < info->graph.nodes.length)
-	{
-		node_colony_data(&info->graph, node)->ant = 0;
-		node++;
-	}
-	node_colony_data(&info->graph, info->start)->ant = info->ants;
-	return (0);
+	return (path.length + path.ants - current_cost);
 }
 
-int		absorb_ant(t_lemin *info, t_array *line, size_t node_id, size_t next_id)
+static size_t	make_choice(t_lemin *info, t_list *paths, size_t current_cost)
 {
-	t_colony_node_data	*node_data;
-	t_colony_node_data	*next_data;
-	t_instruction		instr;
-	char				incomplete;
+	t_list	*traverse;
+	t_list	*min;
+	size_t	traverse_cost;
+	size_t	min_cost;
 
-	incomplete = 0;
-	node_data = node_colony_data(&info->graph, node_id);
-	next_data = node_colony_data(&info->graph, next_id);
-	while (next_data->ant > 0)
+	min = NULL;
+	traverse = paths;
+	while (traverse)
 	{
-		incomplete = 1;
-		node_data->ant = next_data->ant;
-		if (next_data->flags & START)
-			next_data->ant--;
-		else
-			next_data->ant = 0;
-		instr.ant_id = node_data->ant;
-		instr.node_id = node_id;
-		instr.flusher = 0;
-		array_push_back(line, &instr);
-		if (!(node_data->flags & END))
-			break ;
-	}
-	return (incomplete);
-}
-
-int		absorb_step(t_lemin *info, t_array *line, t_list **new_queue,
-			size_t node_id)
-{
-	t_list	*edge_traverse;
-	size_t	next_id;
-	char	incomplete;
-
-	incomplete = 0;
-	edge_traverse = *node_in_edges(&info->graph, node_id);
-	while (edge_traverse)
-	{
-		if (edge_colony_data(&info->graph,
-			LST_CONT(edge_traverse, size_t))->in_use)
+		traverse_cost = evaluate_cost(info,
+			LST_CONT(traverse, t_path), current_cost);
+		if (!min || traverse_cost < min_cost)
 		{
-			next_id = edge_tail(&info->graph, LST_CONT(edge_traverse, size_t));
-			list_add(new_queue, list_new(&next_id, sizeof(size_t)));
-			incomplete |= absorb_ant(info, line, node_id, next_id);
+			min_cost = traverse_cost;
+			min = traverse;
 		}
-		edge_traverse = edge_traverse->next;
+		traverse = traverse->next;
 	}
-	return (incomplete);
+	LST_CONT(min, t_path).ants++;
+	return (min_cost);
 }
 
-int		generate_line(t_lemin *info, t_array *program)
+void	repartition_ants(t_lemin *info, t_list *paths)
 {
-	t_list	*pop;
-	t_list	*new_queue;
-	t_list	*node_queue;
-	char	incomplete;
+	size_t	allocated_ants;
+	size_t	total_cost;
 
-	node_queue = NULL;
-	incomplete = 0;
-	list_add(&node_queue, list_new(&info->end, sizeof(size_t)));
-	while (node_queue)
+	allocated_ants = 0;
+	/* TODO */
+	start_end_direct();
+	while (allocated_ants < info->ants)
 	{
-		new_queue = NULL;
-		while (node_queue)
-		{
-			pop = list_pop(&node_queue);
-			incomplete |= absorb_step(info, program,
-				&new_queue, LST_CONT(pop, size_t));
-			list_del(&pop, free_stub);
-		}
-		node_queue = new_queue;
+		total_cost = make_choice(info, paths, total_cost);
+		allocated_ants++;
 	}
-	array_push_back(program, (t_instruction[]){{0, 0, 1}});
-	return (incomplete);
 }

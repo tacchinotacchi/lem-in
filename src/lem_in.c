@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/09 16:30:27 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 10:37:55 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,6 @@
 #include "algorithm.h"
 #include "ft_printf.h"
 #include "lem_in.h"
-
-static void	output_program(t_lemin *info)
-{
-	t_array	program;
-
-	array_init(&program, sizeof(t_instruction));
-	init_ants(info);
-	while (generate_line(info, &program))
-	{
-		print_program(info, &program);
-		array_clear(&program, NULL);
-	}
-	array_clear(&program, NULL);
-}
 
 int			main(void)
 {

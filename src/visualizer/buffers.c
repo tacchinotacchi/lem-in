@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buffers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 19:36:49 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/07 19:11:36 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/11 19:15:13 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ void			generate_coords(t_lemin *info, t_visualizer *vis)
 	while (id < info->graph.nodes.length)
 	{
 		node_colony_data(&info->graph, id)->coords[0] = transform_x(info,
-			node_colony_data(&info->graph, id)->x);
+			node_colony_data(&info->graph, id)->x)
+			+ 0.2f * (float)(rand() % 101) / 100.f - 0.1f;
 		node_colony_data(&info->graph, id)->coords[1] = transform_y(info,
-			node_colony_data(&info->graph, id)->y);
+			node_colony_data(&info->graph, id)->y)
+			+ 0.2f * (float)(rand() % 101) / 100.f - 0.1f;
 		node_colony_data(&info->graph, id)->coords[2] =
 		20.f * (float)(rand() % 101) / 100.f - 10.f;
 		id++;
