@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_node.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 21:09:21 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/12 15:29:52 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 23:46:20 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,5 @@ int			create_node_data(t_lemin *info, char *line, int index)
 	if (index == l_start_node || index == l_end_node)
 		node_data_flag_update(info, &data, index);
 	ft_splitdel(split);
-	return (store_node_data(info, &data) > 0 ? index : 0);
+	return (store_node_data(info, &data) > 0 ? index : -1);
 }
