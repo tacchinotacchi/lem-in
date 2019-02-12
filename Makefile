@@ -1,6 +1,6 @@
 SRCS = parser/parser.c \
 	parser/parse_gen.c \
-	parser/store_node_data.c \
+	parser/parse_node.c \
 	parser/parse_graph.c \
 	parser/check_gen.c \
 	parser/check_graph.c \
@@ -17,6 +17,7 @@ SRCS = parser/parser.c \
 	algorithm/flow_util.c \
 	algorithm/interpret_flow.c \
 	algorithm/ant_scheduler.c \
+	algorithm/path_measure.c \
 	free_error.c \
 	free_parser.c \
 	free_algo.c \
@@ -46,9 +47,10 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	algorithm/program.c \
 	algorithm/algorithm_util.c \
 	algorithm/ant_scheduler.c \
+	algorithm/path_measure.c \
 	parser/parser.c \
 	parser/parse_gen.c \
-	parser/store_node_data.c \
+	parser/parse_node.c \
 	parser/parse_graph.c \
 	parser/check_gen.c \
 	parser/check_graph.c \

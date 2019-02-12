@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 19:01:08 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 15:14:35 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		main(int argc, char **argv)
 	ft_bzero(&input, sizeof(t_lemin));
 	parse_input(&input, 1);
 	generate_coords(&input, &vis);
-	init_ants(&input);
+	init_ants(&input.graph, input.ants);
 	if (init_sdl(&vis, &renderer) < 0)
 	{
 		ft_dprintf(2, "Failed to acquire context: %s\n", SDL_GetError());

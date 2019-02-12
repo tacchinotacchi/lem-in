@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/12 12:08:35 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 15:13:54 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct		s_colony_node_data
 	float		accel[3];
 	size_t		ant;
 	size_t		ancestor;
+	size_t		own_id;
 }					t_colony_node_data;
 
 typedef struct		s_colony_edge_data
@@ -86,6 +87,8 @@ long				interpret_flow(t_lemin *input, t_graph *flow_graph);
 int					generate_line(t_lemin *info, t_list *paths, t_array *program);
 void				print_line(t_lemin *info, t_array *program);
 void				output_program(t_lemin *info);
+t_list				*init_paths(t_lemin *info);
+int					init_ants(t_graph *graph, size_t ants);
 
 void				free_stub(void *ptr, size_t stub);
 void				free_t_name_node(void *ptr, size_t content_size);

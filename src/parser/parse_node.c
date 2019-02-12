@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store_node_data.c                                  :+:      :+:    :+:   */
+/*   parse_node.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 21:09:21 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 15:23:13 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 15:29:52 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void		init_colony_data(t_colony_node_data *data)
 	data->y = 0;
 	data->coord = 0;
 	data->ant = 0;
+	data->own_id = 0;
 }
 
 static void	update_coordinates(t_lemin *info, t_colony_node_data *data)
@@ -42,10 +43,9 @@ int			store_node_data(t_lemin *info, t_colony_node_data *data)
 	t_tree		*new_node_name;
 	t_name_node	name;
 
-	add_node(&(info->graph), data, sizeof(t_colony_node_data));
 	if (!(name.name = ft_strdup(data->name)))
 		return (FAIL);
-	name.index = info->graph.nodes.length - 1;
+	name.index = info->graph.nodes.length;
 	new_node_coord = node_create(&(data->coord), sizeof(uint64_t));
 	if (tree_insert(&(info->coord_tree), new_node_coord, compare_coords) == 0)
 	{
@@ -59,11 +59,13 @@ int			store_node_data(t_lemin *info, t_colony_node_data *data)
 		tree_clear(&new_node_name, free_t_name_node);
 		return (FAIL);
 	}
+	data->own_id = info->graph.nodes.length;
+	add_node(&(info->graph), data, sizeof(t_colony_node_data));
 	update_coordinates(info, data);
 	return (1);
 }
 
-static void	node_data_flag_update(t_lemin *info, t_colony_node_data *data,\
+static void	node_data_flag_update(t_lemin *info, t_colony_node_data *data,
 			int index)
 {
 	if (index == l_start_node)

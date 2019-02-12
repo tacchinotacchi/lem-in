@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:47:24 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/12 12:06:20 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 16:28:50 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ int					transform_graph(t_graph *input, t_graph *flow_graph);
 int					min_path(t_graph *flow_graph, size_t source);
 int					min_cost_flow(t_graph *flow_graph, size_t source,
 						size_t sink, int flow);
-void				repartition_ants(t_lemin *info, t_list *paths);
-int					init_ants(t_lemin *info);
+void				repartition_ants(t_list *paths, size_t ants);
 size_t				walk_back(t_graph *graph, size_t node_id);
 void				sort_paths(t_list **paths);
 
