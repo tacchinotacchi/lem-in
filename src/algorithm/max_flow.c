@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:06:06 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/12 18:18:09 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 21:34:45 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ void		prepare_flow_data(t_graph *flow_graph)
 	size_t				index;
 
 	index = 0;
-	while (index < flow_graph->nodes.length)
-		node_flow_data(flow_graph, index++)->potential = 0;
-	index = 0;
 	while (index < flow_graph->edges.length)
 		edge_flow_data(flow_graph, index++)->flow = 0;
 }
@@ -67,30 +64,17 @@ void		use_augmenting(t_graph *flow_graph, size_t source, int max_flow)
 	}
 }
 
-int			min_cost_flow(t_graph *flow_graph, size_t source,
-				size_t sink, int allowed_flow)
+int			increase_flow(t_graph *flow_graph, size_t source, size_t sink)
 {
-	int			flow;
-	int			max_flow;
 	char		found;
 
-	flow = 0;
 	found = 1;
-	prepare_flow_data(flow_graph);
-	while (found && flow < allowed_flow)
-	{
-		reset_node_data(flow_graph);
-		if (min_path(flow_graph, source) < 0)
-			return (-1);
-		if (node_flow_data(flow_graph, sink)->path_cost == INT_MAX)
-			found = 0;
-		else
-		{
-			max_flow = node_flow_data(flow_graph, sink)->path_max_flow;
-			max_flow = ft_min(flow + max_flow, allowed_flow) - flow;
-			flow += max_flow;
-			use_augmenting(flow_graph, sink, max_flow);
-		}
-	}
-	return (flow);
+	reset_node_data(flow_graph);
+	if (min_path(flow_graph, source) < 0)
+		return (-1);
+	if (node_flow_data(flow_graph, sink)->path_cost == INT_MAX)
+		found = 0;
+	else
+		use_augmenting(flow_graph, sink, 1);
+	return (found);
 }
