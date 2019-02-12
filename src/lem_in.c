@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/12 22:58:40 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/12 23:43:20 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,13 @@ int			main(void)
 		return (0);
 	}
 	best_program = try_flows(&info);
-	ft_putchar('\n');
-	print_program(&info, &best_program.instr);
+	if (best_program.flow_used == 0)
+		ft_dprintf(2, "ERROR\n");
+	else
+	{
+		ft_putchar('\n');
+		print_program(&info, &best_program.instr);
+	}
 	array_clear(&best_program.instr, NULL);
 	free_lemin(&info);
 	return (0);
