@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transform_graph.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 22:04:29 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 17:58:07 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/13 14:07:17 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	create_edge_pair(t_graph *input, t_graph *flow_graph,
 		sizeof(t_flow_edge_data));
 	edge_colony_data(input, input_id)->flow_id = flow_graph->edges.length - 2;
 	edge_data_init(&edge_data, 1, 0);
-	edge_data.capacity = INT_MAX;
+	edge_data.capacity = 1;
 	edge_data.colony_id = input_id;
 	edge_data.inverse = flow_graph->edges.length - 1;
 	*(edge_flow_data(flow_graph, flow_graph->edges.length - 2)) = edge_data;
