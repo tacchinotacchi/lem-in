@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/13 13:09:09 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/13 14:46:04 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_program	try_flows(t_lemin *info)
 		else
 			array_clear(&test.instr, NULL);
 		if (!test.flow_used
-			|| (min.instr.length && test.flushers >= min.flushers))
+			|| (min.instr.length && test.flushers > min.flushers))
 			break ;
 	}
 	free_flow_graph(&flow_graph);
