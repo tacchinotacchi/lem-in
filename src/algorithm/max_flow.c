@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   max_flow.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:06:06 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/12 21:34:45 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/13 14:17:57 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,6 @@ void		reset_node_data(t_graph *flow_graph)
 			data->path_cost = INT_MAX;
 		index++;
 	}
-}
-
-void		prepare_flow_data(t_graph *flow_graph)
-{
-	size_t				index;
-
-	index = 0;
-	while (index < flow_graph->edges.length)
-		edge_flow_data(flow_graph, index++)->flow = 0;
 }
 
 void		use_augmenting(t_graph *flow_graph, size_t source, int max_flow)
