@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:41:40 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/12 18:09:24 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/19 14:31:57 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "algorithm.h"
 #include "ft_printf.h"
 
-void	print_instruction(t_lemin *info, t_array *program, size_t index)
+void		print_instruction(t_lemin *info, t_array *program, size_t index)
 {
 	t_instruction	*instr;
 
@@ -30,7 +30,7 @@ void	print_instruction(t_lemin *info, t_array *program, size_t index)
 	}
 }
 
-void	print_program(t_lemin *info, t_array *program)
+void		print_program(t_lemin *info, t_array *program)
 {
 	size_t		index;
 
