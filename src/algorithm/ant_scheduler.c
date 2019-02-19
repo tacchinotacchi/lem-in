@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ant_scheduler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 00:19:22 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/12 22:03:53 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/13 15:10:40 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static size_t	make_choice(t_list *paths, size_t current_cost)
 	return (min_cost);
 }
 
-void	repartition_ants(t_list *paths, size_t ants)
+void			repartition_ants(t_list *paths, size_t ants)
 {
 	size_t	allocated_ants;
 	size_t	total_cost;

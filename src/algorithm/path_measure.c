@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_measure.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:39:55 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/12 16:21:47 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/13 15:12:06 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ size_t	walk_back(t_graph *graph, size_t node_id)
 			return (graph->nodes.length);
 		length++;
 		node_id = edge_tail(graph, edge_id);
-        node_data->ancestor = node_id;
+		node_data->ancestor = node_id;
 		node_data = node_colony_data(graph, node_id);
 	}
 	return (length);
@@ -95,7 +95,7 @@ t_list	*init_paths(t_lemin *info)
 	t_colony_edge_data	*edge_data;
 
 	new_path.ants = 0;
-    new_path.running_ants = 0;
+	new_path.running_ants = 0;
 	paths = NULL;
 	in_edges = *node_in_edges(&info->graph, info->end);
 	while (in_edges)
