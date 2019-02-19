@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_measure.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:39:55 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/13 15:12:06 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/19 15:20:39 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,32 @@ int		init_ants(t_graph *graph, size_t ants)
 	return (0);
 }
 
+static size_t	find_active_in_edge(t_graph *graph, size_t node_id)
+{
+	t_list	*in_edges;
+	size_t	curr_edge;
+	size_t	active_edge;
+
+	in_edges = *node_in_edges(graph, node_id);
+	active_edge = graph->edges.length;
+	while (in_edges)
+	{
+		curr_edge = LST_CONT(in_edges, size_t);
+		if (edge_colony_data(graph, curr_edge)->in_use)
+		{
+			if (active_edge == graph->edges.length)
+				active_edge = curr_edge;
+			else
+				return (graph->edges.length);
+		}
+		in_edges = in_edges->next;
+	}
+	return (active_edge);
+}
+
 size_t	walk_back(t_graph *graph, size_t node_id)
 {
 	t_colony_node_data	*node_data;
-	t_list				*in_edges;
 	size_t				edge_id;
 	size_t				length;
 
@@ -40,16 +62,7 @@ size_t	walk_back(t_graph *graph, size_t node_id)
 	node_data = node_colony_data(graph, node_id);
 	while (!(node_data->flags & START))
 	{
-		in_edges = *node_in_edges(graph, node_id);
-		edge_id = graph->edges.length;
-		while (in_edges)
-		{
-			edge_id = LST_CONT(in_edges, size_t);
-			/* TODO CHECK THIS HAPPENS EXACTLY ONCE!!! */
-			if (edge_colony_data(graph, edge_id)->in_use)
-				break ;
-			in_edges = in_edges->next;
-		}
+		edge_id = find_active_in_edge(graph, node_id);
 		if (edge_id == graph->edges.length)
 			return (graph->nodes.length);
 		length++;

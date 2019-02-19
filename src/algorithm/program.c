@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:41:40 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/19 14:31:57 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/19 15:21:19 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,19 @@ static void	pull_ants(t_lemin *info, t_path *path, t_array *program)
 		pull_wave(tail_data, head_data, path, program);
 }
 
+static void	print_flusher(t_program *program)
+{
+	t_instruction	flusher;
+
+	flusher = (t_instruction){0, 0, 1};
+	program->flushers++;
+	array_push_back(&program->instr, &flusher);
+}
+
 void	generate_instructions(t_lemin *info, t_list *paths, t_program *program)
 {
 	t_path			*curr;
 	t_list			*traverse;
-	t_instruction	flusher;
 	size_t			path_number;
 
 	path_number = 1;
@@ -111,11 +119,7 @@ void	generate_instructions(t_lemin *info, t_list *paths, t_program *program)
 			traverse = traverse->next;
 		}
 		if (path_number)
-		{
-			flusher = (t_instruction){0, 0, 1};
-			program->flushers++;
-			array_push_back(&program->instr, &flusher);
-		}
+			print_flusher(program);
 	}
 }
 
