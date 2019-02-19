@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/09 16:27:29 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/19 14:10:21 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int				store_comments(t_lemin *info, char *line, int index);
 int				create_node_data(t_lemin *info, char *line, int index);
 int				store_node_data(t_lemin *info, t_colony_node_data *data);
 int				search_nodes(t_array *nodes, char *node);
-int				store_edge_data(t_lemin *info, char *line, int index);
+int				create_edge_data(t_lemin *info, char *line, int index);
+int				store_edge_data(t_lemin *info, t_edge_pair *pair);
 int				store_instruction(t_lemin *info, char *line, int index);
 int				compare_names(const void *ptr1, const void *ptr2);
 int				compare_edge(const void *ptr1, const void *ptr2);
