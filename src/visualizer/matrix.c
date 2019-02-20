@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:42:42 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 00:58:03 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/20 17:28:12 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	rotate_vector(float *v, float v_rotation, float r_rotation)
 	v[1] = temp[1] * cos(r_rotation) - temp[2] * sin(r_rotation);
 	v[2] = temp[1] * sin(r_rotation) + temp[2] * cos(r_rotation);
 	ft_memcpy(temp, v, sizeof(float) * 3);
-	v[0] = temp[0] * cos(v_rotation) - temp[2] * sin(v_rotation);
-	v[2] = temp[0] * sin(v_rotation) + temp[2] * cos(v_rotation);
+	v[0] = temp[0] * cos(v_rotation) + temp[2] * sin(v_rotation);
+	v[2] = (-1) * temp[0] * sin(v_rotation) + temp[2] * cos(v_rotation);
 }
 
 void	matrix_identity(float *mat)
@@ -52,9 +52,9 @@ void	matrix_perspective(float *mat, float near_clip, float far_clip,
 	ft_bzero(mat, sizeof(float) * 16);
 	mat[0 * 4 + 0] = near_clip / near_width;
 	mat[1 * 4 + 1] = near_clip / near_width;
-	mat[2 * 4 + 2] = -(far_clip + near_clip) / (far_clip - near_clip);
+	mat[2 * 4 + 2] = (far_clip + near_clip) / (far_clip - near_clip);
 	mat[2 * 4 + 3] = -2.f * (far_clip * near_clip) / (far_clip - near_clip);
-	mat[3 * 4 + 2] = -1.f;
+	mat[3 * 4 + 2] = 1.f;
 }
 
 void	matrix_add_movement(float *mat, float *direction)
@@ -78,8 +78,8 @@ void	matrix_add_rotation(float *mat, float y_axis, float x_axis)
 	matrix_mul(inter, rotation, mat);
 	matrix_identity(rotation);
 	rotation[1 * 4 + 1] = cos(x_axis);
-	rotation[1 * 4 + 2] = -sin(x_axis);
-	rotation[2 * 4 + 1] = sin(x_axis);
+	rotation[1 * 4 + 2] = sin(x_axis);
+	rotation[2 * 4 + 1] = -sin(x_axis);
 	rotation[2 * 4 + 2] = cos(x_axis);
 	matrix_mul(mat, rotation, inter);
 }

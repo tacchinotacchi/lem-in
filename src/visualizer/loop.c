@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 18:28:25 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/08 02:55:46 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/20 06:08:21 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static void	update_shader_data(t_lemin *info, t_renderer *renderer)
 	if (renderer->animation_time > 1.f)
 		renderer->animation_time = 1.f;
 	convert_input(info, renderer);
+	matrix_identity(renderer->view.transform_mat);
+	matrix_add_movement(renderer->view.transform_mat, renderer->view.position);
 	matrix_identity(renderer->view.rotation_mat);
 	matrix_add_rotation(renderer->view.rotation_mat,
 		renderer->view.v_rotation, renderer->view.r_rotation);
-	matrix_identity(renderer->view.transform_mat);
-	matrix_add_movement(renderer->view.transform_mat, renderer->view.position);
 }
 
 static void	sync_frame(t_renderer *renderer)
