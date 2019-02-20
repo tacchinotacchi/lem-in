@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 23:26:04 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/20 17:28:13 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/20 19:09:20 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	handle_key(const SDL_Event *event, t_lemin *info,
 		SDL_SetRelativeMouseMode(SDL_FALSE);
 	else if (event->key.keysym.sym == SDLK_w)
 		renderer->view.velocity[2] = (event->key.type == SDL_KEYDOWN) ?
-		-0.05f : 0.f;
+		0.05f : 0.f;
 	else if (event->key.keysym.sym == SDLK_s)
 		renderer->view.velocity[2] = (event->key.type == SDL_KEYDOWN) ?
-		0.05f : 0.f;
+		-0.05f : 0.f;
 	else if (event->key.keysym.sym == SDLK_a)
 		renderer->view.velocity[0] = (event->key.type == SDL_KEYDOWN) ?
 		0.05f : 0.f;
@@ -43,9 +43,9 @@ void		handle_event(const SDL_Event *event, t_lemin *info,
 {
 	if (event->type == SDL_MOUSEMOTION)
 	{
-		renderer->view.v_rotation += 0.001f * event->motion.xrel;
+		renderer->view.v_rotation -= 0.001f * event->motion.xrel;
 		renderer->view.v_rotation = fmod(renderer->view.v_rotation, PI * 2.f);
-		renderer->view.r_rotation += 0.001f * event->motion.yrel;
+		renderer->view.r_rotation -= 0.001f * event->motion.yrel;
 		if (renderer->view.r_rotation > PI / 2.f)
 			renderer->view.r_rotation = PI / 2.f;
 		else if (renderer->view.r_rotation < -PI / 2.f)

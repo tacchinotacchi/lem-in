@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:42:42 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/20 17:28:12 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/20 19:10:19 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	matrix_perspective(float *mat, float near_clip, float far_clip,
 	ft_bzero(mat, sizeof(float) * 16);
 	mat[0 * 4 + 0] = near_clip / near_width;
 	mat[1 * 4 + 1] = near_clip / near_width;
-	mat[2 * 4 + 2] = (far_clip + near_clip) / (far_clip - near_clip);
-	mat[2 * 4 + 3] = -2.f * (far_clip * near_clip) / (far_clip - near_clip);
-	mat[3 * 4 + 2] = 1.f;
+	mat[2 * 4 + 2] = (far_clip + near_clip) / (near_clip - far_clip);
+	mat[2 * 4 + 3] = 2.f * (far_clip * near_clip) / (near_clip - far_clip);
+	mat[3 * 4 + 2] = -1.f;
 }
 
 void	matrix_add_movement(float *mat, float *direction)
