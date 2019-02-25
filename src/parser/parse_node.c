@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 21:09:21 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/12 23:46:20 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/25 18:21:58 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int			store_node_data(t_lemin *info, t_colony_node_data *data)
 	if (tree_insert(&(info->coord_tree), new_node_coord, compare_coords) == 0)
 	{
 		free(name.name);
+		free(data->name);
 		tree_clear(&new_node_coord, free_stub);
 		return (FAIL);
 	}
@@ -57,6 +58,7 @@ int			store_node_data(t_lemin *info, t_colony_node_data *data)
 	if (tree_insert(&(info->name_tree), new_node_name, compare_names) == 0)
 	{
 		tree_clear(&new_node_name, free_t_name_node);
+		free(data->name);
 		return (FAIL);
 	}
 	data->own_id = info->graph.nodes.length;

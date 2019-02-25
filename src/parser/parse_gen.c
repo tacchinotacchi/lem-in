@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_gen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 22:20:45 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/08 15:26:12 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/25 18:46:36 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			store_commands(t_lemin *info, char *line, int index)
 	command.args = ft_strsplit(&line[2], ' ');
 	if (!command.args)
 		return (-1);
-	list_append(&info->commands, list_new(&command.args, sizeof(t_command)));
+	list_append(&info->commands, list_new(&command, sizeof(t_command)));
 	return (index);
 }
 
