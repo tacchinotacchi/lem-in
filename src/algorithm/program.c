@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:41:40 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/19 15:21:19 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/25 21:58:14 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		print_instruction(t_lemin *info, t_array *program, size_t index)
 		ft_printf("\n");
 	else
 	{
-		ft_printf("L%zu-%s%s", instr[index].ant_id,
+		ft_printf("L%zu-%s%s", info->ants - instr[index].ant_id + 1,
 			node_colony_data(&info->graph, instr[index].node_id)->name,
 			(index + 1 < program->length && !instr[index + 1].flusher) ?
 				" " : "");

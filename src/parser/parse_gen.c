@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 22:20:45 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/25 18:46:36 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/25 21:58:00 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	store_single_instruction(t_lemin *info, char *line)
 		ft_splitdel(array);
 		return (FAIL);
 	}
-	instr = (t_instruction){ant, LST_CONT(name, t_name_node).index, 0};
+	instr = (t_instruction){info->ants - ant + 1, LST_CONT(name, t_name_node).index, 0};
 	list_append(&info->instructions, list_new(&instr, sizeof(t_instruction)));
 	ft_splitdel(array);
 	return (0);
