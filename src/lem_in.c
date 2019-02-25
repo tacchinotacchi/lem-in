@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/25 18:42:40 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/25 22:01:18 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int			main(void)
 	{
 		/*free_parser(&info);*/
 		free_lemin(&info);
+		free_trees(&info);
 		ft_dprintf(2, "ERROR\n");
 		return (0);
 	}
