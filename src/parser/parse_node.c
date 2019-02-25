@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_node.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 21:09:21 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/12 23:46:20 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/25 18:17:54 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int			store_node_data(t_lemin *info, t_colony_node_data *data)
 	t_tree		*new_node_name;
 	t_name_node	name;
 
-	if (!(name.name = ft_strdup(data->name)))
-		return (FAIL);
+	name.name = ft_strdup(data->name);
 	name.index = info->graph.nodes.length;
 	new_node_coord = node_create(&(data->coord), sizeof(uint64_t));
 	if (tree_insert(&(info->coord_tree), new_node_coord, compare_coords) == 0)
