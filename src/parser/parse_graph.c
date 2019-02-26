@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:56:13 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/26 18:55:32 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/26 19:50:18 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,7 @@ int					store_edge_data(t_lemin *info, char *line, int index)
 	char		**split;
 
 	if (!(split = ft_strsplit(line, '-')))
-	{
-		ft_splitdel(split);
 		return (FAIL);
-	}
 	pair = get_edge_pair(info, split);
 	new_node = NULL;
 	if (pair.minor != pair.major)
