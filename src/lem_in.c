@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/13 14:46:04 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/26 19:06:57 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static t_program	try_flows(t_lemin *info)
 	t_program	min;
 	t_program	test;
 
+	/* TODO error when increase_flow returns 0 from the start */
 	array_init(&min.instr, sizeof(t_instruction));
 	transform_graph(&info->graph, &flow_graph);
 	while (increase_flow(&flow_graph,
@@ -50,8 +51,9 @@ int			main(void)
 	t_lemin		info;
 	t_program	best_program;
 
-	if (parse_input(&info, 0) < 0)
+	if (parse_input(&info, 0) == -1)
 	{
+		/* TODO get rid of free_parser */
 		free_parser(&info);
 		ft_dprintf(2, "ERROR\n");
 		return (0);

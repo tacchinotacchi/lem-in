@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/09 16:27:29 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/26 18:52:51 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define STATE_END 0b10
 # define STATE_ANTS 0b100
 # define FAIL -1
+# define FAIL_SOFT -2
 
 enum			e_success
 {

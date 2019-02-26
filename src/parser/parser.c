@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/09 16:31:20 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/26 19:04:30 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,15 @@ int				parse_input(t_lemin *info, char visualizer)
 		free(line);
 		if (ret >= 0 && ret < l_max)
 			choose_flags(&flags, &parser_state, ret);
-		else if (ret < 0)
-			return (-1);
+		else
+		{
+			line = NULL;
+			break ;
+		}
 	}
 	free(line);
 	if (parser_state != (STATE_ANTS | STATE_START | STATE_END))
 		return (-1);
 	free_trees(info);
-	return (ret);
+	return ((ret < l_max) ? ret : -1);
 }
