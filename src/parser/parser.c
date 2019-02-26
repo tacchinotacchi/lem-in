@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/26 20:04:58 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/27 00:43:54 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int				parse_input(t_lemin *info, char visualizer)
 		free(line);
 		if (ret >= 0 && ret < l_max)
 			choose_flags(&flags, &parser_state, ret);
-		else if (ft_strlen(line) > 0)
+		else if (ret == FAIL_SOFT && visualizer == 0)
 		{
 			line = NULL;
 			break ;
