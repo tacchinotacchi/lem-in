@@ -13,7 +13,8 @@ SRCS = parser/parser.c \
 	algorithm/transform_graph.c \
 	algorithm/path.c \
 	algorithm/max_flow.c \
-	algorithm/program.c \
+	algorithm/generate_program.c \
+	algorithm/print_program.c \
 	algorithm/flow_util.c \
 	algorithm/interpret_flow.c \
 	algorithm/ant_scheduler.c \
@@ -44,7 +45,6 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	visualizer/loop.c \
 	visualizer/compile_util.c \
 	visualizer/shader_util.c \
-	algorithm/program.c \
 	algorithm/algorithm_util.c \
 	algorithm/ant_scheduler.c \
 	algorithm/path_measure.c \

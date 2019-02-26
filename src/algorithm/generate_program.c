@@ -1,43 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   program.c                                          :+:      :+:    :+:   */
+/*   generate_program.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:41:40 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/25 18:19:00 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/26 19:46:59 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "algorithm.h"
-#include "ft_printf.h"
-
-void	print_instruction(t_lemin *info, t_array *program, size_t index)
-{
-	t_instruction	*instr;
-
-	instr = ((t_instruction*)program->ptr);
-	if (instr[index].flusher)
-		ft_printf("\n");
-	else
-	{
-		ft_printf("L%zu-%s%s", info->ants - instr[index].ant_id + 1,
-			node_colony_data(&info->graph, instr[index].node_id)->name,
-			(index + 1 < program->length && !instr[index + 1].flusher) ?
-				" " : "");
-	}
-}
-
-void	print_program(t_lemin *info, t_array *program)
-{
-	size_t		index;
-
-	index = 0;
-	while (index < program->length)
-		print_instruction(info, program, index++);
-}
 
 static void	pull_wave(t_colony_node_data *tail_data,
 				t_colony_node_data *head_data, t_path *path, t_array *program)
@@ -88,11 +62,20 @@ static void	pull_ants(t_lemin *info, t_path *path, t_array *program)
 		pull_wave(tail_data, head_data, path, program);
 }
 
-void	generate_instructions(t_lemin *info, t_list *paths, t_program *program)
+static void	generate_flusher(t_program *program)
+{
+	t_instruction	flusher;
+
+	flusher = (t_instruction){0, 0, 1};
+	program->flushers++;
+	array_push_back(&program->instr, &flusher);
+}
+
+void		generate_instructions(t_lemin *info, t_list *paths,
+				t_program *program)
 {
 	t_path			*curr;
 	t_list			*traverse;
-	t_instruction	flusher;
 	size_t			path_number;
 
 	path_number = 1;
@@ -111,11 +94,7 @@ void	generate_instructions(t_lemin *info, t_list *paths, t_program *program)
 			traverse = traverse->next;
 		}
 		if (path_number)
-		{
-			flusher = (t_instruction){0, 0, 1};
-			program->flushers++;
-			array_push_back(&program->instr, &flusher);
-		}
+			generate_flusher(program);
 	}
 }
 

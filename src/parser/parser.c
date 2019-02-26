@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/26 19:11:14 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/26 19:15:59 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,8 @@ int				parse_input(t_lemin *info, char visualizer)
 		}
 	}
 	free(line);
+	free_trees(info);
 	if (parser_state != (STATE_ANTS | STATE_START | STATE_END))
 		return (-1);
-	free_trees(info);
 	return ((ret < l_max) ? ret : -1);
 }

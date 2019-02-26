@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:39:55 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/12 16:21:47 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/26 19:40:07 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,31 @@ int		init_ants(t_graph *graph, size_t ants)
 	return (0);
 }
 
+size_t	active_edge(t_graph *graph, size_t node_id)
+{
+	t_list	*in_edges;
+	size_t	edge_id;
+	size_t	active_edge;
+
+	in_edges = *node_in_edges(graph, node_id);
+	active_edge = graph->edges.length;
+	while (in_edges)
+	{
+		edge_id = LST_CONT(in_edges, size_t);
+		if (edge_colony_data(graph, edge_id)->in_use)
+		{
+			if (active_edge != graph->edges.length)
+				return (graph->edges.length);
+			active_edge = edge_id;
+		}
+		in_edges = in_edges->next;
+	}
+	return (active_edge);
+}
+
 size_t	walk_back(t_graph *graph, size_t node_id)
 {
 	t_colony_node_data	*node_data;
-	t_list				*in_edges;
 	size_t				edge_id;
 	size_t				length;
 
@@ -40,21 +61,12 @@ size_t	walk_back(t_graph *graph, size_t node_id)
 	node_data = node_colony_data(graph, node_id);
 	while (!(node_data->flags & START))
 	{
-		in_edges = *node_in_edges(graph, node_id);
-		edge_id = graph->edges.length;
-		while (in_edges)
-		{
-			edge_id = LST_CONT(in_edges, size_t);
-			/* TODO CHECK THIS HAPPENS EXACTLY ONCE!!! */
-			if (edge_colony_data(graph, edge_id)->in_use)
-				break ;
-			in_edges = in_edges->next;
-		}
+		edge_id = active_edge(graph, node_id);
 		if (edge_id == graph->edges.length)
 			return (graph->nodes.length);
 		length++;
 		node_id = edge_tail(graph, edge_id);
-        node_data->ancestor = node_id;
+		node_data->ancestor = node_id;
 		node_data = node_colony_data(graph, node_id);
 	}
 	return (length);
@@ -95,7 +107,7 @@ t_list	*init_paths(t_lemin *info)
 	t_colony_edge_data	*edge_data;
 
 	new_path.ants = 0;
-    new_path.running_ants = 0;
+	new_path.running_ants = 0;
 	paths = NULL;
 	in_edges = *node_in_edges(&info->graph, info->end);
 	while (in_edges)

@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/26 19:06:57 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/26 19:14:05 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ int			main(void)
 
 	if (parse_input(&info, 0) == -1)
 	{
-		/* TODO get rid of free_parser */
-		free_parser(&info);
+		free_lemin(&info);
 		ft_dprintf(2, "ERROR\n");
 		return (0);
 	}
