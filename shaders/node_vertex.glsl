@@ -15,9 +15,8 @@ void	main()
 {
 	gl_Position = perspective * rotation * transform * vec4(world_coord, 1.0);
 	gl_Position.z -= 0.005;
-	vertex_out.texture_alphas[1] = 1 * float(length(world_coord - start_coord) < 0.1);
-	vertex_out.texture_alphas[2] = 1 * float(length(world_coord - end_coord) < 0.1);
+	vertex_out.texture_alphas[1] = 1 * float(length(world_coord - start_coord) < 0.01);
+	vertex_out.texture_alphas[2] = 1 * float(length(world_coord - end_coord) < 0.01);
 	vertex_out.texture_alphas[0] = 1
 		* float(vertex_out.texture_alphas[1] == 0 && vertex_out.texture_alphas[2] == 0);
-	vertex_out.texture_alphas[3] = vertex_out.texture_alphas[1] * vertex_out.texture_alphas[2];
 }

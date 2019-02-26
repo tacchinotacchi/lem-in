@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:39:48 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/12 15:14:35 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/26 20:40:31 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	free_resources(t_visualizer *vis, t_renderer *renderer)
 {
 	array_clear(&renderer->node_coords, NULL);
 	array_clear(&renderer->edge_indices, NULL);
+	array_clear(&renderer->ant_data, NULL);
 	free(vis->adj_matrix);
 	vis->adj_matrix = NULL;
 	SDL_DestroyWindow(vis->window);
@@ -49,31 +50,39 @@ void	free_resources(t_visualizer *vis, t_renderer *renderer)
 	SDL_Quit();
 }
 
-int		main(int argc, char **argv)
+void	graphics(t_lemin *info, t_visualizer *vis, t_renderer *renderer)
 {
-	t_lemin			input;
-	t_visualizer	vis;
-	t_renderer		renderer;
-
-	(void)argc;
-	(void)argv;
-	ft_bzero(&input, sizeof(t_lemin));
-	parse_input(&input, 1);
-	generate_coords(&input, &vis);
-	init_ants(&input.graph, input.ants);
-	if (init_sdl(&vis, &renderer) < 0)
+	if (init_sdl(vis, renderer) < 0)
 	{
 		ft_dprintf(2, "Failed to acquire context: %s\n", SDL_GetError());
-		return (0);
+		return ;
 	}
-	else if (setup_gl(&renderer))
-		return (0);
+	else if (setup_gl(renderer))
+		return ;
 	else
 	{
 		srand(SDL_GetTicks());
-		enter_reading_loop(&input, &vis, &renderer);
+		enter_reading_loop(info, vis, renderer);
 	}
+}
+
+int		main(void)
+{
+	t_lemin			info;
+	t_visualizer	vis;
+	t_renderer		renderer;
+
+	ft_bzero(&info, sizeof(t_lemin));
+	if (parse_input(&info, 1) == -1)
+	{
+		free_lemin(&info);
+		ft_dprintf(2, "ERROR\n");
+		return (0);
+	}
+	generate_coords(&info, &vis);
+	init_ants(&info.graph, info.ants);
+	graphics(&info, &vis, &renderer);
 	free_resources(&vis, &renderer);
-	free_lemin(&input);
+	free_lemin(&info);
 	return (0);
 }

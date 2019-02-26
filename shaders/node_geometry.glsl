@@ -8,7 +8,7 @@ in vertex_data {
 } vertex_out[];
 
 out vec2 texture_coords;
-out float texture_alphas[4];
+out float texture_alphas[3];
 
 uniform float node_scale;
 
@@ -17,7 +17,6 @@ void	set_texture_alphas()
 	texture_alphas[0] = vertex_out[0].texture_alphas[0];
 	texture_alphas[1] = vertex_out[0].texture_alphas[1];
 	texture_alphas[2] = vertex_out[0].texture_alphas[2];
-	texture_alphas[3] = vertex_out[0].texture_alphas[3];
 }
 
 void	main()

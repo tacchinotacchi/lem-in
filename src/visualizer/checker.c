@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:34 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/09 16:39:22 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/26 20:34:50 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static ssize_t	execute_instruction(t_lemin *info, t_instruction instruction)
 	{
 		ft_printf("%sInstruction valid%s: ant %zu to %s\n",
 			ANSI_COLOR_GREEN, ANSI_COLOR_RESET,
-			instruction.ant_id, node_data->name);
+			info->ants - instruction.ant_id + 1, node_data->name);
 		node_data->ant = instruction.ant_id;
 		if (node_colony_data(&info->graph, prev_node)->flags & START)
 			node_colony_data(&info->graph, prev_node)->ant--;
@@ -63,8 +63,16 @@ static ssize_t	execute_instruction(t_lemin *info, t_instruction instruction)
 	else
 		ft_printf("%sInstruction invalid%s: ant %zu to %s\n",
 			ANSI_COLOR_RED, ANSI_COLOR_RESET,
-			instruction.ant_id, node_data->name);
+			info->ants - instruction.ant_id + 1, node_data->name);
 	return (prev_node);
+}
+
+static int		setup_animation(t_renderer *renderer)
+{
+	if (renderer->animation_time < 1.f)
+		return (0);
+	renderer->ant_data.length = 0;
+	return (1);
 }
 
 void			execute_line(t_lemin *info, t_renderer *renderer, char animate)
@@ -73,12 +81,8 @@ void			execute_line(t_lemin *info, t_renderer *renderer, char animate)
 	t_list				*pop;
 	ssize_t				prev_node;
 
-	if (animate)
-	{
-		if (renderer->animation_time < 1.f)
-			return ;
-		renderer->ant_data.length = 0;
-	}
+	if (animate && !setup_animation(renderer))
+		return ;
 	ft_printf("%s---NEW LINE---%s\n", ANSI_COLOR_CYAN, ANSI_COLOR_RESET);
 	pop = list_pop(&info->instructions);
 	while (pop && !LST_CONT(pop, t_instruction).flusher)
