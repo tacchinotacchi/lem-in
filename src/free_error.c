@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:47:08 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/09 16:30:16 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/25 22:10:29 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	free_command(void *ptr, size_t stub_size)
 	(void)stub_size;
 	cmd = ptr;
 	ft_splitdel(cmd->args);
+	free(cmd);
 }
 
 void		free_flow_graph(t_graph *flow_graph)
