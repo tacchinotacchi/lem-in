@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:30:13 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/26 19:14:05 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/27 03:32:58 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static t_program	try_flows(t_lemin *info)
 		node_colony_data(&info->graph, info->start)->flow_out_id,
 		node_colony_data(&info->graph, info->end)->flow_in_id))
 	{
+		min.flag = 1;
 		interpret_flow(info, &flow_graph);
 		test = output_program(info);
 		if (test.flow_used
@@ -42,11 +43,13 @@ static t_program	try_flows(t_lemin *info)
 			|| (min.instr.length && test.flushers > min.flushers))
 			break ;
 	}
+	if (min.flag == 0)
+		ft_dprintf(2, "ERROR\n");
 	free_flow_graph(&flow_graph);
 	return (min);
 }
 
-int			main(void)
+int					main(void)
 {
 	t_lemin		info;
 	t_program	best_program;
