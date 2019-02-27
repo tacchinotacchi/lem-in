@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 19:43:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/27 16:13:47 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/27 16:16:45 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct		s_program
 	size_t	flushers;
 	size_t	flow_used;
 }					t_program;
-
 
 typedef struct		s_command
 {
