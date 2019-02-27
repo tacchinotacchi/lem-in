@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 04:31:50 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/27 16:34:17 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/27 17:06:27 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int		is_node(char *line)
 	char	**split;
 	int		cnt;
 
-	/* TODO are leading spaces legal? */
 	if (!(split = ft_strsplit(line, ' ')))
 	{
 		ft_splitdel(split);
