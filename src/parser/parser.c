@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/27 16:51:05 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/27 18:15:59 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 
 int				check_parser_state(int index, int parser_state)
 {
+	
+	if ((index >= l_max)
+		&& (parser_state ^ (STATE_START | STATE_END | STATE_ANTS)))
+		return (-1);
 	if (((1 << index) & L_START) && (parser_state & STATE_START))
 		return (-1);
 	if (((1 << index) & L_END) && (parser_state & STATE_END))
@@ -54,9 +58,11 @@ int				check_input(t_lemin *info, char *line,
 	return (FAIL);
 }
 
-static int		soft_fail(int code)
+static int		fail_soft(int code, int visualizer, int parser_state)
 {
-	return (code == FAIL_SOFT || code >= l_max);
+	/* TODO l_max doesn't mean empty line, but unknown syntax */
+	return ((visualizer == 0 && code >= l_max)
+		|| (code < 0 && !check_parser_state(l_max, parser_state)));
 }
 
 int				parse_input(t_lemin *info, char visualizer)
@@ -75,7 +81,8 @@ int				parse_input(t_lemin *info, char visualizer)
 		free(line);
 		if (ret >= 0 && ret < l_max)
 			choose_flags(&flags, &parser_state, ret);
-		else if (ret == FAIL || (visualizer == 0 && soft_fail(ret)))
+		/* TODO l_max doesn't mean empty line, but unknown syntax */
+		else if (ret == FAIL || (visualizer == 0 && ret >= l_max))
 		{
 			line = NULL;
 			break ;
@@ -85,5 +92,5 @@ int				parse_input(t_lemin *info, char visualizer)
 	free_trees(info);
 	if (parser_state != (STATE_ANTS | STATE_START | STATE_END))
 		return (FAIL);
-	return ((ret < l_max) ? ret : FAIL_SOFT);
+	return (fail_soft(ret, visualizer, parser_state) ? FAIL_SOFT : ret);
 }
