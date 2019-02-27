@@ -5,6 +5,7 @@ SRCS = parser/parser.c \
 	parser/check_gen.c \
 	parser/check_graph.c \
 	parser/check_util.c \
+	parser/parser_modules.c \
 	parser/flags.c \
 	adjacency_list/adjacency_list.c \
 	adjacency_list/node_util.c \
@@ -55,6 +56,7 @@ VISUALIZER_SRCS = visualizer/drawing.c \
 	parser/check_gen.c \
 	parser/check_graph.c \
 	parser/check_util.c \
+	parser/parser_modules.c \
 	parser/flags.c \
 	adjacency_list/adjacency_list.c \
 	adjacency_list/node_util.c \

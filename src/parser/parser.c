@@ -3,58 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:59:09 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/27 03:32:56 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/02/27 16:51:05 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lem_in.h"
 #include "parser.h"
 #include "get_next_line.h"
 #include "array.h"
-
-int				(*const g_func_table[])(char*) = {
-	is_nbr_ants,
-	is_start,
-	is_end,
-	is_command,
-	is_comment,
-	is_node,
-	is_node,
-	is_node,
-	is_edge,
-	is_instruction
-};
-
-t_flags_match	g_flags_match[] = {
-	{L_ANTS, L_START | L_END | L_NODE | L_EDGE},
-	{L_START | L_END | L_NODE | L_EDGE, L_START_NODE},
-	{L_START | L_END | L_NODE | L_EDGE, L_END_NODE},
-	{0, 0},
-	{0, 0},
-	{L_START_NODE, L_START | L_END | L_NODE | L_EDGE},
-	{L_END_NODE, L_START | L_END | L_NODE | L_EDGE},
-	{0, 0},
-	{L_NODE | L_START | L_END, 0},
-	{L_NODE | L_EDGE, 0},
-	{L_NODE | L_EDGE, 0}
-};
-
-void			choose_flags(int *flags, int *parser_state, int success)
-{
-	t_flags_match	match;
-
-	match = g_flags_match[success];
-	flags_turn_off(flags, match.flags_off);
-	flags_turn_on(flags, match.flags_on);
-	if (success == l_ants)
-		*parser_state |= STATE_ANTS;
-	else if (success == l_start)
-		*parser_state |= STATE_START;
-	else if (success == l_end)
-		*parser_state |= STATE_END;
-}
 
 int				check_parser_state(int index, int parser_state)
 {
@@ -95,25 +54,9 @@ int				check_input(t_lemin *info, char *line,
 	return (FAIL);
 }
 
-static void		init_parser(t_lemin *info, int *parser_state, char visualizer)
+static int		soft_fail(int code)
 {
-	ft_bzero(info, sizeof(t_lemin));
-	info->max_x_coord = INT_MIN;
-	info->min_x_coord = INT_MAX;
-	info->max_y_coord = INT_MIN;
-	info->min_y_coord = INT_MAX;
-	array_init(&(info->graph.nodes), sizeof(t_node));
-	array_init(&(info->graph.edges), sizeof(t_edge));
-	*parser_state = 0;
-	if (visualizer)
-	{
-		g_flags_match[l_start].flags_off |= L_INSTRUCTION;
-		g_flags_match[l_end].flags_off |= L_INSTRUCTION;
-		g_flags_match[l_start_node].flags_on |= L_INSTRUCTION;
-		g_flags_match[l_end_node].flags_on |= L_INSTRUCTION;
-		g_flags_match[l_node].flags_on |= L_INSTRUCTION;
-		g_flags_match[l_edge].flags_on |= L_INSTRUCTION;
-	}
+	return (code == FAIL_SOFT || code >= l_max);
 }
 
 int				parse_input(t_lemin *info, char visualizer)
@@ -132,7 +75,7 @@ int				parse_input(t_lemin *info, char visualizer)
 		free(line);
 		if (ret >= 0 && ret < l_max)
 			choose_flags(&flags, &parser_state, ret);
-		else if (ret == FAIL || (ret == FAIL_SOFT && visualizer == 0))
+		else if (ret == FAIL || (visualizer == 0 && soft_fail(ret)))
 		{
 			line = NULL;
 			break ;
@@ -141,6 +84,6 @@ int				parse_input(t_lemin *info, char visualizer)
 	free(line);
 	free_trees(info);
 	if (parser_state != (STATE_ANTS | STATE_START | STATE_END))
-		return (-1);
-	return ((ret < l_max) ? ret : -1);
+		return (FAIL);
+	return ((ret < l_max) ? ret : FAIL_SOFT);
 }

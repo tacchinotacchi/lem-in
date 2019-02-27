@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 03:00:17 by jaelee            #+#    #+#             */
-/*   Updated: 2019/02/26 18:52:51 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/27 16:55:53 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ typedef struct	s_name_node
 	size_t	index;
 }				t_name_node;
 
+extern t_flags_match	g_flags_match[10];
+extern int				(*const g_func_table[10])(char*);
+
 int				parse_input(t_lemin *info, char visualizer);
 int				check_input(t_lemin *info, char *line, int flags,
 					int parser_state);
@@ -94,6 +97,6 @@ int				store_instruction(t_lemin *info, char *line, int index);
 int				compare_names(const void *ptr1, const void *ptr2);
 int				compare_edge(const void *ptr1, const void *ptr2);
 int				compare_coords(const void *data1, const void *data2);
-void			free_parser(t_lemin *info);
+void		    init_parser(t_lemin *info, int *parser_state, char visualizer);
 
 #endif
