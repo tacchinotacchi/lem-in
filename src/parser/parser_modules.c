@@ -6,7 +6,7 @@
 /*   By: aamadori <aamadori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:49:53 by aamadori          #+#    #+#             */
-/*   Updated: 2019/02/27 16:55:49 by aamadori         ###   ########.fr       */
+/*   Updated: 2019/02/27 17:07:54 by aamadori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_flags_match	g_flags_match[10] = {
 	{L_NODE | L_EDGE, 0},
 };
 
-void		    init_parser(t_lemin *info, int *parser_state, char visualizer)
+void			init_parser(t_lemin *info, int *parser_state, char visualizer)
 {
 	ft_bzero(info, sizeof(t_lemin));
 	info->max_x_coord = INT_MIN;
