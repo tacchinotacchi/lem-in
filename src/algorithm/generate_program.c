@@ -42,7 +42,6 @@ static void	pull_wave(t_colony_node_data *tail_data,
 
 static void	pull_ants(t_lemin *info, t_path *path, t_array *program)
 {
-	size_t				head_id;
 	size_t				tail_id;
 	t_colony_node_data	*head_data;
 	t_colony_node_data	*tail_data;
@@ -53,7 +52,6 @@ static void	pull_ants(t_lemin *info, t_path *path, t_array *program)
 	while (!(tail_data->flags & START))
 	{
 		pull_wave(tail_data, head_data, path, program);
-		head_id = tail_id;
 		head_data = tail_data;
 		tail_id = tail_data->ancestor;
 		tail_data = node_colony_data(&info->graph, tail_id);
